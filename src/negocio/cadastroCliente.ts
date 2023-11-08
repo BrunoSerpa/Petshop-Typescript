@@ -21,7 +21,7 @@ export default class CadastroCliente extends Cadastro {
         const nome = this.entrada.receberTexto(`Por favor informe o nome do cliente: `)
         let nSocial: string
         while (true){
-            let resposta = this.entrada.receberTexto(`Prefere ser chamado pelo Nome social? (S/N) \n`)
+            let resposta = this.entrada.receberTexto(`Prefere ser chamado pelo Nome social? (S/N): `)
             if (resposta.toUpperCase() === 'S'){
                 nSocial = this.entrada.receberTexto(`Por favor informe o nome social do cliente: `)
                 break
@@ -30,9 +30,7 @@ export default class CadastroCliente extends Cadastro {
                 nSocial = nome
                 break
             }
-            else{
-                console.log('Insira S ou N na sua resposta!')
-            }
+            console.log('Insira S ou N na sua resposta!')
         }
         const nomeSocial = nSocial
         const cpfValor = this.entrada.receberTexto(`Por favor informe o número do CPF: `);
@@ -47,7 +45,7 @@ export default class CadastroCliente extends Cadastro {
             const rg = new RG(valorRg, dataRg);
             cliente.getRgs.push(rg);
 
-            const continuar = this.entrada.receberTexto(`Gostaria de cadastrar mais algum RG? (S/N) \n `);
+            const continuar = this.entrada.receberTexto(`Gostaria de cadastrar mais algum RG? (S/N): `);
             if (continuar.toUpperCase() !== 'S') {
                 todosRg = true;
             }
@@ -59,7 +57,7 @@ export default class CadastroCliente extends Cadastro {
             const numero = this.entrada.receberTexto(`Por favor informe o número do telefone: `);
             const telefone = new Telefone(ddd, numero);
             cliente.getTelefones.push(telefone);
-            const continuarTelefone = this.entrada.receberTexto(`Gostaria de cadastrar mais algum telefone? (S/N) \n `);
+            const continuarTelefone = this.entrada.receberTexto(`Gostaria de cadastrar mais algum telefone? (S/N): `);
             if (continuarTelefone.toUpperCase() !== 'S') {
                 todosTelefones = true;
             }
@@ -70,10 +68,10 @@ export default class CadastroCliente extends Cadastro {
             const nome = this.entrada.receberTexto(`Por favor informe o nome do seu pet: `)
             const raca = this.entrada.receberTexto(`Por favor informe a raça do seu pet: `)
             const genero = this.entrada.receberTexto(`Por favor informe o genero do seu pet: `)
-            const tipo = this.entrada.receberTexto(`Por favor informe o tipo do seu pet`)
+            const tipo = this.entrada.receberTexto(`Por favor informe o tipo do seu pet: `)
             const pet = new Pet(nome, raca, genero, tipo)
             cliente.getPets.push(pet)
-            const continuarPets = this.entrada.receberTexto(`Gostaria de cadastrar mais algum pet? (S/N) \n `);
+            const continuarPets = this.entrada.receberTexto(`Gostaria de cadastrar mais algum pet? (S/N): `);
             if (continuarPets.toUpperCase() !== 'S') {
                 todosPets = true;
             }
