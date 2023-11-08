@@ -9,6 +9,7 @@ export default class Entrada {
             let valor = this.prompt(mensagem)
             let numero = parseFloat(valor)
             if (isNaN(numero)) {
+                console.log('Insira um número!');
             } else {
                 return numero;
             }
