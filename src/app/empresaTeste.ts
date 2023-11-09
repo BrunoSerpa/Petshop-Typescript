@@ -3,12 +3,13 @@ import CPF from "../modelo/cpf";
 import Pet from "../modelo/pet";
 import Produto from "../modelo/produto";
 import RG from "../modelo/rg";
+import Servico from "../modelo/servico";
 import Telefone from "../modelo/telefone";
 
 export default class EmpresaTeste {
     private clientes: Array<Cliente> = [];
     private produtos: Array<Produto> = [];
-    
+    private servicos: Array<Servico> = [];
     clientesEmpresaTeste() {
         const cliente1 = new Cliente('João da Silva', 'João', new CPF('12345678901', new Date(2000, 1, 1))); // Corrigi o mês (janeiro é 0)
         cliente1.getRgs.push(new RG('12345', new Date(2005, 1, 1)));
@@ -97,4 +98,37 @@ export default class EmpresaTeste {
         this.produtos.push(produto6)
         return this.produtos
     }
+    servicosEmpresaTeste(){
+        const servico1 = new Servico("Banho e Tosa", 30.00);
+        this.servicos.push(servico1);
+
+        const servico2 = new Servico("Consulta Veterinária", 50.00);
+        this.servicos.push(servico2);
+
+        const servico3 = new Servico("Corte de Unhas", 15.00);
+        this.servicos.push(servico3);
+
+        const servico4 = new Servico("Hospedagem", 40.00);
+        this.servicos.push(servico4);
+
+        const servico5 = new Servico("Adestramento", 60.00);
+        this.servicos.push(servico5);
+
+        // Adicionando mais 5 serviços
+        const servico6 = new Servico("Passeio com Pet", 20.00);
+        this.servicos.push(servico6);
+
+        const servico7 = new Servico("Limpeza de Orelhas", 10.00);
+        this.servicos.push(servico7);
+
+        const servico8 = new Servico("Escovação Dental", 25.00);
+        this.servicos.push(servico8);
+
+        const servico9 = new Servico("Massagem Relaxante", 35.00);
+        this.servicos.push(servico9);
+
+        const servico10 = new Servico("Treinamento para Filhotes", 55.00);
+        this.servicos.push(servico10);
+
+        return this.servicos;}
 }
