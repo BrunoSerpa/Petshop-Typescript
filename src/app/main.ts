@@ -6,10 +6,15 @@ import AlterarCliente from "../negocio/alterarCliente";
 import CadastroCliente from "../negocio/cadastroCliente";
 import DeletarCliente from "../negocio/deletarCliente";
 import ListagemClientes from "../negocio/listagemClientes";
+import EmpresaTeste from "./empresaTeste";
 
 console.log(`Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinarias`)
 let entrada = new Entrada()
 let empresa = new Empresa()
+let empresaTeste = new EmpresaTeste()
+const clientes = empresaTeste.clientesEmpresaTeste()
+empresa.setClientes(clientes)
+
 let execucao = true
 while (execucao) {
     console.log(`O que deseja fazer?`);
