@@ -4,16 +4,20 @@ import Empresa from "../modelo/empresa";
 import AlterarCliente from "../negocio/alterarCliente";
 import AlterarPet from "../negocio/alterarPet";
 import AlterarProdutos from "../negocio/alterarProduto";
+import AlterarServicos from "../negocio/alterarServico";
 
 import CadastroCliente from "../negocio/cadastroCliente";
 import CadastroPet from "../negocio/cadastroPet";
 import CadastroProduto from "../negocio/cadastroProduto";
+import CadastroServico from "../negocio/cadastroServico";
 import DeletarCliente from "../negocio/deletarCliente";
 import DeletarPet from "../negocio/deletarPet";
 import DeletarProduto from "../negocio/deletarProduto";
+import DeletarServico from "../negocio/deletarServico";
 import ListagemClientes from "../negocio/listagemClientes";
 import ListagemPets from "../negocio/listagemPets";
 import ListagemProdutos from "../negocio/listarProdutos";
+import ListagemServicos from "../negocio/listarServico";
 import EmpresaTeste from "./empresaTeste";
 
 console.log(`Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinarias`)
@@ -22,8 +26,10 @@ let empresa = new Empresa()
 let empresaTeste = new EmpresaTeste()
 const clientes = empresaTeste.clientesEmpresaTeste()
 const produtos = empresaTeste.produtosEmpresaTeste()
+const servicos = empresaTeste.servicosEmpresaTeste()
 empresa.setClientes(clientes)
 empresa.setProdutos(produtos)
+empresa.setServicos(servicos)
 
 let execucao = true
 while (execucao) {
@@ -43,7 +49,7 @@ while (execucao) {
             console.log(`1 - Cliente`)
             console.log(`2 - Pets`)
             console.log(`3 - Produtos`)
-            //console.log(`4 - Serviços`)
+            console.log(`4 - Serviços`)
             console.log(`0 - Voltar`)
             opcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
             let cadastro
@@ -59,6 +65,9 @@ while (execucao) {
                 case 3:
                     cadastro = new CadastroProduto(empresa.getProdutos)
                     cadastro.cadastrar()
+                case 4:
+                    cadastro = new CadastroServico(empresa.getServicos)
+                    cadastro.cadastrar()
                 case 0:
                     break
                 default:
@@ -72,7 +81,7 @@ while (execucao) {
             console.log(`1 - Clientes`)
             console.log(`2 - Pets`)
             console.log(`3 - Produtos`)
-            //console.log(`4 - Serviços`)
+            console.log(`4 - Serviços`)
             console.log(`0 - Voltar`)
             opcao = entrada.receberNumero(`Por favor, escolha uma opções: `)
             let listagem
@@ -87,6 +96,9 @@ while (execucao) {
                 case 3:
                     listagem = new ListagemProdutos(empresa.getProdutos)
                     listagem.listar()
+                case 4:
+                    listagem = new ListagemServicos(empresa.getServicos)
+                    listagem.listar()
                 case 0:
                     break;
                 default:
@@ -100,7 +112,7 @@ while (execucao) {
             console.log(`1 - Clientes`)
             console.log(`2 - Pets`)
             console.log(`3 - Produtos`)
-            //console.log(`4 - Serviços`)
+            console.log(`4 - Serviços`)
             console.log(`0 - Voltar`)
             opcao = entrada.receberNumero(`Por favor, escolha uma opções: `)
             let editar
@@ -116,6 +128,10 @@ while (execucao) {
                 case 3:
                     editar = new AlterarProdutos(empresa.getProdutos)
                     empresa.setProdutos(editar.alterar())
+                    break;
+                case 4:
+                    editar = new AlterarServicos(empresa.getServicos)
+                    empresa.setServicos(editar.alterar())
                     break;
                 case 0:
                     break;
@@ -146,6 +162,10 @@ while (execucao) {
                 case 3:
                     deleta = new DeletarProduto(empresa.getProdutos)
                     empresa.setProdutos(deleta.deletar())
+                    break;
+                case 4:
+                    deleta = new DeletarServico(empresa.getServicos)
+                    empresa.setServicos(deleta.deletar())
                     break;
                 case 0:
                     break;
