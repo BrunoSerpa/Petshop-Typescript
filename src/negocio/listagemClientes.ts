@@ -73,6 +73,7 @@ export default class ListagemClientes extends Listagem {
                                 count++;
                             
                             });
+                            count = 1
                             cliente.getPets.forEach((petsData) => {
                                 console.log(`${count}º Pet:` + petsData.getNome)
                                 console.log(`- Tipo:` + petsData.getTipo)
