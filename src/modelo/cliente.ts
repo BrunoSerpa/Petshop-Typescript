@@ -38,6 +38,15 @@ export default class Cliente {
     setPet(novoPet: Pet, localPet: number): void{
         this.pets[localPet]=novoPet
     }
+    setRgs(novoRg: Array<RG>): void{
+        this.rgs=novoRg
+    }
+    setTelefones(novoTelefone: Array<Telefone>): void{
+        this.telefones=novoTelefone
+    }
+    setPets(novoPet: Array<Pet>): void{
+        this.pets=novoPet
+    }
     public get getCpf(): CPF {
         return this.cpf
     }
