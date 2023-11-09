@@ -26,6 +26,18 @@ export default class Cliente {
         this.servicosConsumidos = []
         this.pets = []
     }
+    setCPF(novoCPF: CPF): void{
+        this.cpf=novoCPF
+    }
+    setRg(novoRG: RG, localRg: number): void{
+        this.rgs[localRg]=novoRG
+    }
+    setTelefone(novoTelefone: Telefone, localTelefone: number): void{
+        this.telefones[localTelefone]=novoTelefone
+    }
+    setPet(novoPet: Pet, localPet: number): void{
+        this.pets[localPet]=novoPet
+    }
     public get getCpf(): CPF {
         return this.cpf
     }
