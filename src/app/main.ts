@@ -10,6 +10,8 @@ import CadastroCliente from "../negocio/cadastroCliente";
 import CadastroPet from "../negocio/cadastroPet";
 import CadastroProduto from "../negocio/cadastroProduto";
 import CadastroServico from "../negocio/cadastroServico";
+import ConsumirProduto from "../negocio/consumirProduto";
+import ConsumirServicos from "../negocio/consumirServico";
 import DeletarCliente from "../negocio/deletarCliente";
 import DeletarPet from "../negocio/deletarPet";
 import DeletarProduto from "../negocio/deletarProduto";
@@ -38,7 +40,7 @@ while (execucao) {
     console.log(`2 - Visualisar`)
     console.log(`3 - Alterar`)
     console.log(`4 - Excluir`)
-    //console.log(`5 - Registrar Consumo`)
+    console.log(`5 - Registrar Consumo`)
     console.log(`0 - Sair`);
     let opcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
     switch (opcao) {
@@ -146,7 +148,7 @@ while (execucao) {
             console.log(`1 - Clientes`)
             console.log(`2 - Pets`)
             console.log(`3 - Produtos`)
-            //console.log(`4 - Serviços`)
+            console.log(`4 - Serviços`)
             console.log(`0 - Voltar`)
             opcao = entrada.receberNumero(`Por favor, escolha uma opções: `)
             let deleta
@@ -173,6 +175,29 @@ while (execucao) {
                     console.log(`Operação não entendida :(`)
             }
             break;
+        case 5:
+            console.log("---------------------------------------")
+            console.log("Bem-vindo ao nosso sistema de consumo!")
+            console.log(`O que deseja consumir?`);
+            console.log(`1 - Produtos`)
+            console.log(`2 - Serviços`)
+            opcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
+            let consumo
+            switch(opcao){
+                case 1:
+                    consumo = new ConsumirProduto(empresa.getClientes, empresa.getProdutos)
+                    empresa.setClientes(consumo.consumir())
+                    break
+                case 2:
+                    consumo = new ConsumirServicos(empresa.getClientes, empresa.getServicos)
+                    empresa.setClientes(consumo.consumir())
+                    break
+                case 0:
+                    break
+                default:
+                    console.log(`Operação não entendida :(`)
+            }
+            break
         case 0:
             execucao = false
             console.log(`Até mais`)
