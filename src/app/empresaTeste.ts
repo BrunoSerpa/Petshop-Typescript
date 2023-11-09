@@ -1,12 +1,14 @@
 import Cliente from "../modelo/cliente";
 import CPF from "../modelo/cpf";
 import Pet from "../modelo/pet";
+import Produto from "../modelo/produto";
 import RG from "../modelo/rg";
 import Telefone from "../modelo/telefone";
 
 export default class EmpresaTeste {
     private clientes: Array<Cliente> = [];
-
+    private produtos: Array<Produto> = [];
+    
     clientesEmpresaTeste() {
         const cliente1 = new Cliente('João da Silva', 'João', new CPF('12345678901', new Date(2000, 1, 1))); // Corrigi o mês (janeiro é 0)
         cliente1.getRgs.push(new RG('12345', new Date(2005, 1, 1)));
@@ -74,5 +76,25 @@ export default class EmpresaTeste {
         this.clientes.push(cliente10);
 
         return this.clientes;
+    }
+    produtosEmpresaTeste(){
+        const produto1 = new Produto("Shampoo", 10.00)
+        this.produtos.push(produto1)
+        
+        const produto2 = new Produto("Condicionador",15.00)
+        this.produtos.push(produto2)
+        
+        const produto3 = new Produto("Pente",12.00)
+        this.produtos.push(produto3)
+        
+        const produto4 = new Produto("Petisco",5.00)
+        this.produtos.push(produto4)
+        
+        const produto5 = new Produto("Gravata",5.50)
+        this.produtos.push(produto5)
+
+        const produto6 = new Produto("Coleira",50.00)
+        this.produtos.push(produto6)
+        return this.produtos
     }
 }
