@@ -3,13 +3,17 @@ import Entrada from "../io/entrada";
 import Empresa from "../modelo/empresa";
 import AlterarCliente from "../negocio/alterarCliente";
 import AlterarPet from "../negocio/alterarPet";
+import AlterarProdutos from "../negocio/alterarProduto";
 
 import CadastroCliente from "../negocio/cadastroCliente";
 import CadastroPet from "../negocio/cadastroPet";
+import CadastroProduto from "../negocio/cadastroProduto";
 import DeletarCliente from "../negocio/deletarCliente";
 import DeletarPet from "../negocio/deletarPet";
+import DeletarProduto from "../negocio/deletarProduto";
 import ListagemClientes from "../negocio/listagemClientes";
-import ListagemPets from "../negocio/listagemPet";
+import ListagemPets from "../negocio/listagemPets";
+import ListagemProdutos from "../negocio/listarProdutos";
 import EmpresaTeste from "./empresaTeste";
 
 console.log(`Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinarias`)
@@ -17,7 +21,9 @@ let entrada = new Entrada()
 let empresa = new Empresa()
 let empresaTeste = new EmpresaTeste()
 const clientes = empresaTeste.clientesEmpresaTeste()
+const produtos = empresaTeste.produtosEmpresaTeste()
 empresa.setClientes(clientes)
+empresa.setProdutos(produtos)
 
 let execucao = true
 while (execucao) {
@@ -36,7 +42,7 @@ while (execucao) {
             console.log(`O que deseja cadastrar?`);
             console.log(`1 - Cliente`)
             console.log(`2 - Pets`)
-            //console.log(`3 - Produtos`)
+            console.log(`3 - Produtos`)
             //console.log(`4 - Serviços`)
             console.log(`0 - Voltar`)
             opcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
@@ -50,6 +56,9 @@ while (execucao) {
                     cadastro = new CadastroPet(empresa.getClientes)
                     cadastro.cadastrar()
                     break
+                case 3:
+                    cadastro = new CadastroProduto(empresa.getProdutos)
+                    cadastro.cadastrar()
                 case 0:
                     break
                 default:
@@ -62,7 +71,7 @@ while (execucao) {
             console.log(`O que deseja visualizar?`);
             console.log(`1 - Clientes`)
             console.log(`2 - Pets`)
-            //console.log(`3 - Produtos`)
+            console.log(`3 - Produtos`)
             //console.log(`4 - Serviços`)
             console.log(`0 - Voltar`)
             opcao = entrada.receberNumero(`Por favor, escolha uma opções: `)
@@ -74,6 +83,9 @@ while (execucao) {
                     break;
                 case 2:
                     listagem = new ListagemPets(empresa.getClientes)
+                    listagem.listar()
+                case 3:
+                    listagem = new ListagemProdutos(empresa.getProdutos)
                     listagem.listar()
                 case 0:
                     break;
@@ -87,7 +99,7 @@ while (execucao) {
             console.log(`O que deseja editar?`);
             console.log(`1 - Clientes`)
             console.log(`2 - Pets`)
-            //console.log(`3 - Produtos`)
+            console.log(`3 - Produtos`)
             //console.log(`4 - Serviços`)
             console.log(`0 - Voltar`)
             opcao = entrada.receberNumero(`Por favor, escolha uma opções: `)
@@ -101,6 +113,10 @@ while (execucao) {
                     editar = new AlterarPet(empresa.getClientes)
                     empresa.setClientes(editar.alterar())
                     break;
+                case 3:
+                    editar = new AlterarProdutos(empresa.getProdutos)
+                    empresa.setProdutos(editar.alterar())
+                    break;
                 case 0:
                     break;
                 default:
@@ -113,7 +129,7 @@ while (execucao) {
             console.log(`O que deseja deletar?`);
             console.log(`1 - Clientes`)
             console.log(`2 - Pets`)
-            //console.log(`3 - Produtos`)
+            console.log(`3 - Produtos`)
             //console.log(`4 - Serviços`)
             console.log(`0 - Voltar`)
             opcao = entrada.receberNumero(`Por favor, escolha uma opções: `)
@@ -126,6 +142,10 @@ while (execucao) {
                 case 2:
                     deleta = new DeletarPet(empresa.getClientes)
                     empresa.setClientes(deleta.deletar())
+                    break;
+                case 3:
+                    deleta = new DeletarProduto(empresa.getProdutos)
+                    empresa.setProdutos(deleta.deletar())
                     break;
                 case 0:
                     break;
