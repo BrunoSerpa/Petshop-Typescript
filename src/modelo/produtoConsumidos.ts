@@ -1,7 +1,7 @@
 import Pet from "./pet"
 import Produto from "./produto"
 
-export default class produtoConsumido {
+export default class ProdutoConsumido {
     public produtoConsumido: Produto
     public dataConsumo: Date
     public pet: Pet
