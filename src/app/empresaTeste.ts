@@ -5,6 +5,8 @@ import Produto from "../modelo/produto";
 import RG from "../modelo/rg";
 import Servico from "../modelo/servico";
 import Telefone from "../modelo/telefone";
+import ProdutoConsumido from "../modelo/produtoConsumidos";
+import ServicoConsumido from "../modelo/servicoConsumidos";
 
 export default class EmpresaTeste {
     private clientes: Array<Cliente> = [];
@@ -130,5 +132,41 @@ export default class EmpresaTeste {
         const servico10 = new Servico("Treinamento para Filhotes", 55.00);
         this.servicos.push(servico10);
 
-        return this.servicos;}
+        return this.servicos;
+    }
+
+    produtosEServicosConsumidosTeste(){
+        function getDataAleatoria(dataInicial:Date, dataFinal:Date): Date {
+            const dataAleatoria = new Date(dataInicial.getTime() + Math.random() * (dataFinal.getTime() - dataInicial.getTime()));
+            const timezoneOffset = dataAleatoria.getTimezoneOffset();
+            dataAleatoria.setMinutes(dataAleatoria.getMinutes() - timezoneOffset);
+            return dataAleatoria;
+        }
+
+        for (let i = 0; i < 50; i++) {
+            let listaPets:Array<Pet> = []
+            this.clientes.map(cliente => cliente.getPets.map(pet => listaPets.push(pet)));
+            const petAleatorio:number = Math.floor(Math.random() * listaPets.length);
+            const servicoAleatorio:number = Math.floor(Math.random() * this.servicos.length);
+            const dataAleatoria = getDataAleatoria(new Date(2023,1,1), new Date())
+
+            const compraServico = new ServicoConsumido(this.servicos[servicoAleatorio], dataAleatoria, listaPets[petAleatorio]);
+            const clienteCompra = this.clientes.find(clienteData => clienteData.getPets.includes(listaPets[petAleatorio]));
+            const servicoCompra = this.servicos.find(servicoData => servicoData === compraServico.servicoConsumido);
+            if (clienteCompra && servicoCompra) { clienteCompra.getServicosConsumidos.push(compraServico) }
+        }
+
+        for (let i = 0; i < 50; i++) {
+            let listaPets:Array<Pet> = []
+            this.clientes.map(cliente => cliente.getPets.map(pet => listaPets.push(pet)));
+            const petAleatorio:number = Math.floor(Math.random() * listaPets.length);
+            const produtoAleatorio:number = Math.floor(Math.random() * this.produtos.length);
+            const dataAleatoria = getDataAleatoria(new Date(2023,1,1), new Date())
+
+            const compraProduto = new ProdutoConsumido(this.produtos[produtoAleatorio], dataAleatoria, listaPets[petAleatorio]);
+            const clienteCompra = this.clientes.find(clienteData => clienteData.getPets.includes(listaPets[petAleatorio]));
+            const produtoCompra = this.produtos.find(servicoData => servicoData === compraProduto.produtoConsumido);
+            if (clienteCompra && produtoCompra) { clienteCompra.getProdutosConsumidos.push(compraProduto) }
+        }
+    }
 }
