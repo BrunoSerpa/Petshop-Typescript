@@ -16,6 +16,7 @@ import DeletarCliente from "../negocio/deletarCliente";
 import DeletarPet from "../negocio/deletarPet";
 import DeletarProduto from "../negocio/deletarProduto";
 import DeletarServico from "../negocio/deletarServico";
+import DestacarClientes from "../negocio/destacarClientes";
 import ListagemClientes from "../negocio/listagemClientes";
 import ListagemPets from "../negocio/listagemPets";
 import ListagemProdutos from "../negocio/listarProdutos";
@@ -42,6 +43,7 @@ while (execucao) {
     console.log(`3 - Alterar`)
     console.log(`4 - Excluir`)
     console.log(`5 - Registrar Consumo`)
+    console.log(`6 - Visualisar Destaques`)
     console.log(`0 - Sair`);
     let opcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
     switch (opcao) {
@@ -197,6 +199,43 @@ while (execucao) {
                     break
                 default:
                     console.log(`Operação não entendida :(`)
+            }
+            break
+        case 6:
+            console.log("---------------------------------------")
+            console.log("Bem-vindo aos destaques!")
+            console.log(`O que deseja visualizar?`);
+            console.log(`1 - Clientes que mais consumiram produtos (quantidade)`)
+            console.log(`2 - Clientes que mais consumiram serviços (quantidade)`)
+            //console.log(`3 - Produtos mais Consumidos`)
+            //console.log(`4 - Serviços mais Consumidos`)
+            console.log(`5 - Clientes que mais consumiram produtos (quantidade)`)
+            console.log(`6 - Clientes que mais consumiram serviços (quantidade)`)
+            console.log(`0 - Sair`)
+
+            opcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
+            let destacar = new DestacarClientes(empresa.getClientes)
+            switch(opcao){
+                default:
+                case 1:
+                    destacar.destacar(opcao)
+                    break
+                case 2:
+                    destacar = new DestacarClientes(empresa.getClientes)
+                    destacar.destacar(opcao)
+                    break
+                //case 3:
+                //case 4:
+                case 5:
+                    destacar = new DestacarClientes(empresa.getClientes)
+                    destacar.destacar(5)
+                    break
+                case 6:
+                    destacar = new DestacarClientes(empresa.getClientes)
+                    destacar.destacar(6)
+                    break
+                case 0:
+                    break
             }
             break
         case 0:
