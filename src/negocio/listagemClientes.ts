@@ -48,6 +48,24 @@ export default class ListagemClientes extends Listagem {
                         count++
                         
                     })
+
+                    count = 1
+                    clienteEncontrado.getServicosConsumidos.forEach((servicoData) => {
+                        console.log(`${count}º Servico Consumido:`)
+                        console.log(`- Pet:` + servicoData.pet.getNome)
+                        console.log(`- Data: ${servicoData.dataConsumo.getDay()}/${servicoData.dataConsumo.getDate()}/${servicoData.dataConsumo.getFullYear()}`)
+                        console.log(`- Serviço:` + servicoData.servicoConsumido.nome)
+                        count++
+                    })
+
+                    count = 1
+                    clienteEncontrado.getProdutosConsumidos.forEach((produtoData) => {
+                        console.log(`${count}º Produto Consumido:`)
+                        console.log(`- Pet:` + produtoData.pet.getNome)
+                        console.log(`- Data: ${produtoData.dataConsumo.getDay()}/${produtoData.dataConsumo.getDate()}/${produtoData.dataConsumo.getFullYear()}`)
+                        console.log(`- Produto:` + produtoData.produtoConsumido.nome)
+                        count++
+                    })
                 } else {
                     console.log('Cliente não encontrado.');
                 }
@@ -80,7 +98,24 @@ export default class ListagemClientes extends Listagem {
                                 console.log(`- Genero:` + petsData.getGenero)
                                 console.log(`- Raça:` + petsData.getRaca)
                                 count++
-                                
+                            })
+
+                            count = 1
+                            cliente.getServicosConsumidos.forEach((servicoData) => {
+                                console.log(`${count}º Servico Consumido:`)
+                                console.log(`- Pet:` + servicoData.pet.getNome)
+                                console.log(`- Data: ${servicoData.dataConsumo.getDay()}/${servicoData.dataConsumo.getDate()}/${servicoData.dataConsumo.getFullYear()}`)
+                                console.log(`- Serviço:` + servicoData.servicoConsumido.nome)
+                                count++
+                            })
+
+                            count = 1
+                            cliente.getProdutosConsumidos.forEach((produtoData) => {
+                                console.log(`${count}º Produto Consumido:`)
+                                console.log(`- Pet:` + produtoData.pet.getNome)
+                                console.log(`- Data: ${produtoData.dataConsumo.getDay()}/${produtoData.dataConsumo.getDate()}/${produtoData.dataConsumo.getFullYear()}`)
+                                console.log(`- Produto:` + produtoData.produtoConsumido.nome)
+                                count++
                             })
                     console.log(`--------------------------------------`);
                 });
