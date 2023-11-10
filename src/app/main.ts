@@ -32,6 +32,7 @@ const servicos = empresaTeste.servicosEmpresaTeste()
 empresa.setClientes(clientes)
 empresa.setProdutos(produtos)
 empresa.setServicos(servicos)
+empresaTeste.produtosEServicosConsumidosTeste()
 
 let execucao = true
 while (execucao) {
