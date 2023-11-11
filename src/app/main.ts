@@ -207,10 +207,10 @@ while (execucao) {
             console.log(`O que deseja visualizar?`);
             console.log(`1 - Clientes que mais consumiram produtos (quantidade)`)
             console.log(`2 - Clientes que mais consumiram serviços (quantidade)`)
-            //console.log(`3 - Produtos mais Consumidos`)
-            //console.log(`4 - Serviços mais Consumidos`)
-            console.log(`5 - Clientes que mais consumiram produtos (quantidade)`)
-            console.log(`6 - Clientes que mais consumiram serviços (quantidade)`)
+            console.log(`3 - Produtos mais Consumidos`)
+            console.log(`4 - Serviços mais Consumidos`)
+            console.log(`5 - Clientes que mais consumiram produtos (valor)`)
+            console.log(`6 - Clientes que mais consumiram serviços (valor)`)
             console.log(`0 - Sair`)
 
             opcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
@@ -224,8 +224,14 @@ while (execucao) {
                     destacar = new DestacarClientes(empresa.getClientes)
                     destacar.destacar(opcao)
                     break
-                //case 3:
-                //case 4:
+                case 3:
+                    destacar = new DestacarClientes(empresa.getClientes)
+                    destacar.destacar(opcao)
+                    break
+                case 4:
+                    destacar = new DestacarClientes(empresa.getClientes)
+                    destacar.destacar(opcao)
+                    break
                 case 5:
                     destacar = new DestacarClientes(empresa.getClientes)
                     destacar.destacar(5)
