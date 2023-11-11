@@ -1,3 +1,4 @@
+import Entrada from "../io/entrada";
 import Cliente from "../modelo/cliente";
 class ClienteConsumo {
     public nomeCliente: string;
@@ -9,9 +10,11 @@ class ClienteConsumo {
 }
 
 export default class DestacarClientes {
+    private entrada: Entrada;
     private clientes: Array<Cliente>
     constructor(clientes: Array<Cliente>) {
         this.clientes = clientes
+        this.entrada = new Entrada()
     }
     public listar(desejoLista:number): Array<ClienteConsumo>{
         let listaClientes: Array<ClienteConsumo> = []
@@ -30,6 +33,77 @@ export default class DestacarClientes {
                     cliente.getServicosConsumidos.length
                 ))
             )
+        }
+        else if (desejoLista==3){
+            let ListaProdutosSeparados: Array<ClienteConsumo> 
+            ListaProdutosSeparados = []
+            console.log(`Informe o dado que deseja alterar:`)
+            console.log("1 - listar por tipo")
+            console.log("2 - listar por raca")
+            let listaDesejado = this.entrada.receberNumero(`Por favor, informe uma das opções:`)
+            if (listaDesejado == 1){
+                this.clientes.forEach(cliente =>
+                    cliente.getProdutosConsumidos.forEach(produto =>
+                        ListaProdutosSeparados.push(new ClienteConsumo(`${produto.pet.getTipo} (${produto.produtoConsumido.nome})`, 1))
+                    )
+                )
+            }
+            else if (listaDesejado == 1){
+                this.clientes.forEach(cliente =>
+                    cliente.getProdutosConsumidos.forEach(produto =>
+                        ListaProdutosSeparados.push(new ClienteConsumo(`${produto.pet.getRaca} (${produto.produtoConsumido.nome})`, 1))
+                    )
+                )
+            }
+            else{
+                console.log(`Informe uma opção válida`)
+                return ListaProdutosSeparados
+            }
+            
+            ListaProdutosSeparados.forEach(cliente=> {
+                let achouCliente = listaClientes.find(
+                    clienteAntigo => clienteAntigo.nomeCliente===cliente.nomeCliente
+                )
+                if (achouCliente){
+                    cliente = new ClienteConsumo(achouCliente.nomeCliente, (achouCliente.quantidadeConsumo ++))
+                }
+                listaClientes.push(cliente)
+            })
+        }
+        else if (desejoLista==4){
+            let ListaServicosSeparados: Array<ClienteConsumo> 
+            ListaServicosSeparados = []
+            console.log(`Informe o dado que deseja alterar:`)
+            console.log("1 - listar por tipo")
+            console.log("2 - listar por raca")
+            let listaDesejado = this.entrada.receberNumero(`Por favor, informe uma das opções:`)
+            if (listaDesejado == 1){
+                this.clientes.forEach(cliente =>
+                    cliente.getServicosConsumidos.forEach(servico =>
+                        ListaServicosSeparados.push(new ClienteConsumo(`${servico.pet.getTipo} (${servico.servicoConsumido.nome})`, 1))
+                    )
+                )
+            }
+            else if (listaDesejado == 2){
+                this.clientes.forEach(cliente =>
+                    cliente.getServicosConsumidos.forEach(servico =>
+                        ListaServicosSeparados.push(new ClienteConsumo(`${servico.pet.getRaca} (${servico.servicoConsumido.nome})`, 1))
+                    )
+                )
+            }
+            else{
+                console.log(`Informe uma opção válida`)
+                return ListaServicosSeparados
+            }
+            ListaServicosSeparados.forEach(cliente=> {
+                let achouCliente = listaClientes.find(
+                    clienteAntigo => clienteAntigo.nomeCliente===cliente.nomeCliente
+                )
+                if (achouCliente){
+                    cliente = new ClienteConsumo(achouCliente.nomeCliente, (achouCliente.quantidadeConsumo ++))
+                }
+                listaClientes.push(cliente)
+            })
         }
         else if (desejoLista===5){
             let soma: number
@@ -60,7 +134,7 @@ export default class DestacarClientes {
         return listaClientes
     }
     public destacar(pedido: number): void{
-        if (![1, 2, 5, 6].includes(pedido)){
+        if (![1, 2, 3, 4, 5, 6].includes(pedido)){
             return
         }
         let lista:Array<ClienteConsumo>
@@ -82,26 +156,33 @@ export default class DestacarClientes {
           return 0;
         });
         listaOrdenada = mapped.map((v) => lista[v.i]);
-        let limite:number = 0
-        let count:number = 0
-        if (pedido === 1 || pedido ===2 ){
-            limite = 10
-            listaOrdenada.forEach(cliente =>{
-                if (count > limite){
-                    return
-                }
-                count ++
-                console.log(`${count}º lugar: ${cliente.nomeCliente}: ${cliente.quantidadeConsumo} consumidos`)
-            })
+        if (![1, 2, 5, 6].includes(pedido)){
+            let limite:number = 0
+            let count:number = 0
+            if (pedido === 1 || pedido ===2 ){
+                limite = 10
+                listaOrdenada.forEach(cliente =>{
+                    if (count > limite){
+                        return
+                    }
+                    count ++
+                    console.log(`${count}º lugar: ${cliente.nomeCliente}: ${cliente.quantidadeConsumo} consumidos`)
+                })
+            }
+            else{
+                limite = 5
+                listaOrdenada.forEach(cliente =>{
+                    if (count > limite){
+                        return
+                    }
+                    count ++
+                    console.log(`${count}º lugar: ${cliente.nomeCliente} R$${cliente.quantidadeConsumo} gastos`)
+                })
+            }
         }
-        else{
-            limite = 5
+        else {
             listaOrdenada.forEach(cliente =>{
-                if (count > limite){
-                    return
-                }
-                count ++
-                console.log(`${count}º lugar: ${cliente.nomeCliente} R$${cliente.quantidadeConsumo} gastos`)
+                console.log(`${cliente.nomeCliente} ${cliente.quantidadeConsumo} consumidos`)
             })
         }
     }
