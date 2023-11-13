@@ -13,7 +13,7 @@ export default class EmpresaTeste {
     private produtos: Array<Produto> = [];
     private servicos: Array<Servico> = [];
     clientesEmpresaTeste() {
-        const cliente1 = new Cliente('João da Silva', 'João', new CPF('12345678901', new Date(2000, 1, 1))); // Corrigi o mês (janeiro é 0)
+        const cliente1 = new Cliente('Joao da Silva', 'Joao', new CPF('12345678901', new Date(2000, 1, 1))); // Corrigi o mês (janeiro e 0)
         cliente1.getRgs.push(new RG('12345', new Date(2005, 1, 1)));
         cliente1.getTelefones.push(new Telefone('11', '987654321'));
         cliente1.getTelefones.push(new Telefone('11', '123456789'));
@@ -21,7 +21,7 @@ export default class EmpresaTeste {
         cliente1.getPets.push(new Pet('Whiskers', 'Siamês', 'Fêmea', 'Gato'));
         this.clientes.push(cliente1);
 
-        const cliente2 = new Cliente('Maria da Silva', 'Maria', new CPF('98765432109', new Date(2001, 2, 2))); // Corrigi o mês
+        const cliente2 = new Cliente('Maria Pereira', 'Maria', new CPF('98765432109', new Date(2001, 2, 2))); // Corrigi o mês
         cliente2.getRgs.push(new RG('98765', new Date(2006, 2, 2)));
         cliente2.getTelefones.push(new Telefone('11', '555555555'));
         cliente2.getPets.push(new Pet('Buddy', 'Golden Retriever', 'Macho', 'Cachorro'));
@@ -48,7 +48,7 @@ export default class EmpresaTeste {
         cliente5.getPets.push(new Pet('Simba', 'Maine Coon', 'Macho', 'Gato'));
         this.clientes.push(cliente5);
 
-        const cliente6 = new Cliente('André Souza', 'André', new CPF('44444444444', new Date(1975, 6, 18)));
+        const cliente6 = new Cliente('Andre Souza', 'Andre', new CPF('44444444444', new Date(1975, 6, 18)));
         cliente6.getRgs.push(new RG('77777', new Date(1980, 7, 30)));
         cliente6.getTelefones.push(new Telefone('51', '666666666'));
         cliente6.getPets.push(new Pet('Thor', 'Golden Retriever', 'Macho', 'Cachorro'));
@@ -123,7 +123,7 @@ export default class EmpresaTeste {
         const servico7 = new Servico("Limpeza de Orelhas", 10.00);
         this.servicos.push(servico7);
 
-        const servico8 = new Servico("Escovação Dental", 25.00);
+        const servico8 = new Servico("Escovaçao Dental", 25.00);
         this.servicos.push(servico8);
 
         const servico9 = new Servico("Massagem Relaxante", 35.00);

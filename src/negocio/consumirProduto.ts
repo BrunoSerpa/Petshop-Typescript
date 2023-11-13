@@ -1,76 +1,77 @@
 import Entrada from "../io/entrada";
 import Cliente from "../modelo/cliente";
+import Empresa from "../modelo/empresa";
+
+import Pet from "../modelo/pet";
 import Produto from "../modelo/produto";
 import ProdutoConsumido from "../modelo/produtoConsumidos";
 
-import Listagem from "./listagem";
+import ListagemClientes from "./listagemClientes";
+import ListagemProdutos from "./listarProdutos";
 
-export default class ConsumirProduto extends Listagem {
-    private clientes: Array<Cliente>
-    private produtos: Array<Produto>
+export default class ConsumirProduto{
+    private empresa: Empresa
     private entrada: Entrada
+
+    private listaClientes
+    private listarProdutos
+
     private clienteEscolhido!: Cliente
+    private petEscolhido!: Pet
     private produtoEscolhido!: Produto
-    constructor(clientes: Array<Cliente>, produtos: Array<Produto>) {
-        super()
+    constructor(empresa: Empresa) {
         this.entrada = new Entrada()
-        this.clientes = clientes
-        this.produtos = produtos
+        this.empresa = empresa
+        this.listaClientes =  new ListagemClientes(this.empresa.getClientes)
+        this.listarProdutos =  new ListagemProdutos(this.empresa.getProdutos)
     }
-    public listar(): void {
-        let criterioCliente = this.entrada.receberTexto(`Informe o nome ou o número do cpf deste cliente:`)
-        const clienteEncontrado = this.clientes.find(cliente =>
-            cliente.nome.toLowerCase() === criterioCliente.toLowerCase() || cliente.getCpf.getValor === criterioCliente
-        );
-        if (clienteEncontrado){
-            let criterioProduto = this.entrada.receberTexto(`Informe o nomedo produto`)
-            const produtoEncontrado = this.produtos.find(produto =>
-                produto.nome.toLowerCase() === criterioProduto.toLowerCase()
-            );
-            if (produtoEncontrado){
-                this.produtoEscolhido=produtoEncontrado
-                this.clienteEscolhido=clienteEncontrado
-            }
-            else(
-                console.log(`Serviço não encontrado`)
-            )
-        }
-        else(
-            console.log(`Cliente não encontrado`)
-        )
-    }
-    public consumir(): Array<Cliente>{
+    public get consumir(): Empresa{
         while (true){
-            this.listar()
-            if (this.produtoEscolhido){
-                let quantPets:number 
-                quantPets=this.clienteEscolhido.getPets.length
-                console.log(`Escolha o pet que fará o serviço`)
-                let numPets=[]
-                for (let i = 1; i < quantPets+1; i++) {
-                    console.log(`${i} - ${i}º pet`)
-                    numPets.push(i)
-                }
-                console.log(`0 - Cancelar`)
-                let petEscolhido = this.entrada.receberNumero(`Por favor, informe uma das opções:`)
-                if (petEscolhido === 0){
+            const clienteSelecionado= this.listaClientes.selecionarCliente
+            if (clienteSelecionado){
+                while (true){
+                    let quantPets:number 
+                    quantPets=clienteSelecionado.getPets.length
+                    console.log(`Escolha o pet que fará o serviço`)
+                    let numPets=[]
+                    for (let i = 1; i < quantPets+1; i++) {
+                        console.log(`${i} - ${i}º pet`)
+                        numPets.push(i)
+                    }
+                    console.log(`0 - Cancelar`)
+                    let petEscolhido = this.entrada.receberNumero(`Por favor, informe uma das opções:`)
+                    if (numPets.includes(petEscolhido)){
+                        this.petEscolhido = clienteSelecionado.getPets[petEscolhido -1]
+                    }
+                    else if (petEscolhido !== 0){
+                        console.log(`Operação não entendida :(`)
+                        continue
+                    }
                     break
                 }
-                else if (numPets.includes(petEscolhido)){
+                const produtoSelecionado= this.listarProdutos.selecionarProduto
+                if (produtoSelecionado){
+                    this.produtoEscolhido=produtoSelecionado
+                } else {
+                    break
+                }
+                if (this.clienteEscolhido && this.petEscolhido && this.produtoEscolhido){
                     let data = new Date()
-                    let novoProdutoConsumido = new ProdutoConsumido(this.produtoEscolhido, data, this.clienteEscolhido.getPets[petEscolhido -1])
-                    this.clienteEscolhido.getProdutosConsumidos.push(novoProdutoConsumido)
+                    const produtoConsumido = new ProdutoConsumido(this.produtoEscolhido, data, this.petEscolhido)
+                    this.clienteEscolhido.getProdutosConsumidos.push(produtoConsumido)
                 }
-                else {
-                    console.log(`Operação Invalida :(`)
+                let continuar = this.entrada.receberTexto(`Deseja adiconar mais algum consumo para este cliente? (S/N)`)
+                if (continuar.toUpperCase() === 'S') {
+                    continue
                 }
+            } else {
+                break
             }
-            let continuar = this.entrada.receberTexto(`Deseja adiconar mais algum consumo? (S/N)`)
+            let continuar = this.entrada.receberTexto(`Deseja adiconar mais algum consumo para outro cliente? (S/N)`)
             if (continuar.toUpperCase() === 'S') {
                 continue
             }
-            break
         }
-        return this.clientes
+        return this.empresa
     }
 }

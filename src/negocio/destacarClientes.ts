@@ -48,7 +48,7 @@ export default class DestacarClientes {
                     )
                 )
             }
-            else if (listaDesejado == 1){
+            else if (listaDesejado == 2){
                 this.clientes.forEach(cliente =>
                     cliente.getProdutosConsumidos.forEach(produto =>
                         ListaProdutosSeparados.push(new ClienteConsumo(`${produto.pet.getRaca} (${produto.produtoConsumido.nome})`, 1))
@@ -156,13 +156,13 @@ export default class DestacarClientes {
           return 0;
         });
         listaOrdenada = mapped.map((v) => lista[v.i]);
-        if (![1, 2, 5, 6].includes(pedido)){
+        if ([1, 2, 5, 6].includes(pedido)){
             let limite:number = 0
             let count:number = 0
             if (pedido === 1 || pedido ===2 ){
                 limite = 10
                 listaOrdenada.forEach(cliente =>{
-                    if (count > limite){
+                    if (count >= limite){
                         return
                     }
                     count ++
@@ -172,11 +172,11 @@ export default class DestacarClientes {
             else{
                 limite = 5
                 listaOrdenada.forEach(cliente =>{
-                    if (count > limite){
+                    if (count >= limite){
                         return
                     }
                     count ++
-                    console.log(`${count}º lugar: ${cliente.nomeCliente} R$${cliente.quantidadeConsumo} gastos`)
+                    console.log(`${count}º lugar: R$${cliente.nomeCliente} ${cliente.quantidadeConsumo} gastos`)
                 })
             }
         }

@@ -1,40 +1,34 @@
 import Entrada from "../io/entrada"
 
 import Produto from "../modelo/produto";
-import Listagem from "./listagem";
+import ListagemProdutos from "./listarProdutos";
 
-export default class DeletarProduto extends Listagem {
+export default class DeletarProduto{
     private produtos: Array<Produto>
+    private listarProdutos
     private produtoEscolhido !: Produto
     private entrada: Entrada
     constructor(produtos: Array<Produto>) {
-        super()
         this.produtos = produtos
         this.entrada = new Entrada()
+        this.listarProdutos = new ListagemProdutos(this.produtos)
     }
-    public listar(): void {
-        const criterio = this.entrada.receberTexto(`Por favor informe o nome do produto: `)
-        let produtoEncontrado = this.produtos.find(produto =>
-            produto.nome.toLowerCase() === criterio.toLowerCase()
-        );
-        if (produtoEncontrado){
-            this.produtoEscolhido = produtoEncontrado
-            console.log(`Nome:` + this.produtoEscolhido.nome)
-            console.log(`Preço: R$${this.produtoEscolhido.preco}`)
-        } else{
-            console.log('Produto não encontrado :');
-        }
-    }
-    public deletar(): Array<Produto>{
+    public get deletar(): Array<Produto>{
         while (true){
-            this.listar()
+            let produtoEscolhido=this.listarProdutos.selecionarProduto
+            if (produtoEscolhido){
+                this.produtoEscolhido=produtoEscolhido
+            } else{
+                break 
+            }
             if (this.produtoEscolhido){
+                this.listarProdutos.listarProduto=this.produtoEscolhido
                 let continuar = this.entrada.receberTexto(`Deseja excluir esse produto? (S/N):`)
                 if (continuar.toUpperCase() === 'S'){
                     this.produtos = this.produtos.filter(produto => produto !== this.produtoEscolhido)
                 }
             }
-            let continuar = this.entrada.receberTexto(`Deseja excluir mais algum cliente? (S/N):`)
+            let continuar = this.entrada.receberTexto(`Deseja excluir mais algum produto? (S/N):`)
             if (continuar.toUpperCase() === 'S'){
                continue
             }

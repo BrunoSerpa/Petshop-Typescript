@@ -1,45 +1,39 @@
 import Entrada from "../io/entrada"
 
 import Servico from "../modelo/servico";
-import Listagem from "./listagem";
+import ListagemServicos from "./listarServicos";
 
-export default class DeletarServico extends Listagem {
-    private servicos: Array<Servico>
+export default class DeletarProduto{
+    private produtos: Array<Servico>
+    private listarServicos
     private servicoEscolhido !: Servico
     private entrada: Entrada
-    constructor(servicos: Array<Servico>) {
-        super()
-        this.servicos = servicos
+    constructor(produtos: Array<Servico>) {
+        this.produtos = produtos
         this.entrada = new Entrada()
+        this.listarServicos = new ListagemServicos(this.produtos)
     }
-    public listar(): void {
-        const criterio = this.entrada.receberTexto(`Por favor informe o nome do servico: `)
-        let servicoEncontrado = this.servicos.find(servico =>
-            servico.nome.toLowerCase() === criterio.toLowerCase()
-        );
-        if (servicoEncontrado){
-            this.servicoEscolhido = servicoEncontrado
-            console.log(`Nome:` + this.servicoEscolhido.nome)
-            console.log(`Preço: R$${this.servicoEscolhido.preco}`)
-        } else{
-            console.log('servico não encontrado :');
-        }
-    }
-    public deletar(): Array<Servico>{
+    public get deletar(): Array<Servico>{
         while (true){
-            this.listar()
+            let servicoEscolhido=this.listarServicos.selecionarServico
+            if (servicoEscolhido){
+                this.servicoEscolhido=servicoEscolhido
+            } else{
+                break 
+            }
             if (this.servicoEscolhido){
-                let continuar = this.entrada.receberTexto(`Deseja excluir esse servico? (S/N):`)
+                this.listarServicos.listarServico=this.servicoEscolhido
+                let continuar = this.entrada.receberTexto(`Deseja excluir esse serviço? (S/N):`)
                 if (continuar.toUpperCase() === 'S'){
-                    this.servicos = this.servicos.filter(servico => servico !== this.servicoEscolhido)
+                    this.produtos = this.produtos.filter(servico => servico !== this.servicoEscolhido)
                 }
             }
-            let continuar = this.entrada.receberTexto(`Deseja excluir mais algum cliente? (S/N):`)
+            let continuar = this.entrada.receberTexto(`Deseja excluir mais algum serviço? (S/N):`)
             if (continuar.toUpperCase() === 'S'){
                continue
             }
             break
         }
-        return this.servicos
+        return this.produtos
     }
 }

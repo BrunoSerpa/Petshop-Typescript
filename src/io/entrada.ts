@@ -43,4 +43,38 @@ export default class Entrada {
     private dataValida(data: Date): boolean {
         return !isNaN(data.getTime());
     }
+
+    public receberCPF(mensagem: string): string {
+        while (true) {
+            const cpf = this.prompt(mensagem);
+            const cpfNumerico = parseInt(cpf, 10);
+            if (isNaN(cpfNumerico) || String(cpfNumerico).length === 11){
+                return this.formatarCPF(cpfNumerico);
+            } else {
+                console.log('CPF inválido :(');
+            }
+        }
+    }
+
+    private formatarCPF(cpf: number): string {
+        const cpfFormatado = cpf.toString()
+        return `${cpfFormatado.substring(0, 3)}.${cpfFormatado.substring(3, 6)}.${cpfFormatado.substring(6, 9)}-${cpfFormatado.substring(9)}`;
+    }
+
+    public receberRG(mensagem: string): string {
+        while (true) {
+            const rg = this.prompt(mensagem);
+            const rgNumerico = parseInt(rg, 10);
+            if (!isNaN(rgNumerico) || String(rgNumerico).length === 9) {
+                return this.formatarRG(rgNumerico);
+            } else {
+                console.log('RG inválido :(');
+            }
+        }
+    }
+
+    private formatarRG(rg: number): string {
+        const rgFormatado = rg.toString()
+        return `${rgFormatado.substring(0, 2)}.${rgFormatado.substring(2, 5)}.${rgFormatado.substring(5, 8)}/${rgFormatado.substring(8)}`;
+    }
 }

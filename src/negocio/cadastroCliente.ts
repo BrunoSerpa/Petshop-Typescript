@@ -1,5 +1,4 @@
 import Entrada from "../io/entrada"
-import Cadastro from "./cadastro"
 
 import Cliente from "../modelo/cliente"
 import CPF from "../modelo/cpf"
@@ -7,15 +6,15 @@ import RG from '../modelo/rg';
 import Telefone from '../modelo/telefone';
 import Pet from "../modelo/pet";
 
-export default class CadastroCliente extends Cadastro {
+export default class CadastroCliente{
     private clientes: Array<Cliente>
     private entrada: Entrada
     constructor(clientes: Array<Cliente>) {
-        super()
         this.clientes = clientes
         this.entrada = new Entrada()
     }
-    public cadastrar(): void {
+    
+    public get cadastrar(): void {
         console.log("---------------------------------------")
         console.log(`\nIníciando o cadastro do cliente`);
         const nome = this.entrada.receberTexto(`Por favor informe o nome do cliente: `)
@@ -33,25 +32,25 @@ export default class CadastroCliente extends Cadastro {
             console.log('Insira S ou N na sua resposta!')
         }
         const nomeSocial = nSocial
-        const cpfValor = this.entrada.receberTexto(`Por favor informe o número do CPF: `);
+        const cpfValor = this.entrada.receberCPF(`Por favor informe o número do CPF: `);
         const dataCpf = this.entrada.receberData(`Por favor informe a data de emissão do CPF (dd/mm/yyyy): `);
         const cpf = new CPF(cpfValor, dataCpf);
 
         const cliente = new Cliente(nome, nomeSocial, cpf)
-        let todosRg = false
+        let todos = false
         do {
-            const valorRg = this.entrada.receberTexto(`Por favor informe o número do RG: `);
+            const valorRg = this.entrada.receberRG(`Por favor informe o número do RG: `);
             const dataRg = this.entrada.receberData(`Por favor informe a data de emissão do RG (dd/mm/yyyy): `);
             const rg = new RG(valorRg, dataRg);
             cliente.getRgs.push(rg);
 
             const continuar = this.entrada.receberTexto(`Gostaria de cadastrar mais algum RG? (S/N): `);
             if (continuar.toUpperCase() !== 'S') {
-                todosRg = true;
+                todos = true;
             }
-        } while (!todosRg);
+        } while (!todos);
 
-        let todosTelefones = false;
+        todos = false;
         do {
             const ddd = this.entrada.receberTexto(`Por favor informe o DDD do telefone: `);
             const numero = this.entrada.receberTexto(`Por favor informe o número do telefone: `);
@@ -59,11 +58,11 @@ export default class CadastroCliente extends Cadastro {
             cliente.getTelefones.push(telefone);
             const continuarTelefone = this.entrada.receberTexto(`Gostaria de cadastrar mais algum telefone? (S/N): `);
             if (continuarTelefone.toUpperCase() !== 'S') {
-                todosTelefones = true;
+                todos = true;
             }
-        } while (!todosTelefones);
+        } while (!todos);
 
-        let todosPets = false;
+        todos = false;
         do{
             const nome = this.entrada.receberTexto(`Por favor informe o nome do seu pet: `)
             const raca = this.entrada.receberTexto(`Por favor informe a raça do seu pet: `)
@@ -73,10 +72,11 @@ export default class CadastroCliente extends Cadastro {
             cliente.getPets.push(pet)
             const continuarPets = this.entrada.receberTexto(`Gostaria de cadastrar mais algum pet? (S/N): `);
             if (continuarPets.toUpperCase() !== 'S') {
-                todosPets = true;
+                todos = true;
             }
-        } while (!todosPets);
+        } while (!todos);
         this.clientes.push(cliente)
         console.log(`\nCadastro concluído :)\n`);
+        return
     }
 }
