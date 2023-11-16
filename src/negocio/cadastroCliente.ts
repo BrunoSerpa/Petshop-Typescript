@@ -63,18 +63,22 @@ export default class CadastroCliente{
         } while (!todos);
 
         todos = false;
-        do{
-            const nome = this.entrada.receberTexto(`Por favor informe o nome do seu pet: `)
-            const raca = this.entrada.receberTexto(`Por favor informe a raça do seu pet: `)
-            const genero = this.entrada.receberTexto(`Por favor informe o genero do seu pet: `)
-            const tipo = this.entrada.receberTexto(`Por favor informe o tipo do seu pet: `)
-            const pet = new Pet(nome, raca, genero, tipo)
-            cliente.getPets.push(pet)
-            const continuarPets = this.entrada.receberTexto(`Gostaria de cadastrar mais algum pet? (S/N): `);
-            if (continuarPets.toUpperCase() !== 'S') {
+        const continuarPets = this.entrada.receberTexto(`Gostaria de cadastrar um pet? (S/N): `);
+            if (continuarPets.toUpperCase() === 'S') {
                 todos = true;
+                do{
+                    const nome = this.entrada.receberTexto(`Por favor informe o nome do seu pet: `)
+                    const raca = this.entrada.receberTexto(`Por favor informe a raça do seu pet: `)
+                    const genero = this.entrada.receberTexto(`Por favor informe o genero do seu pet: `)
+                    const tipo = this.entrada.receberTexto(`Por favor informe o tipo do seu pet: `)
+                    const pet = new Pet(nome, raca, genero, tipo)
+                    cliente.getPets.push(pet)
+                    const continuarPets = this.entrada.receberTexto(`Gostaria de cadastrar mais algum pet? (S/N): `);
+                    if (continuarPets.toUpperCase() !== 'S') {
+                        todos = true;
+                    }
+                } while (!todos);
             }
-        } while (!todos);
         this.clientes.push(cliente)
         console.log(`\nCadastro concluído :)\n`);
         return
