@@ -50,8 +50,8 @@ export default class CadastroPet {
                 if (continuarPets.toUpperCase() === 'S') {
                     continue
                 }
-                continuar= false
             }
+            continuar= false
         } while (continuar);
         return this.clientes
     }
