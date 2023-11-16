@@ -2,7 +2,14 @@ import promptSync from "prompt-sync";
 export default class Entrada {
     private prompt = promptSync();
     public receberTexto(mensagem: string): string {
-        return this.prompt(mensagem)
+        while (true){
+            let texto = this.prompt(mensagem)
+            if (!texto){
+                console.log("Insira algo!")
+                continue
+            }
+            return texto
+            }
     }
     public receberNumero(mensagem: string): number {
         while (true){
@@ -48,7 +55,9 @@ export default class Entrada {
         while (true) {
             const cpf = this.prompt(mensagem);
             const cpfNumerico = parseInt(cpf, 10);
-            if (isNaN(cpfNumerico) || String(cpfNumerico).length === 11){
+            if (!cpf){ 
+                console.log('Insira um CPF!')
+            }else if ( !isNaN(cpfNumerico) && String(cpfNumerico).length === 11){
                 return this.formatarCPF(cpfNumerico);
             } else {
                 console.log('CPF inválido :(');
@@ -65,7 +74,9 @@ export default class Entrada {
         while (true) {
             const rg = this.prompt(mensagem);
             const rgNumerico = parseInt(rg, 10);
-            if (!isNaN(rgNumerico) || String(rgNumerico).length === 9) {
+            if (!rg){ 
+                console.log('Insira um CPF!')
+            }else if ( !isNaN(rgNumerico) && String(rgNumerico).length === 9) {
                 return this.formatarRG(rgNumerico);
             } else {
                 console.log('RG inválido :(');
