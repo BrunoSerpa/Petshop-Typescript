@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-const CadastrarPetsComponent: React.FC<{}> = ({}) => {
-  const [formData, setFormData] = useState({
-  });
-  const navigate = useNavigate();
+import React from 'react';
+const CadastrarPetsComponent:  React.FC = () => {
   return (
-    <h1>Cadastrar Pets</h1>
+    <h1>Cadastrar Pet</h1>
   );
 }
 export default CadastrarPetsComponent;

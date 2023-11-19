@@ -1,9 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-const DestacarClientesComponent: React.FC<{}> = ({}) => {
-  const [formData, setFormData] = useState({
-  });
-  const navigate = useNavigate();
+import React from 'react';
+const DestacarClientesComponent:  React.FC = () => {
   return (
     <h1>Destacar Clientes</h1>
   );

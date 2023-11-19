@@ -1,9 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-const ProdutosComponent: React.FC<{}> = ({}) => {
-  const [formData, setFormData] = useState({
-  });
-  const navigate = useNavigate();
+import React from 'react';
+const ProdutosComponent:  React.FC = () => {
   return (
     <h1>Produto</h1>
   );
