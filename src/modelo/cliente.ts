@@ -1,10 +1,9 @@
 import CPF from "./cpf"
-import Pet from "./pet"
-import Produto from "./produto"
-import ProdutoConsumido from "./produtoConsumidos"
 import RG from "./rg"
-import ServicoConsumido from "./servicoConsumidos"
 import Telefone from "./telefone"
+import Pet from "./pet"
+import ProdutoConsumido from "./produtoConsumidos"
+import ServicoConsumido from "./servicoConsumidos"
 
 export default class Cliente {
     public nome: string
@@ -38,21 +37,6 @@ export default class Cliente {
     }
     public setPet(novoPet: Pet, localPet: number){
         this.pets[localPet]=novoPet
-    }
-    public set setRgs(novoRg: Array<RG>){
-        this.rgs=novoRg
-    }
-    public set setTelefones(novoTelefone: Array<Telefone>){
-        this.telefones=novoTelefone
-    }
-    public set setPets(novoPet: Array<Pet>){
-        this.pets=novoPet
-    }
-    setProdutosConsumidos(novoRegistro: Array<ProdutoConsumido>): void{
-        this.produtosConsumidos=novoRegistro
-    }
-    setServicosConsumidos(novoRegistro: Array<ServicoConsumido>): void{
-        this.servicosConsumidos=novoRegistro
     }
     public get getCpf(): CPF {
         return this.cpf
