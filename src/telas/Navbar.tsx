@@ -17,7 +17,7 @@ const Navbar = () => {
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li><Link to="/cadastrar-cliente" className="dropdown-item">Clientes</Link></li>
-                                    <li><Link to="/cadastrar-pets" className="dropdown-item">Pets</Link></li>
+                                    <li><Link to="/cadastrar-pet" className="dropdown-item">Pets</Link></li>
                                     <li><hr className="dropdown-divider"/></li>
                                     <li><Link to="/cadastrar-produto" className="dropdown-item">Produtos</Link></li>
                                     <li><Link to="/cadastrar-servico" className="dropdown-item">Serviços</Link></li>
