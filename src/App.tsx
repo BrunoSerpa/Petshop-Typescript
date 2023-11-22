@@ -55,8 +55,8 @@ function App() {
           <Route path="/alterar-cliente/:index" element={<AlterarClienteWrapper clientes={clientesState}/>} />
           <Route path="/cadastrar-pet" element={<CadastrarPetsComponent clientes={clientesState}/>} />
           <Route path="/alterar-pet/:index" element={<AlterarPetWrapper clientes={clientesState} />} />
-          <Route path="/produtos" element={<ProdutosComponent/>} />
-          <Route path="/cadastrar-produto" element={<CadastrarProdutosComponent/>} />
+          <Route path="/produtos" element={<ProdutosComponent produtos={produtosState} setProdutos={setProdutos}/>} />
+          <Route path="/cadastrar-produto" element={<CadastrarProdutosComponent produtos={produtosState}/>} />
           <Route path="/alterar-produto/:index" element={<AlterarProdutoWrapper produtos={produtosState} />} />
           <Route path="/servicos" element={<ServicosComponent/>}/>
           <Route path="/cadastrar-servico" element={<CadastrarServicosComponent/>}  />
@@ -76,7 +76,7 @@ const AlterarClienteWrapper = ({ clientes }: { clientes: Array<Cliente> }) => {
   const { index } = useParams();
   if (index) {
     const indexInt = parseInt(index, 10);
-    return <AlterarClienteComponent clientes={clientes} clienteSelecionado={clientes[indexInt]} posicaoCliente={indexInt} />;
+    return <AlterarClienteComponent clientes={clientes} posicaoCliente={indexInt} />;
   } else {
     return <Navigate to="/clientes" />;
   }
@@ -85,7 +85,7 @@ const AlterarProdutoWrapper = ({ produtos }: { produtos: Array<Produto> }) => {
   const { index } = useParams();
   if (index) {
     const indexInt = parseInt(index, 10);
-    return <AlterarProdutosComponent/>;
+    return <AlterarProdutosComponent produtos={produtos} posicaoProduto={indexInt}/>;
   } else {
     return <Navigate to="/produtos" />;
   }

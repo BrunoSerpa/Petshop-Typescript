@@ -24,7 +24,7 @@ export default class FuncoesProduto{
         return this.produtos
     }
     public deletarProduto(produtoEscolhido: Produto): Array<Produto>{
-        this.produtos.filter((produto) => produto !== produtoEscolhido)
+        this.produtos=this.produtos.filter((produto) => produto !== produtoEscolhido)
         return this.produtos
     }
 }

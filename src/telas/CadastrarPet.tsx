@@ -39,8 +39,8 @@ const CadastrarPetsComponent: React.FC<{ clientes: Array<Cliente>}> = ({ cliente
     let clientesAntigos= clientes
     clientes = []
     clientesAntigos.forEach((cliente, index) =>{ 
-      if (index === idCliente){
-        cliente.setPet(dadosForm, idCliente)
+      if (index === idCliente - 1){
+        cliente.getPets.push(dadosForm)
       }
       clientes.push(cliente)
     })
@@ -49,7 +49,7 @@ const CadastrarPetsComponent: React.FC<{ clientes: Array<Cliente>}> = ({ cliente
   const handleAcharCliente = (idCliente: number): void => {
     if (!isNaN(idCliente) && clientes[idCliente] !== undefined) {
       formData.index = idCliente
-      setIdCliente(idCliente);
+      setIdCliente(idCliente + 1);
     }
   };
   const handleCancelar = (): void => {
