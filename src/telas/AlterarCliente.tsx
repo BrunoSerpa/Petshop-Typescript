@@ -7,16 +7,7 @@ import FuncoesCliente from '../negocio/funcoesCliente';
 import Telefone from '../modelo/telefone';
 import Pet from '../modelo/pet';
 
-const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, clienteSelecionado: Cliente, posicaoCliente: number }> = ({ clientes, clienteSelecionado, posicaoCliente }) => {
-  const [formData, setFormData] = useState({
-    nome: clienteSelecionado.nome,
-    nomeSocial: clienteSelecionado.nomeSocial,
-    cpf: clienteSelecionado.getCpf,
-    hasNomeSocial: false,
-    listaRgs: [...clienteSelecionado.getRgs],
-    listaTelefonica: clienteSelecionado.getTelefones.map(telefone => `${telefone.getDdd}${telefone.getNumero}`),
-    listaPets: [...clienteSelecionado.getPets],
-  });
+const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoCliente: number }> = ({ clientes, posicaoCliente }) => {
   const formatCPF = (cpf: string): string => {
       return cpf
         .replace(/\D/g, "")
@@ -37,6 +28,18 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, clienteSelec
         .replace(/(\d{2})(\d)/, "($1) $2")
         .replace(/(\d{4,5})(\d{4})/, "$1-$2");
   };
+  const telefonesFormatados:Array<string> = []
+  clientes[posicaoCliente].getTelefones.map(telefone => 
+    telefonesFormatados.push(formatTelefone(`${telefone.getDdd}${telefone.getNumero}`)))
+  const [formData, setFormData] = useState({
+    nome: clientes[posicaoCliente].nome,
+    nomeSocial: clientes[posicaoCliente].nomeSocial,
+    cpf: clientes[posicaoCliente].getCpf,
+    hasNomeSocial: false,
+    listaRgs: [...clientes[posicaoCliente].getRgs],
+    listaTelefonica: telefonesFormatados,
+    listaPets: [...clientes[posicaoCliente].getPets],
+  });
   const handleInputChange = (field: string, value: any): void => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   };
