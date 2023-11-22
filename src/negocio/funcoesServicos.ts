@@ -24,7 +24,7 @@ export default class FuncoesServico{
         return this.servicos
     }
     public deletarServico(servicoEscolhido: Servico): Array<Servico>{
-        this.servicos.filter((servico) => servico !== servicoEscolhido)
+        this.servicos=this.servicos.filter((servico) => servico !== servicoEscolhido)
         return this.servicos
     }
 }

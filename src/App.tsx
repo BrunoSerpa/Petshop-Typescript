@@ -18,7 +18,6 @@ import ServicosComponent from './telas/VisualizarServicos';
 import ConsumirComponent from './telas/Consumir';
 import CadastrarClienteComponent from './telas/CadastrarCliente';
 import CadastrarProdutosComponent from './telas/CadastrarProduto';
-import CadastrarServicosComponent from './telas/AlterarServico';
 import CadastrarPetsComponent from './telas/CadastrarPet';
 import DestacarClientesComponent from './telas/DestaquesClientes';
 import DestacarProdutosComponent from './telas/DestaquesProdutos';
@@ -29,6 +28,7 @@ import AlterarServicosComponent from './telas/AlterarServico';
 import AlterarPetsComponent from './telas/AlterarPet';
 
 import EmpresaTeste from './app/empresaTeste';
+import CadastrarServicosComponent from './telas/CadastrarServico';
 
 export let empresa = new Empresa();
 let empresaTeste = new EmpresaTeste();  
@@ -58,8 +58,9 @@ function App() {
           <Route path="/produtos" element={<ProdutosComponent produtos={produtosState} setProdutos={setProdutos}/>} />
           <Route path="/cadastrar-produto" element={<CadastrarProdutosComponent produtos={produtosState}/>} />
           <Route path="/alterar-produto/:index" element={<AlterarProdutoWrapper produtos={produtosState} />} />
-          <Route path="/servicos" element={<ServicosComponent/>}/>
-          <Route path="/cadastrar-servico" element={<CadastrarServicosComponent/>}  />
+          <Route path="/servicos" element={<ServicosComponent servicos={servicosState} setServicos={setServicos}/>}/>
+          <Route path="/cadastrar-servico" element={<CadastrarServicosComponent servicos={servicosState}/>}  />
+          <Route path="/alterar-servico/:index" element={<AlterarServicoWrapper   servicos={servicosState}/>}  />
           <Route path="/pets" element={<PetsComponent clientes={clientesState} setClientes={setClientes}/>} />
           <Route path="/destacar-clientes/" element={<DestacarClientesComponent/>}/>
           <Route path="/destacar-produtos/" element={<DestacarProdutosComponent/>}/>
@@ -94,7 +95,7 @@ const AlterarServicoWrapper = ({ servicos }: { servicos: Array<Servico> }) => {
   const { index } = useParams();
   if (index) {
     const indexInt = parseInt(index, 10);
-    return <AlterarServicosComponent/>;
+    return <AlterarServicosComponent servicos={servicos} posicaoServico={indexInt}/>;
   } else {
     return <Navigate to="/servicos" />;
   }

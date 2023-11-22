@@ -23,7 +23,7 @@ const ProdutosComponent: React.FC<{produtos: Array<Produto>, setProdutos: React.
   return (
     <div>
       <h1>Produtos</h1>
-      <button className="btn btn-success" onClick={handleNavegarCadastro}>Cadastrar Pets</button>
+      <button className="btn btn-success" onClick={handleNavegarCadastro}>Cadastrar Produtos</button>
       <table className="table">
         <thead>
           <tr>
