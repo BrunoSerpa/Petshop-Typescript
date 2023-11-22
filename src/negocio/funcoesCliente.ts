@@ -23,7 +23,7 @@ export default class FuncoesCliente{
         return this.clientes
     }
     public deletarCliente(cpfCliente: string): Array<Cliente>{
-        this.clientes.filter((cliente) => cliente.getCpf.getValor !== cpfCliente)
+        this.clientes=this.clientes.filter((cliente) => cliente.getCpf.getValor !== cpfCliente)
         return this.clientes
     }
 }
