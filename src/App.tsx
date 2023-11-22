@@ -8,7 +8,6 @@ import Empresa from './modelo/empresa';
 import Cliente from './modelo/cliente';
 import Produto from './modelo/produto';
 import Servico from './modelo/servico';
-import Pet from './modelo/pet';
 
 import Navbar from './telas/Navbar';
 import ClientesComponent from './telas/VisualizarClientes';
@@ -32,7 +31,7 @@ import AlterarPetsComponent from './telas/AlterarPet';
 import EmpresaTeste from './app/empresaTeste';
 
 export let empresa = new Empresa();
-let empresaTeste = new EmpresaTeste();
+let empresaTeste = new EmpresaTeste();  
 const clientesIniciais = empresaTeste.clientesEmpresaTeste();
 const produtosIniciais = empresaTeste.produtosEmpresaTeste();
 const servicosIniciais = empresaTeste.servicosEmpresaTeste();
@@ -41,27 +40,10 @@ empresa.setProdutos = produtosIniciais;
 empresa.setServicos = servicosIniciais;
 empresaTeste.produtosEServicosConsumidosTeste();
 
-class PetComDono {
-  public pet: Pet
-  public cpfDono: string
-  constructor(pet:Pet, cpfDono:string) {
-    this.pet=pet
-    this.cpfDono=cpfDono
-    
-  }
-}
-
 function App() {
   const [clientesState, setClientes] = useState(clientesIniciais);
   const [produtosState, setProdutos] = useState(produtosIniciais);
   const [servicosState, setServicos] = useState(servicosIniciais);
-  let Pets: Array<PetComDono> = []
-  clientesState.forEach(cliente => {
-    cliente.getPets.forEach( pet =>{
-        Pets.push(new PetComDono(pet, cliente.getCpf.getValor))
-      })
-  })
-  const [petsState, setPets] = useState(Pets);
   
   return (
     <div className="App">
@@ -71,14 +53,14 @@ function App() {
           <Route index element={<ClientesComponent clientes={clientesState} setClientes={setClientes}/>} />
           <Route path="/cadastrar-cliente" element={<CadastrarClienteComponent clientes={clientesState} />} />
           <Route path="/alterar-cliente/:index" element={<AlterarClienteWrapper clientes={clientesState}/>} />
+          <Route path="/cadastrar-pet" element={<CadastrarPetsComponent clientes={clientesState}/>} />
+          <Route path="/alterar-pet/:index" element={<AlterarPetWrapper clientes={clientesState} />} />
           <Route path="/produtos" element={<ProdutosComponent/>} />
           <Route path="/cadastrar-produto" element={<CadastrarProdutosComponent/>} />
-          <Route path="/alterar-produto/:index" element={<AlterarProdutoWrapper produtos={produtosState}/>} />
+          <Route path="/alterar-produto/:index" element={<AlterarProdutoWrapper produtos={produtosState} />} />
           <Route path="/servicos" element={<ServicosComponent/>}/>
           <Route path="/cadastrar-servico" element={<CadastrarServicosComponent/>}  />
-          <Route path="/pets" element={<PetsComponent/>} />
-          <Route path="/cadastrar-pet" element={<CadastrarPetsComponent/>} />
-          <Route path="/alterar-pet/:index:cpf" element={<AlterarPetWrapper pets={petsState}/>} />
+          <Route path="/pets" element={<PetsComponent clientes={clientesState} setClientes={setClientes}/>} />
           <Route path="/destacar-clientes/" element={<DestacarClientesComponent/>}/>
           <Route path="/destacar-produtos/" element={<DestacarProdutosComponent/>}/>
           <Route path="/destacar-servicos/" element={<DestacarServicosComponent/>}/>
@@ -117,14 +99,14 @@ const AlterarServicoWrapper = ({ servicos }: { servicos: Array<Servico> }) => {
     return <Navigate to="/servicos" />;
   }
 };
-const AlterarPetWrapper = ({ pets }: { pets: Array<PetComDono> }) => {
-  const { index,cpf } = useParams();
-  if (index && cpf) {
-    const indexInt = parseInt(index, 10);
-    return <AlterarPetsComponent/>;
-  } else {
-    return <Navigate to="/pets" />;
+const AlterarPetWrapper = ({ clientes }: { clientes: Array<Cliente> }) => {
+  const { index } = useParams();
+  if (index) {
+    const [idCliente, idPet] = index.split('-').map(Number);
+    if (!isNaN(idPet) && !isNaN(idCliente)) {
+      return <AlterarPetsComponent clientes={clientes} posicaoCliente={idCliente} posicaoPet={idPet} />;
+    }
   }
-};
-
+  return <Navigate to="/pets" />;
+}
 export default App;
