@@ -75,8 +75,8 @@ const DestacarClientesComponent: React.FC<{ clientes: Array<Cliente> }> = ({ cli
             {clientesDestaques.map((cliente, index) => (
               <tr key={`${index}`}>
                 <td>{index+1}</td>
-                <td>{cliente.nomeCliente}</td>
-                <td>{cliente.quantidadeConsumo}</td>
+                <td>{cliente.nomeDestacado}</td>
+                <td>{cliente.quantidadeDestacado}</td>
               </tr>
               ))}
           </tbody>
