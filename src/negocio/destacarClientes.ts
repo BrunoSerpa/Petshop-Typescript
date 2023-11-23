@@ -1,12 +1,5 @@
 import Cliente from "../modelo/cliente";
-class ClienteConsumo {
-    public nomeCliente: string;
-    public quantidadeConsumo: number;
-    constructor(nomeCliente:string, quantidadeConsumo:number) {
-        this.nomeCliente=nomeCliente
-        this.quantidadeConsumo=quantidadeConsumo
-    }
-}
+import ClienteConsumo from "../modelo/destaqueConsumo";
 
 export default class DestacarClientes {
     private clientes: Array<Cliente>
@@ -64,12 +57,12 @@ export default class DestacarClientes {
         listaClientes = this.listaOrdenada(listaClientes, 5)
         return listaClientes
     }
-    public listaOrdenada(listaSelecionada: Array<ClienteConsumo>, quantPodio: number): Array<ClienteConsumo>{
-        let lista:Array<ClienteConsumo>
-        lista = listaSelecionada
-        let listaOrdenada:Array<ClienteConsumo> = []
+    public listaOrdenada(listaSelecionada: Array<ClienteConsumo>, quantPodio: number): Array<ClienteConsumo> {
+        let lista: Array<ClienteConsumo>;
+        lista = listaSelecionada;
+        let listaOrdenada: Array<ClienteConsumo> = [];
         const mapped = lista.map((v, i) => {
-          return { i, value: v.quantidadeConsumo};
+          return { i, value: v.quantidadeDestacado };
         });
         mapped.sort((a, b) => {
           if (a.value < b.value) {
@@ -81,15 +74,16 @@ export default class DestacarClientes {
           return 0;
         });
         listaOrdenada = mapped.map((v) => lista[v.i]);
-        listaSelecionada = []
-        let count:number = 0
-        listaOrdenada.forEach(cliente =>{
-            if (count >= quantPodio){
-                return listaSelecionada
-            }
-            listaOrdenada.push(cliente)
-            count ++
-        })
-        return listaSelecionada
-    }
+        listaSelecionada = [];
+        let count: number = 0;
+        listaOrdenada.forEach((cliente) => {
+          if (count >= quantPodio) {
+            return; // Retorna sem fazer nada quando atingir a quantidade desejada
+          }
+          listaSelecionada.push(cliente);
+          count++;
+        });
+        return listaSelecionada;
+      }
+      
 }
