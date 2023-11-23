@@ -63,7 +63,7 @@ function App() {
           <Route path="/cadastrar-servico" element={<CadastrarServicosComponent servicos={servicosState}/>}  />
           <Route path="/alterar-servico/:index" element={<AlterarServicoWrapper   servicos={servicosState}/>}  />
           <Route path="/pets" element={<PetsComponent clientes={clientesState} setClientes={setClientes}/>} />
-          <Route path="/destacar-clientes" element={<DestacarClientesComponent/>}/>
+          <Route path="/destacar-clientes" element={<DestacarClientesComponent clientes={clientesState}/>}/>
           <Route path="/destacar-produtos" element={<DestacarProdutosComponent/>}/>
           <Route path="/destacar-servicos" element={<DestacarServicosComponent/>}/>
           <Route path="/consumir-produto" element={<ConsumirProdutoComponent clientes={clientesState} produtos={produtosState} setClientes={setClientes}/>} />
