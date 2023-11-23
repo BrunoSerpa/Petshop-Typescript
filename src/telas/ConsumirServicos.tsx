@@ -87,7 +87,7 @@ const ConsumirServicoComponent: React.FC<{ clientes: Array<Cliente>, servicos: A
         >
           <option
             style={{display: 'none'}}
-          >Escolha um servico</option>
+          >Escolha um serviço</option>
           {servicos.map((servicos, index) => (
             <option value={index}>{servicos.nome}</option>
           ))}
