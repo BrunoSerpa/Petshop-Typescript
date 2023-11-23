@@ -15,7 +15,6 @@ import PetsComponent from './telas/VisualizarPets';
 import ProdutosComponent from './telas/VisualizarProdutos';
 import ServicosComponent from './telas/VisualizarServicos';
 
-import ConsumirComponent from './telas/Consumir';
 import CadastrarClienteComponent from './telas/CadastrarCliente';
 import CadastrarProdutosComponent from './telas/CadastrarProduto';
 import CadastrarPetsComponent from './telas/CadastrarPet';
@@ -29,6 +28,8 @@ import AlterarPetsComponent from './telas/AlterarPet';
 
 import EmpresaTeste from './app/empresaTeste';
 import CadastrarServicosComponent from './telas/CadastrarServico';
+import ConsumirServicoComponent from './telas/ConsumirServicos';
+import ConsumirProdutoComponent from './telas/ConsumirProdutos';
 
 export let empresa = new Empresa();
 let empresaTeste = new EmpresaTeste();  
@@ -62,10 +63,11 @@ function App() {
           <Route path="/cadastrar-servico" element={<CadastrarServicosComponent servicos={servicosState}/>}  />
           <Route path="/alterar-servico/:index" element={<AlterarServicoWrapper   servicos={servicosState}/>}  />
           <Route path="/pets" element={<PetsComponent clientes={clientesState} setClientes={setClientes}/>} />
-          <Route path="/destacar-clientes/" element={<DestacarClientesComponent/>}/>
-          <Route path="/destacar-produtos/" element={<DestacarProdutosComponent/>}/>
-          <Route path="/destacar-servicos/" element={<DestacarServicosComponent/>}/>
-          <Route path="/consumir" element={<ConsumirComponent/>} />
+          <Route path="/destacar-clientes" element={<DestacarClientesComponent/>}/>
+          <Route path="/destacar-produtos" element={<DestacarProdutosComponent/>}/>
+          <Route path="/destacar-servicos" element={<DestacarServicosComponent/>}/>
+          <Route path="/consumir-produto" element={<ConsumirProdutoComponent clientes={clientesState} produtos={produtosState} setClientes={setClientes}/>} />
+          <Route path="/consumir-servico" element={<ConsumirServicoComponent clientes={clientesState} servicos={servicosState} setClientes={setClientes}/>} />
           <Route path='*' element={<ClientesComponent clientes={clientesState} setClientes={setClientes}/>} />
         </Routes>
       </Router>
