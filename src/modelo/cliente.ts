@@ -1,9 +1,8 @@
 import CPF from "./cpf"
 import Pet from "./pet"
-import Produto from "./produto"
-import ProdutoConsumido from "./produtoConsumidos"
+import ProdutoConsumido from "./produtoConsumido"
 import RG from "./rg"
-import ServicoConsumido from "./servicoConsumidos"
+import ServicoConsumido from "./servicoConsumido"
 import Telefone from "./telefone"
 
 export default class Cliente {
