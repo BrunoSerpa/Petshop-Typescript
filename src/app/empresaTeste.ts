@@ -3,10 +3,10 @@ import CPF from "../modelo/cpf";
 import Pet from "../modelo/pet";
 import Produto from "../modelo/produto";
 import RG from "../modelo/rg";
+import ProdutoConsumido from "../modelo/produtoConsumido";
 import Servico from "../modelo/servico";
+import ServicoConsumido from "../modelo/servicoConsumido";
 import Telefone from "../modelo/telefone";
-import ProdutoConsumido from "../modelo/produtoConsumidos";
-import ServicoConsumido from "../modelo/servicoConsumidos";
 
 export default class EmpresaTeste {
     private clientes: Array<Cliente> = [];
@@ -152,7 +152,7 @@ export default class EmpresaTeste {
 
             const compraServico = new ServicoConsumido(this.servicos[servicoAleatorio], dataAleatoria, listaPets[petAleatorio]);
             const clienteCompra = this.clientes.find(clienteData => clienteData.getPets.includes(listaPets[petAleatorio]));
-            const servicoCompra = this.servicos.find(servicoData => servicoData === compraServico.servicoConsumido);
+            const servicoCompra = this.servicos.find(servicoData => servicoData === compraServico.itemConsumido);
             if (clienteCompra && servicoCompra) { clienteCompra.getServicosConsumidos.push(compraServico) }
         }
 
@@ -165,7 +165,7 @@ export default class EmpresaTeste {
 
             const compraProduto = new ProdutoConsumido(this.produtos[produtoAleatorio], dataAleatoria, listaPets[petAleatorio]);
             const clienteCompra = this.clientes.find(clienteData => clienteData.getPets.includes(listaPets[petAleatorio]));
-            const produtoCompra = this.produtos.find(servicoData => servicoData === compraProduto.produtoConsumido);
+            const produtoCompra = this.produtos.find(servicoData => servicoData === compraProduto.itemConsumido);
             if (clienteCompra && produtoCompra) { clienteCompra.getProdutosConsumidos.push(compraProduto) }
         }
     }
