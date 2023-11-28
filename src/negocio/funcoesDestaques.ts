@@ -9,7 +9,7 @@ class ClienteConsumo {
     }
 }
 
-export default class DestacarClientes {
+export default class Destacar {
     private entrada: Entrada;
     private clientes: Array<Cliente>
     constructor(clientes: Array<Cliente>) {
@@ -44,14 +44,14 @@ export default class DestacarClientes {
             if (listaDesejado == 1){
                 this.clientes.forEach(cliente =>
                     cliente.getProdutosConsumidos.forEach(produto =>
-                        ListaProdutosSeparados.push(new ClienteConsumo(`${produto.pet.getTipo} (${produto.produtoConsumido.nome})`, 1))
+                        ListaProdutosSeparados.push(new ClienteConsumo(`${produto.pet && produto.pet.getTipo} (${produto.itemConsumido.getNome})`, 1))
                     )
                 )
             }
             else if (listaDesejado == 2){
                 this.clientes.forEach(cliente =>
                     cliente.getProdutosConsumidos.forEach(produto =>
-                        ListaProdutosSeparados.push(new ClienteConsumo(`${produto.pet.getRaca} (${produto.produtoConsumido.nome})`, 1))
+                        ListaProdutosSeparados.push(new ClienteConsumo(`${produto.pet && produto.pet.getRaca} (${produto.itemConsumido.getNome})`, 1))
                     )
                 )
             }
@@ -80,15 +80,15 @@ export default class DestacarClientes {
             if (listaDesejado == 1){
                 this.clientes.forEach(cliente =>
                     cliente.getServicosConsumidos.forEach(servico =>
-                        ListaServicosSeparados.push(new ClienteConsumo(`${servico.pet.getTipo} (${servico.servicoConsumido.nome})`, 1))
+                        ListaServicosSeparados.push(new ClienteConsumo(`${servico.pet && servico.pet.getTipo} (${servico.itemConsumido.getNome})`, 1))
                     )
                 )
             }
             else if (listaDesejado == 2){
                 this.clientes.forEach(cliente =>
-                    cliente.getServicosConsumidos.forEach(servico =>
-                        ListaServicosSeparados.push(new ClienteConsumo(`${servico.pet.getRaca} (${servico.servicoConsumido.nome})`, 1))
-                    )
+                    cliente.getServicosConsumidos.forEach(servico =>{
+                        ListaServicosSeparados.push(new ClienteConsumo(`${servico.pet && servico.pet.getRaca} (${servico.itemConsumido.getNome})`, 1))
+                    })
                 )
             }
             else{
@@ -110,7 +110,7 @@ export default class DestacarClientes {
             this.clientes.forEach(cliente => {
                 soma = 0
                 cliente.getProdutosConsumidos.forEach(produto =>
-                    soma =+ produto.produtoConsumido.preco
+                    soma =+ produto.itemConsumido.getPreco
                 )
                 listaClientes.push(new ClienteConsumo(
                     `${cliente.nomeSocial} (${cliente.nome})`,
@@ -123,7 +123,7 @@ export default class DestacarClientes {
             this.clientes.forEach(cliente => {
                 soma = 0
                 cliente.getServicosConsumidos.forEach(produto =>
-                    soma =+ produto.servicoConsumido.preco
+                    soma =+ produto.itemConsumido.getPreco
                 )
                 listaClientes.push(new ClienteConsumo(
                     `${cliente.nomeSocial} (${cliente.nome})`,
@@ -166,7 +166,7 @@ export default class DestacarClientes {
                         return
                     }
                     count ++
-                    console.log(`${count}º lugar: ${cliente.nomeCliente}: ${cliente.quantidadeConsumo} consumidos`)
+                    console.log(`${count}º lugar: ${cliente.nomeCliente} - ${cliente.quantidadeConsumo} consumidos`)
                 })
             }
             else{
@@ -176,13 +176,13 @@ export default class DestacarClientes {
                         return
                     }
                     count ++
-                    console.log(`${count}º lugar: R$${cliente.nomeCliente} ${cliente.quantidadeConsumo} gastos`)
+                    console.log(`${count}º lugar: ${cliente.nomeCliente} - R$${cliente.quantidadeConsumo} gastos`)
                 })
             }
         }
         else {
             listaOrdenada.forEach(cliente =>{
-                console.log(`${cliente.nomeCliente} ${cliente.quantidadeConsumo} consumidos`)
+                console.log(`${cliente.nomeCliente} - ${cliente.quantidadeConsumo} consumidos`)
             })
         }
     }
