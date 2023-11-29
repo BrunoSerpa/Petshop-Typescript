@@ -76,7 +76,7 @@ const ConsumirServicoComponent: React.FC<{ clientes: Array<Cliente>, servicos: A
         >
           <option
             style={{display: 'none'}}
-          >Escolha o dono</option>
+          >Escolha o pet</option>
           {formData.cliente.getPets.map((pet, index) => (
             <option value={index}>{pet.getNome}</option>
           ))}
