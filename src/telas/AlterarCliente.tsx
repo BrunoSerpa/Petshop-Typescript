@@ -9,27 +9,27 @@ import Pet from '../modelo/pet';
 
 const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoCliente: number }> = ({ clientes, posicaoCliente }) => {
   const formatCPF = (cpf: string): string => {
-      return cpf
-        .replace(/\D/g, "")
-        .replace(/(\d{3})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d{1,2})/, "$1-$2");
+    return cpf
+      .replace(/\D/g, "")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1,2})/, "$1-$2");
   };
   const formatRG = (rg: string): string => {
-      return rg
-        .replace(/\D/g, "")
-        .replace(/(\d{2})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d{1})/, "$1/$2");
+    return rg
+      .replace(/\D/g, "")
+      .replace(/(\d{2})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1})/, "$1/$2");
   };
   const formatTelefone = (telefone: string): string => {
-      return telefone
-        .replace(/\D/g, "")
-        .replace(/(\d{2})(\d)/, "($1) $2")
-        .replace(/(\d{4,5})(\d{4})/, "$1-$2");
+    return telefone
+      .replace(/\D/g, "")
+      .replace(/(\d{2})(\d)/, "($1) $2")
+      .replace(/(\d{4,5})(\d{4})/, "$1-$2");
   };
-  const telefonesFormatados:Array<string> = []
-  clientes[posicaoCliente].getTelefones.map(telefone => 
+  const telefonesFormatados: Array<string> = []
+  clientes[posicaoCliente].getTelefones.map(telefone =>
     telefonesFormatados.push(formatTelefone(`${telefone.getDdd}${telefone.getNumero}`)))
   const [formData, setFormData] = useState({
     nome: clientes[posicaoCliente].nome,
@@ -80,15 +80,15 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
   const handlechangeTelefone = (index: number, event: ChangeEvent<HTMLInputElement>): void => {
     const inputTelefone = event.target.value;
     const formattedTelefone = formatTelefone(inputTelefone);
-    handleInputChange('listaTelefonica', formData.listaTelefonica.map((telefone, i)  => (i === index ? formattedTelefone : telefone)));
+    handleInputChange('listaTelefonica', formData.listaTelefonica.map((telefone, i) => (i === index ? formattedTelefone : telefone)));
   };
   const adicionandoTelefone = (): void => {
-    handleInputChange('listaTelefonica',[...formData.listaTelefonica,""]);
+    handleInputChange('listaTelefonica', [...formData.listaTelefonica, ""]);
   };
   const removendoTelefone = (index: number): void => {
     const listaTelefonicaAtualizada = [...formData.listaTelefonica];
     listaTelefonicaAtualizada.splice(index, 1)
-    handleInputChange('listaTelefonica',listaTelefonicaAtualizada);
+    handleInputChange('listaTelefonica', listaTelefonicaAtualizada);
   };
   const handleAddPetField = (): void => {
     handleInputChange('listaPets', [...formData.listaPets, new Pet("", "", "", "")]);
@@ -97,10 +97,22 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
     const updatedPetList = [...formData.listaPets];
     updatedPetList.splice(index, 1);
     handleInputChange('listaPets', updatedPetList);
-  };
+  }
   const handlechangePetField = (index: number, field: keyof Pet, event: ChangeEvent<HTMLInputElement>): void => {
-    handleInputChange('listaPets', formData.listaPets.map((pet, i) => (i === index ? { ...pet, [field]: event.target.value } as Pet : pet)));
+    setFormData((prevData) => {
+      const updatedPets = prevData.listaPets.map((pet, i) => {
+        if (i === index) {
+          return { ...pet, [field]: event.target.value } as Pet;
+        }
+        return pet;
+      });
+
+      return { ...prevData, listaPets: updatedPets };
+    });
   };
+
+
+
   const alterandoCliente = new FuncoesCliente(clientes);
   const navigate = useNavigate();
   const handleAlterarCliente = (event: FormEvent): void => {
@@ -113,12 +125,14 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
     );
 
     dadosForm.setRgs = formData.listaRgs;
-    dadosForm.setTelefones = formData.listaTelefonica.map((telefone) => {
-      const novoTelefone = parseFloat(telefone);
-      const ddd = String(novoTelefone).substring(0, 2);
-      const num = String(novoTelefone).substring(2);
-      return new Telefone(ddd, num);
-    });
+    const listaFormatada: Array<Telefone> = []
+    formData.listaTelefonica.forEach((telefone) => {
+      const numeroLimpo = telefone.replace(/\D/g, '');
+      const ddd = String(numeroLimpo).substring(0, 2);
+      const num = String(numeroLimpo).substring(2);
+      listaFormatada.push(new Telefone(ddd, num));
+    })
+    dadosForm.setTelefones = listaFormatada
     dadosForm.setPets = formData.listaPets;
     clientes = alterandoCliente.alterarCliente(dadosForm, clientes[posicaoCliente].getCpf.getValor);
     navigate('/clientes');
@@ -137,6 +151,7 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
             className="form-control"
             type="text"
             placeholder="Nome"
+            required
             onChange={handleNomeChange}
             value={formData.nome}
           />
@@ -181,9 +196,8 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
             onChange={handleDateChanceCpf}
             id="dataEmissaoCPF"
           />
-        </div>
-        {formData.listaRgs.map((rg, index) => (
-          <div key={index} className="input-group mb-3">
+        </div>{formData.listaRgs.map((rg, index) => (
+          <div key={`rg-${index}`} className="input-group mb-3">
             <label htmlFor="valorCPF" className="input-group-text">
               Número do RG
             </label>
@@ -206,6 +220,7 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
               type="date"
               value={rg.getDataEmissao.toISOString().split("T")[0] || ""}
               onChange={(e) => handleDateChangeRG(index, e)}
+              required
             />
             {index > 0 && (
               <button
@@ -228,7 +243,7 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
           </button>
         </div>
         {formData.listaTelefonica.map((telefone, index) => (
-          <div key={index} className="input-group mb-3">
+          <div key={`telefone-${index}`} className="input-group mb-3">
             <label htmlFor="valorCPF" className="input-group-text">
               Número do Telefone
             </label>
@@ -264,7 +279,7 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
           </button>
         </div>
         {formData.listaPets.map((pet, index) => (
-          <div key={index} className="accordion mb-3" id={`petAccordion`}>
+          <div key={`pet-${index}`} className="accordion mb-3" id={`petAccordion`}>
             <div className="accordion-item">
               <h2 className="accordion-header">
                 <button
@@ -291,6 +306,7 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
               >
                 <div className="input-group mb-3">
                   <input
+                    required
                     aria-label={`Nome do Pet`}
                     aria-describedby="basic-addon1"
                     className="form-control"
@@ -304,6 +320,7 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
                   <div className="form-check form-check-inline">
                     <input
                       className="form-check-input"
+                      required
                       id={`inlineRadio1-${index}`}
                       name={`inlineRadioOptions-${index}`}
                       type="radio"
@@ -318,6 +335,7 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
                   <div className="form-check form-check-inline">
                     <input
                       className="form-check-input"
+                      required
                       id={`inlineRadio2-${index}`}
                       name={`inlineRadioOptions-${index}`}
                       type="radio"
@@ -336,6 +354,7 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
                     aria-describedby="basic-addon1"
                     className="form-control"
                     type="text"
+                    required
                     placeholder="Raça do pet"
                     onChange={(e) => handlechangePetField(index, "getRaca", e)}
                     value={pet.getRaca}
@@ -347,6 +366,7 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
                     aria-describedby="basic-addon1"
                     className="form-control"
                     type="text"
+                    required
                     placeholder="Tipo do pet"
                     onChange={(e) => handlechangePetField(index, "getTipo", e)}
                     value={pet.getTipo}
