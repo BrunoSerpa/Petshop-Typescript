@@ -76,8 +76,7 @@ const Navbar = () => {
                                 </span>
                                 <ul className="dropdown-menu">
                                     <li><Link to="/destacar-clientes" className="dropdown-item">Clientes</Link></li>
-                                    <li><Link to="/destacar-produtos" className="dropdown-item">Produtos</Link></li>
-                                    <li><Link to="/destacar-servicos" className="dropdown-item">Servicos</Link></li>
+                                    <li><Link to="/destacar-itens" className="dropdown-item">Produtos e Serviços</Link></li>
                                 </ul>
                             </li>
                         </ul>

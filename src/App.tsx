@@ -14,8 +14,6 @@ import ServicosComponent from './Telas/VisualizarServicos';
 import CadastrarServicosComponent from './Telas/CadastrarServico';
 import PetsComponent from './Telas/VisualizarPets';
 import DestacarClientesComponent from './Telas/DestaquesClientes';
-import DestacarProdutosComponent from './Telas/DestaquesProdutos';
-import DestacarServicosComponent from './Telas/DestaquesServicos';
 import ConsumirProdutoComponent from './Telas/ConsumirProdutos';
 import ConsumirServicoComponent from './Telas/ConsumirServicos';
 import Cliente from './modelo/cliente';
@@ -26,6 +24,7 @@ import Servico from './modelo/servico';
 import AlterarServicosComponent from './Telas/AlterarServico';
 import AlterarPetsComponent from './Telas/AlterarPet';
 import Navbar from './Telas/Navbar';
+import DestacarItensComponent from './Telas/DestaquesItens';
 
 export let empresa = new Empresa();
 let empresaTeste = new EmpresaTeste();  
@@ -60,8 +59,7 @@ function App() {
           <Route path="/alterar-servico/:index" element={<AlterarServicoWrapper   servicos={servicosState}/>}  />
           <Route path="/pets" element={<PetsComponent clientes={clientesState} setClientes={setClientes}/>} />
           <Route path="/destacar-clientes" element={<DestacarClientesComponent clientes={clientesState}/>}/>
-          <Route path="/destacar-produtos" element={<DestacarProdutosComponent/>}/>
-          <Route path="/destacar-servicos" element={<DestacarServicosComponent/>}/>
+          <Route path="/destacar-itens" element={<DestacarItensComponent clientes={clientesState}/>}/>
           <Route path="/consumir-produto" element={<ConsumirProdutoComponent clientes={clientesState} produtos={produtosState} setClientes={setClientes}/>} />
           <Route path="/consumir-servico" element={<ConsumirServicoComponent clientes={clientesState} servicos={servicosState} setClientes={setClientes}/>} />
           <Route path='*' element={<ClientesComponent clientes={clientesState} setClientes={setClientes}/>} />
