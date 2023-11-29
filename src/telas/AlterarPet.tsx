@@ -37,7 +37,7 @@ const AlterarPetsComponent: React.FC<{ clientes: Array<Cliente>, posicaoCliente:
     let clientesAntigos= clientes
     clientes = []
     clientesAntigos.forEach((cliente, index) =>{ 
-      if (index == posicaoCliente){
+      if (index === posicaoCliente){
         cliente.setPet(dadosForm, posicaoPet)
       }
       clientes.push(cliente)
