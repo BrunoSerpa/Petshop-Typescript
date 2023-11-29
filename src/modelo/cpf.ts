@@ -1,14 +1,7 @@
-export default class CPF {
-    private valor: string
-    private dataEmissao: Date
+import Documento from "./documento";
+
+export default class CPF extends Documento {
     constructor(valor: string, dataEmissao: Date) {
-        this.valor = valor
-        this.dataEmissao = dataEmissao
-    }
-    public get getValor(): string {
-        return this.valor
-    }
-    public get getDataEmissao(): Date {
-        return this.dataEmissao
+        super(valor, dataEmissao);
     }
 }

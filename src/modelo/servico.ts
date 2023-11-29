@@ -1,8 +1,7 @@
-export default class Servico {
-    public nome: string
-    public preco: number
-    constructor(nome: string, preco: number){
-        this.nome = nome
-        this.preco = preco
+import ItemVenda from "./itemVenda";
+
+export default class Servico extends ItemVenda {
+    constructor(nome: string, preco: number) {
+        super(nome, preco);
     }
 }
