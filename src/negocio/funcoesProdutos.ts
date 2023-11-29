@@ -7,7 +7,7 @@ export default class FuncoesProduto{
     }
     public cadastrarProduto(novoProduto: Produto): Array<Produto> {
         const produtoExistente = this.produtos.find(
-            (produto) => produto.nome === novoProduto.nome && produto.preco === novoProduto.preco
+            (produto) => produto.getNome === novoProduto.getNome && produto.getPreco === novoProduto.getPreco
         );
         if (!produtoExistente) {
             this.produtos.push(novoProduto);

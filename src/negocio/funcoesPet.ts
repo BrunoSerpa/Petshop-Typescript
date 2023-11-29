@@ -1,6 +1,5 @@
-import Cliente from "../modelo/cliente";
-import Pet from "../modelo/pet";
-
+import Cliente from "../modelo/cliente"
+import Pet from "../modelo/pet"
 
 export default class FuncoesPet {
     private clientes: Array<Cliente>

@@ -1,6 +1,6 @@
 import Cliente from "../modelo/cliente";
-import Servico from "../modelo/produto";
-import ServicoConsumido from "../modelo/servicoConsumidos";
+import Servico from "../modelo/servico";
+import ServicoConsumido from "../modelo/servicoConsumido";
 
 export default class ConsumirServico{
     private clientes: Array<Cliente>;

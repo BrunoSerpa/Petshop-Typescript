@@ -1,4 +1,5 @@
-import Cliente from "../modelo/cliente"
+import Cliente from "../modelo/cliente";
+
 export default class FuncoesCliente{
     private clientes: Array<Cliente>
     constructor(clientes: Array<Cliente>) {

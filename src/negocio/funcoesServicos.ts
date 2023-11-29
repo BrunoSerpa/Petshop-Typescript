@@ -7,7 +7,7 @@ export default class FuncoesServico{
     }
     public cadastrarServico(novoServico: Servico): Array<Servico> {
         const servicoExistente = this.servicos.find(
-            (servico) => servico.nome === novoServico.nome && servico.preco === novoServico.preco
+            (servico) => servico.getNome === novoServico.getNome && servico.getPreco === novoServico.getPreco
         );
         if (!servicoExistente) {
             this.servicos.push(novoServico);
