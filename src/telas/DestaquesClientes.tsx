@@ -1,31 +1,29 @@
-import React, { useState } from 'react';
-import Cliente from '../modelo/cliente';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DestacarClientes from '../negocio/destacarClientes';
-import ClienteConsumo from '../modelo/destaqueConsumo';
-
+import Cliente from '../modelo/cliente';
+import Destaque from '../modelo/destaque';
 const DestacarClientesComponent: React.FC<{ clientes: Array<Cliente> }> = ({ clientes }) => {
   const destacando = new DestacarClientes(clientes);
-  const [clientesDestaques, setClientesDestaques] = useState<Array<ClienteConsumo>>([]);
-  const [titulos, setTitulos] = useState<Array<string>>([]);
+  const [clientesDestaques, setClientesDestaques] = useState<Array<Destaque>>([]);
 
   function destacar(opcao: number) {
-    let hank: Array<ClienteConsumo>;
+    let escolha: Array<Destaque>;
     if (opcao === 1) {
-      hank = destacando.produtosQuantidade;
-      setTitulos(['',''])
-      setClientesDestaques(hank);
+      escolha = destacando.produtosQuantidade;
+      setClientesDestaques(escolha);
     }
     else if (opcao === 2) {
-      hank = destacando.produtosPreco;
-      setClientesDestaques(hank);
+      escolha = destacando.produtosPreco;
+      setClientesDestaques(escolha);
     }
     else if (opcao === 3) {
-      hank = destacando.servicosQuantidade;
-      setClientesDestaques(hank);
+      escolha = destacando.servicosQuantidade;
+      setClientesDestaques(escolha);
     }
     else if (opcao === 4) {
-      hank = destacando.servicosPreco;
-      setClientesDestaques(hank);
+      escolha = destacando.servicosPreco;
+      setClientesDestaques(escolha);
     }
   }
 
@@ -72,11 +70,11 @@ const DestacarClientesComponent: React.FC<{ clientes: Array<Cliente> }> = ({ cli
             </tr>
           </thead>
           <tbody>
-            {clientesDestaques.map((cliente, index) => (
+            {clientesDestaques.map((destaque, index) => (
               <tr key={`${index}`}>
                 <td>{index+1}</td>
-                <td>{cliente.nomeDestacado}</td>
-                <td>{cliente.quantidadeDestacado}</td>
+                <td>{destaque.getNome}</td>
+                <td>{destaque.getQuantidade}</td>
               </tr>
               ))}
           </tbody>

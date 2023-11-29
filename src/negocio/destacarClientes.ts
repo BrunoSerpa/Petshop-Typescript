@@ -1,68 +1,69 @@
-import Cliente from "../modelo/cliente";
-import ClienteConsumo from "../modelo/destaqueConsumo";
+import Cliente from "../modelo/cliente"
+import Destaque from "../modelo/destaque"
 
 export default class DestacarClientes {
     private clientes: Array<Cliente>
     constructor(clientes: Array<Cliente>) {
         this.clientes = clientes
     }
-    public get servicosQuantidade(): Array<ClienteConsumo>{
-        let listaClientes: Array<ClienteConsumo> = []
+    public get servicosQuantidade(): Array<Destaque>{
+        let listaClientes: Array<Destaque> = []
         this.clientes.forEach(cliente =>
-            listaClientes.push(new ClienteConsumo(
-                `${cliente.nomeSocial} (${cliente.nome})`,
+            listaClientes.push(new Destaque(
+                cliente.nomeSocial? `${cliente.nomeSocial} (${cliente.nome})`: `${cliente.nome}`,
                 cliente.getServicosConsumidos.length
             ))
         )
         listaClientes = this.listaOrdenada(listaClientes, 10)
         return listaClientes
     }
-    public get servicosPreco(): Array<ClienteConsumo>{
-        let listaClientes: Array<ClienteConsumo> = []
+    public get servicosPreco(): Array<Destaque>{
+        let listaClientes: Array<Destaque> = []
         this.clientes.forEach(cliente =>{
-            let quantidadeGasta:number = 0
-            cliente.getServicosConsumidos.forEach(servico => quantidadeGasta += servico.servicoConsumido.preco)
-            listaClientes.push(new ClienteConsumo(
-                `${cliente.nomeSocial} (${cliente.nome})`,
-                quantidadeGasta
-            ))
+            const dadosCliente = new Destaque(
+                cliente.nomeSocial? `${cliente.nomeSocial} (${cliente.nome})`: `${cliente.nome}`,
+                0
+            )
+            cliente.getServicosConsumidos.forEach(servico =>
+                dadosCliente.SomaQuantidadeDestacado = servico.itemConsumido.getPreco
+            )
+            listaClientes.push(dadosCliente)
         })
         listaClientes = this.listaOrdenada(listaClientes, 5)
         return listaClientes
-
     }
-    public get produtosQuantidade(): Array<ClienteConsumo>{
-        let listaClientes: Array<ClienteConsumo> = []
+    public get produtosQuantidade(): Array<Destaque>{
+        let listaClientes: Array<Destaque> = []
         this.clientes.forEach(cliente =>
-            listaClientes.push(new ClienteConsumo(
-                `${cliente.nomeSocial} (${cliente.nome})`,
+            listaClientes.push(new Destaque(
+                cliente.nomeSocial? `${cliente.nomeSocial} (${cliente.nome})`: `${cliente.nome}`,
                 cliente.getProdutosConsumidos.length
             ))
         )
         listaClientes = this.listaOrdenada(listaClientes, 10)
         return listaClientes
     }
-    public get produtosPreco(): Array<ClienteConsumo>{
-        let listaClientes: Array<ClienteConsumo> = []
+    public get produtosPreco(): Array<Destaque>{
+        let listaClientes: Array<Destaque> = []
         this.clientes.forEach(cliente =>{
-            let quantidadeGasta:number = 0
-            cliente.getProdutosConsumidos.forEach(produto =>
-                quantidadeGasta = quantidadeGasta + produto.produtoConsumido.preco
+            const dadosCliente = new Destaque(
+                cliente.nomeSocial? `${cliente.nomeSocial} (${cliente.nome})`: `${cliente.nome}`,
+                0
             )
-            listaClientes.push(new ClienteConsumo(
-                `${cliente.nomeSocial} (${cliente.nome})`,
-                quantidadeGasta
-            ))
+            cliente.getProdutosConsumidos.forEach(servico =>
+                dadosCliente.SomaQuantidadeDestacado = servico.itemConsumido.getPreco
+            )
+            listaClientes.push(dadosCliente)
         })
         listaClientes = this.listaOrdenada(listaClientes, 5)
         return listaClientes
     }
-    public listaOrdenada(listaSelecionada: Array<ClienteConsumo>, quantPodio: number): Array<ClienteConsumo> {
-        let lista: Array<ClienteConsumo>;
+    public listaOrdenada(listaSelecionada: Array<Destaque>, quantPodio: number): Array<Destaque> {
+        let lista: Array<Destaque>;
         lista = listaSelecionada;
-        let listaOrdenada: Array<ClienteConsumo> = [];
+        let listaOrdenada: Array<Destaque> = [];
         const mapped = lista.map((v, i) => {
-          return { i, value: v.quantidadeDestacado };
+          return { i, value: v.getQuantidade };
         });
         mapped.sort((a, b) => {
           if (a.value < b.value) {
@@ -78,7 +79,7 @@ export default class DestacarClientes {
         let count: number = 0;
         listaOrdenada.forEach((cliente) => {
           if (count >= quantPodio) {
-            return; // Retorna sem fazer nada quando atingir a quantidade desejada
+            return;
           }
           listaSelecionada.push(cliente);
           count++;
