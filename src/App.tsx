@@ -27,7 +27,7 @@ import Navbar from './Telas/Navbar';
 import DestacarItensComponent from './Telas/DestaquesItens';
 
 export let empresa = new Empresa();
-let empresaTeste = new EmpresaTeste();  
+let empresaTeste = new EmpresaTeste();
 const clientesIniciais = empresaTeste.clientesEmpresaTeste();
 const produtosIniciais = empresaTeste.produtosEmpresaTeste();
 const servicosIniciais = empresaTeste.servicosEmpresaTeste();
@@ -40,29 +40,29 @@ function App() {
   const [clientesState, setClientes] = useState(clientesIniciais);
   const [produtosState, setProdutos] = useState(produtosIniciais);
   const [servicosState, setServicos] = useState(servicosIniciais);
-  
+
   return (
     <div className="App">
       <Router>
         <Navbar />
         <Routes>
-          <Route index element={<ClientesComponent clientes={clientesState} setClientes={setClientes}/>} />
+          <Route index element={<ClientesComponent clientes={clientesState} setClientes={setClientes} />} />
           <Route path="/cadastrar-cliente" element={<CadastrarClienteComponent clientes={clientesState} />} />
-          <Route path="/alterar-cliente/:index" element={<AlterarClienteWrapper clientes={clientesState}/>} />
-          <Route path="/cadastrar-pet" element={<CadastrarPetsComponent clientes={clientesState}/>} />
+          <Route path="/alterar-cliente/:index" element={<AlterarClienteWrapper clientes={clientesState} />} />
+          <Route path="/cadastrar-pet" element={<CadastrarPetsComponent clientes={clientesState} />} />
           <Route path="/alterar-pet/:index" element={<AlterarPetWrapper clientes={clientesState} />} />
-          <Route path="/produtos" element={<ProdutosComponent produtos={produtosState} setProdutos={setProdutos}/>} />
-          <Route path="/cadastrar-produto" element={<CadastrarProdutosComponent produtos={produtosState}/>} />
+          <Route path="/produtos" element={<ProdutosComponent produtos={produtosState} setProdutos={setProdutos} />} />
+          <Route path="/cadastrar-produto" element={<CadastrarProdutosComponent produtos={produtosState} />} />
           <Route path="/alterar-produto/:index" element={<AlterarProdutoWrapper produtos={produtosState} />} />
-          <Route path="/servicos" element={<ServicosComponent servicos={servicosState} setServicos={setServicos}/>}/>
-          <Route path="/cadastrar-servico" element={<CadastrarServicosComponent servicos={servicosState}/>}  />
-          <Route path="/alterar-servico/:index" element={<AlterarServicoWrapper   servicos={servicosState}/>}  />
-          <Route path="/pets" element={<PetsComponent clientes={clientesState} setClientes={setClientes}/>} />
-          <Route path="/destacar-clientes" element={<DestacarClientesComponent clientes={clientesState}/>}/>
-          <Route path="/destacar-itens" element={<DestacarItensComponent clientes={clientesState}/>}/>
-          <Route path="/consumir-produto" element={<ConsumirProdutoComponent clientes={clientesState} produtos={produtosState} setClientes={setClientes}/>} />
-          <Route path="/consumir-servico" element={<ConsumirServicoComponent clientes={clientesState} servicos={servicosState} setClientes={setClientes}/>} />
-          <Route path='*' element={<ClientesComponent clientes={clientesState} setClientes={setClientes}/>} />
+          <Route path="/servicos" element={<ServicosComponent servicos={servicosState} setServicos={setServicos} />} />
+          <Route path="/cadastrar-servico" element={<CadastrarServicosComponent servicos={servicosState} />} />
+          <Route path="/alterar-servico/:index" element={<AlterarServicoWrapper servicos={servicosState} />} />
+          <Route path="/pets" element={<PetsComponent clientes={clientesState} setClientes={setClientes} />} />
+          <Route path="/destacar-clientes" element={<DestacarClientesComponent clientes={clientesState} />} />
+          <Route path="/destacar-itens" element={<DestacarItensComponent clientes={clientesState} />} />
+          <Route path="/consumir-produto" element={<ConsumirProdutoComponent clientes={clientesState} produtos={produtosState} setClientes={setClientes} />} />
+          <Route path="/consumir-servico" element={<ConsumirServicoComponent clientes={clientesState} servicos={servicosState} setClientes={setClientes} />} />
+          <Route path='*' element={<ClientesComponent clientes={clientesState} setClientes={setClientes} />} />
         </Routes>
       </Router>
     </div>
@@ -82,16 +82,16 @@ const AlterarProdutoWrapper = ({ produtos }: { produtos: Array<Produto> }) => {
   const { index } = useParams();
   if (index) {
     const indexInt = parseInt(index, 10);
-    return <AlterarProdutosComponent produtos={produtos} posicaoProduto={indexInt}/>;
+    return <AlterarProdutosComponent produtos={produtos} posicaoProduto={indexInt} />;
   } else {
     return <Navigate to="/produtos" />;
   }
-};  
+};
 const AlterarServicoWrapper = ({ servicos }: { servicos: Array<Servico> }) => {
   const { index } = useParams();
   if (index) {
     const indexInt = parseInt(index, 10);
-    return <AlterarServicosComponent servicos={servicos} posicaoServico={indexInt}/>;
+    return <AlterarServicosComponent servicos={servicos} posicaoServico={indexInt} />;
   } else {
     return <Navigate to="/servicos" />;
   }

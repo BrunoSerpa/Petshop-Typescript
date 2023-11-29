@@ -17,12 +17,12 @@ const CadastrarServicosComponent: React.FC<{ servicos: Array<Servico> }> = ({ se
   const handleCentavosChance = (event: ChangeEvent<HTMLInputElement>): void => {
     setCentavos(Number(event.target.value));
   };
-  
+
   const cadastrandoServicos = new FuncoesServico(servicos)
   const navigate = useNavigate();
   const handleCadastrar = (event: FormEvent): void => {
     event.preventDefault();
-    const dadosForm = new Servico(nome, preco+centavos/100);
+    const dadosForm = new Servico(nome, preco + centavos / 100);
     servicos = cadastrandoServicos.cadastrarServico(dadosForm);
     navigate('/servicos');
   }

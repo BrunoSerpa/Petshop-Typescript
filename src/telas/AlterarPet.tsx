@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Cliente from "../modelo/cliente";
 import Pet from "../modelo/pet";
 
-const AlterarPetsComponent: React.FC<{ clientes: Array<Cliente>, posicaoCliente: number, posicaoPet: number }> = ({clientes,  posicaoCliente, posicaoPet}) => {
+const AlterarPetsComponent: React.FC<{ clientes: Array<Cliente>, posicaoCliente: number, posicaoPet: number }> = ({ clientes, posicaoCliente, posicaoPet }) => {
   const [formData, setFormData] = useState({
     nome: clientes[posicaoCliente].getPets[posicaoPet].getNome,
     genero: clientes[posicaoCliente].getPets[posicaoPet].getGenero,
@@ -32,12 +32,12 @@ const AlterarPetsComponent: React.FC<{ clientes: Array<Cliente>, posicaoCliente:
     handleInputChange('tipo', event.target.value);
   };
   const navigate = useNavigate();
-  const handleAlterarPets = (event: FormEvent): void =>{
+  const handleAlterarPets = (event: FormEvent): void => {
     event.preventDefault();
-    let clientesAntigos= clientes
+    let clientesAntigos = clientes
     clientes = []
-    clientesAntigos.forEach((cliente, index) =>{ 
-      if (index === posicaoCliente){
+    clientesAntigos.forEach((cliente, index) => {
+      if (index === posicaoCliente) {
         cliente.setPet(dadosForm, posicaoPet)
       }
       clientes.push(cliente)
@@ -67,7 +67,7 @@ const AlterarPetsComponent: React.FC<{ clientes: Array<Cliente>, posicaoCliente:
         {/* Seção do Gênero */}
         <div className="input-group mb-3">
           <div className="form-check form-check-inline">
-              <input
+            <input
               className="form-check-input"
               name={`inlineRadioOptions`}
               type="radio"

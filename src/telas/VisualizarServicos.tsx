@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Servico from '../modelo/servico';
 import FuncoesServico from '../negocio/funcoesServicos';
 
-const ServicosComponent: React.FC<{servicos: Array<Servico>, setServicos: React.Dispatch<React.SetStateAction<Array<Servico>>>
+const ServicosComponent: React.FC<{
+  servicos: Array<Servico>, setServicos: React.Dispatch<React.SetStateAction<Array<Servico>>>
 }> = ({ servicos, setServicos }) => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -13,7 +14,7 @@ const ServicosComponent: React.FC<{servicos: Array<Servico>, setServicos: React.
     navigate(`/alterar-servico/${index}`);
   };
 
-  const handleNavegarCadastro = (): void => { 
+  const handleNavegarCadastro = (): void => {
     navigate('/cadastrar-servico');
   };
   const handleDeletarServico = (idServico: number): void => {
@@ -58,7 +59,7 @@ const ServicosComponent: React.FC<{servicos: Array<Servico>, setServicos: React.
             </tr>
           ))}
         </tbody>
-        </table>
+      </table>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Produto from '../modelo/produto';
 import FuncoesProduto from '../negocio/funcoesProdutos';
 
-const AlterarProdutosComponent:  React.FC<{ produtos: Array<Produto>, posicaoProduto: number } > = ({ produtos , posicaoProduto }) => {
+const AlterarProdutosComponent: React.FC<{ produtos: Array<Produto>, posicaoProduto: number }> = ({ produtos, posicaoProduto }) => {
   const [nome, setNome] = useState(produtos[posicaoProduto].getNome);
   const [preco, setPreco] = useState(produtos[posicaoProduto].getPreco);
   const [centavos, setCentavos] = useState(Number());
@@ -16,12 +16,12 @@ const AlterarProdutosComponent:  React.FC<{ produtos: Array<Produto>, posicaoPro
   const handleCentavosChance = (event: ChangeEvent<HTMLInputElement>): void => {
     setCentavos(Number(event.target.value));
   };
-  
+
   const cadastrandoProdutos = new FuncoesProduto(produtos)
   const navigate = useNavigate();
   const handleAlterar = (event: FormEvent): void => {
     event.preventDefault();
-    const dadosForm = new Produto(nome, (preco+centavos/100));
+    const dadosForm = new Produto(nome, (preco + centavos / 100));
     produtos = cadastrandoProdutos.alterarProduto(dadosForm, posicaoProduto);
     navigate('/produtos');
   }

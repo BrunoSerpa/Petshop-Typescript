@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import DestacarClientes from '../negocio/destacarClientes';
 import Cliente from '../modelo/cliente';
 import Destaque from '../modelo/destaque';
@@ -72,14 +71,14 @@ const DestacarClientesComponent: React.FC<{ clientes: Array<Cliente> }> = ({ cli
           <tbody>
             {clientesDestaques.map((destaque, index) => (
               <tr key={`${index}`}>
-                <td>{index+1}</td>
+                <td>{index + 1}</td>
                 <td>{destaque.getNome}</td>
                 <td>{destaque.getQuantidade}</td>
               </tr>
-              ))}
+            ))}
           </tbody>
         </table>
-        </>
+      </>
       )}
     </div>
   );

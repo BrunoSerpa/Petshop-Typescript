@@ -17,12 +17,12 @@ const CadastrarProdutosComponent: React.FC<{ produtos: Array<Produto> }> = ({ pr
   const handleCentavosChance = (event: ChangeEvent<HTMLInputElement>): void => {
     setCentavos(Number(event.target.value));
   };
-  
+
   const cadastrandoProdutos = new FuncoesProduto(produtos)
   const navigate = useNavigate();
   const handleCadastrar = (event: FormEvent): void => {
     event.preventDefault();
-    const dadosForm = new Produto(nome, preco+centavos/100);
+    const dadosForm = new Produto(nome, preco + centavos / 100);
     produtos = cadastrandoProdutos.cadastrarProduto(dadosForm);
     navigate('/produtos');
   }

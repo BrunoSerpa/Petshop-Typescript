@@ -3,7 +3,8 @@ import Produto from '../modelo/produto';
 import { useNavigate } from 'react-router-dom';
 import FuncoesProduto from '../negocio/funcoesProdutos';
 
-const ProdutosComponent: React.FC<{produtos: Array<Produto>, setProdutos: React.Dispatch<React.SetStateAction<Array<Produto>>>
+const ProdutosComponent: React.FC<{
+  produtos: Array<Produto>, setProdutos: React.Dispatch<React.SetStateAction<Array<Produto>>>
 }> = ({ produtos, setProdutos }) => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -13,7 +14,7 @@ const ProdutosComponent: React.FC<{produtos: Array<Produto>, setProdutos: React.
     navigate(`/alterar-produto/${index}`);
   };
 
-  const handleNavegarCadastro = (): void => { 
+  const handleNavegarCadastro = (): void => {
     navigate('/cadastrar-produto');
   };
   const handleDeletarProduto = (idProduto: number): void => {
@@ -58,7 +59,7 @@ const ProdutosComponent: React.FC<{produtos: Array<Produto>, setProdutos: React.
             </tr>
           ))}
         </tbody>
-        </table>
+      </table>
     </div>
   );
 }

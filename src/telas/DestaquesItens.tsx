@@ -72,14 +72,14 @@ const DestacarItensComponent: React.FC<{ clientes: Array<Cliente> }> = ({ client
           <tbody>
             {clientesDestaques.map((destaque, index) => (
               <tr key={`${index}`}>
-                <td>{index+1}</td>
+                <td>{index + 1}</td>
                 <td>{destaque.getNome}</td>
                 <td>{destaque.getQuantidade}</td>
               </tr>
-              ))}
+            ))}
           </tbody>
         </table>
-        </>
+      </>
       )}
     </div>
   );

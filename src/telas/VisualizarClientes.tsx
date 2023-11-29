@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Cliente from '../modelo/cliente';
 import FuncoesCliente from '../negocio/funcoesCliente';
 
-const ClientesComponent: React.FC<{clientes: Array<Cliente>, setClientes: React.Dispatch<React.SetStateAction<Array<Cliente>>>
+const ClientesComponent: React.FC<{
+  clientes: Array<Cliente>, setClientes: React.Dispatch<React.SetStateAction<Array<Cliente>>>
 }> = ({ clientes, setClientes }) => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -13,7 +14,7 @@ const ClientesComponent: React.FC<{clientes: Array<Cliente>, setClientes: React.
     navigate(`/alterar-cliente/${index}`);
   };
 
-  const handleNavegarCadastro = (): void => { 
+  const handleNavegarCadastro = (): void => {
     navigate('/cadastrar-cliente');
   };
   const handleDeletarCliente = (cpfValor: string): void => {
@@ -72,10 +73,10 @@ const ClientesComponent: React.FC<{clientes: Array<Cliente>, setClientes: React.
                             <div className="col">
                               {cliente.getCpf.getDataEmissao.getDay()}/{cliente.getCpf.getDataEmissao.getDate()}/{cliente.getCpf.getDataEmissao.getFullYear()}
                             </div>
-                            {cliente.getRgs.map((rg,index)=>(
+                            {cliente.getRgs.map((rg, index) => (
                               <div className="row align-items-end" key={index}>
                                 <div className="col">
-                                  {index+1}º RG
+                                  {index + 1}º RG
                                 </div>
                                 <div className="col">
                                   {rg.getValor}
@@ -85,10 +86,10 @@ const ClientesComponent: React.FC<{clientes: Array<Cliente>, setClientes: React.
                                 </div>
                               </div>
                             ))}
-                            {cliente.getTelefones.map((telefone,index)=>(
+                            {cliente.getTelefones.map((telefone, index) => (
                               <div className="row align-items-end" key={index}>
                                 <div className="col">
-                                  {index+1}º Telefone
+                                  {index + 1}º Telefone
                                 </div>
                                 <div className="col">
                                   ({telefone.getDdd}){telefone.getNumero}
@@ -97,10 +98,10 @@ const ClientesComponent: React.FC<{clientes: Array<Cliente>, setClientes: React.
                                 </div>
                               </div>
                             ))}
-                            {cliente.getPets.map((pet, index)=>(
+                            {cliente.getPets.map((pet, index) => (
                               <div className="row align-items-end" key={index}>
                                 <div className="col">
-                                  {index+1}º Pet
+                                  {index + 1}º Pet
                                 </div>
                                 <div className="col">
                                   {pet.getNome} ({pet.getGenero})
@@ -118,13 +119,13 @@ const ClientesComponent: React.FC<{clientes: Array<Cliente>, setClientes: React.
                 </div>
               </th>
               <th scope="col">
-                  <button
-                    className="btn btn-warning"
-                    onClick={() => handleAlterarCliente(index)}
-                  >Alterar</button>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleDeletarCliente(cliente.getCpf.getValor)}>Excluir</button>
+                <button
+                  className="btn btn-warning"
+                  onClick={() => handleAlterarCliente(index)}
+                >Alterar</button>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handleDeletarCliente(cliente.getCpf.getValor)}>Excluir</button>
               </th>
               <th scope="col">
               </th>

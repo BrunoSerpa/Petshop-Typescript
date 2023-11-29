@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Servico from '../modelo/servico';
 import FuncoesServico from '../negocio/funcoesServicos';
 
-const AlterarServicosComponent:  React.FC<{ servicos: Array<Servico>, posicaoServico: number } > = ({ servicos , posicaoServico }) => {
+const AlterarServicosComponent: React.FC<{ servicos: Array<Servico>, posicaoServico: number }> = ({ servicos, posicaoServico }) => {
   const [nome, setNome] = useState(servicos[posicaoServico].getNome);
   const [preco, setPreco] = useState(servicos[posicaoServico].getPreco);
   const [centavos, setCentavos] = useState(Number());
@@ -16,12 +16,12 @@ const AlterarServicosComponent:  React.FC<{ servicos: Array<Servico>, posicaoSer
   const handleCentavosChance = (event: ChangeEvent<HTMLInputElement>): void => {
     setCentavos(Number(event.target.value));
   };
-  
+
   const cadastrandoServicos = new FuncoesServico(servicos)
   const navigate = useNavigate();
   const handleAlterar = (event: FormEvent): void => {
     event.preventDefault();
-    const dadosForm = new Servico(nome, (preco+centavos/100));
+    const dadosForm = new Servico(nome, (preco + centavos / 100));
     servicos = cadastrandoServicos.alterarServico(dadosForm, posicaoServico);
     navigate('/servicos');
   }

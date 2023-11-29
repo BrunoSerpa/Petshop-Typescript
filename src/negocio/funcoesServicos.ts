@@ -1,6 +1,6 @@
 import Servico from "../modelo/servico";
 
-export default class FuncoesServico{
+export default class FuncoesServico {
     private servicos: Array<Servico>
     constructor(servicos: Array<Servico>) {
         this.servicos = servicos
@@ -14,17 +14,17 @@ export default class FuncoesServico{
         }
         return this.servicos;
     }
-    public alterarServico(servicoAlterado: Servico, posicaoProduto: number): Array<Servico>{
-        this.servicos.forEach((servico, index) =>{
-            if (index === posicaoProduto){
+    public alterarServico(servicoAlterado: Servico, posicaoProduto: number): Array<Servico> {
+        this.servicos.forEach((servico, index) => {
+            if (index === posicaoProduto) {
                 this.servicos[index] = servicoAlterado
-                return this.servicos   
+                return this.servicos
             }
         })
         return this.servicos
     }
-    public deletarServico(servicoEscolhido: Servico): Array<Servico>{
-        this.servicos=this.servicos.filter((servico) => servico !== servicoEscolhido)
+    public deletarServico(servicoEscolhido: Servico): Array<Servico> {
+        this.servicos = this.servicos.filter((servico) => servico !== servicoEscolhido)
         return this.servicos
     }
 }

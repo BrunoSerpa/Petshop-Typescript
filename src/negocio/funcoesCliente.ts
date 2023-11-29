@@ -1,6 +1,6 @@
 import Cliente from "../modelo/cliente";
 
-export default class FuncoesCliente{
+export default class FuncoesCliente {
     private clientes: Array<Cliente>
     constructor(clientes: Array<Cliente>) {
         this.clientes = clientes
@@ -14,17 +14,17 @@ export default class FuncoesCliente{
         }
         return this.clientes;
     }
-    public alterarCliente(clienteAlterado: Cliente, cpfValor: string): Array<Cliente>{
+    public alterarCliente(clienteAlterado: Cliente, cpfValor: string): Array<Cliente> {
         this.clientes.forEach((cliente, index) => {
-            if (cliente.getCpf.getValor === cpfValor){
+            if (cliente.getCpf.getValor === cpfValor) {
                 this.clientes[index] = clienteAlterado;
                 return this.clientes
             }
         })
         return this.clientes
     }
-    public deletarCliente(cpfCliente: string): Array<Cliente>{
-        this.clientes=this.clientes.filter((cliente) => cliente.getCpf.getValor !== cpfCliente)
+    public deletarCliente(cpfCliente: string): Array<Cliente> {
+        this.clientes = this.clientes.filter((cliente) => cliente.getCpf.getValor !== cpfCliente)
         return this.clientes
     }
 }

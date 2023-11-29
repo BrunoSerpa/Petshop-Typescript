@@ -22,7 +22,7 @@ export default class EmpresaTeste {
         this.clientes.push(cliente1);
 
         const cliente2 = new Cliente('Maria Pereira', 'Maria', new CPF('98765432109', new Date(2001, 2, 2))); // Corrigi o mês
-        cliente2.getRgs.push(new RG ('98765', new Date(2006, 2, 2)));
+        cliente2.getRgs.push(new RG('98765', new Date(2006, 2, 2)));
         cliente2.getTelefones.push(new Telefone('11', '555555555'));
         cliente2.getPets.push(new Pet('Buddy', 'Golden Retriever', 'Macho', 'Cachorro'));
         this.clientes.push(cliente2);
@@ -80,27 +80,27 @@ export default class EmpresaTeste {
 
         return this.clientes;
     }
-    produtosEmpresaTeste(){
+    produtosEmpresaTeste() {
         const produto1 = new Produto("Shampoo", 10.00)
         this.produtos.push(produto1)
-        
-        const produto2 = new Produto("Condicionador",15.00)
+
+        const produto2 = new Produto("Condicionador", 15.00)
         this.produtos.push(produto2)
-        
-        const produto3 = new Produto("Pente",12.00)
+
+        const produto3 = new Produto("Pente", 12.00)
         this.produtos.push(produto3)
-        
-        const produto4 = new Produto("Petisco",5.00)
+
+        const produto4 = new Produto("Petisco", 5.00)
         this.produtos.push(produto4)
-        
-        const produto5 = new Produto("Gravata",5.50)
+
+        const produto5 = new Produto("Gravata", 5.50)
         this.produtos.push(produto5)
 
-        const produto6 = new Produto("Coleira",50.00)
+        const produto6 = new Produto("Coleira", 50.00)
         this.produtos.push(produto6)
         return this.produtos
     }
-    servicosEmpresaTeste(){
+    servicosEmpresaTeste() {
         const servico1 = new Servico("Banho e Tosa", 30.00);
         this.servicos.push(servico1);
 
@@ -135,8 +135,8 @@ export default class EmpresaTeste {
         return this.servicos;
     }
 
-    produtosEServicosConsumidosTeste(){
-        function getDataAleatoria(dataInicial:Date, dataFinal:Date): Date {
+    produtosEServicosConsumidosTeste() {
+        function getDataAleatoria(dataInicial: Date, dataFinal: Date): Date {
             const dataAleatoria = new Date(dataInicial.getTime() + Math.random() * (dataFinal.getTime() - dataInicial.getTime()));
             const timezoneOffset = dataAleatoria.getTimezoneOffset();
             dataAleatoria.setMinutes(dataAleatoria.getMinutes() - timezoneOffset);
@@ -144,11 +144,11 @@ export default class EmpresaTeste {
         }
 
         for (let i = 0; i < 50; i++) {
-            let listaPets:Array<Pet> = []
+            let listaPets: Array<Pet> = []
             this.clientes.map(cliente => cliente.getPets.map(pet => listaPets.push(pet)));
-            const petAleatorio:number = Math.floor(Math.random() * listaPets.length);
-            const servicoAleatorio:number = Math.floor(Math.random() * this.servicos.length);
-            const dataAleatoria = getDataAleatoria(new Date(2023,1,1), new Date())
+            const petAleatorio: number = Math.floor(Math.random() * listaPets.length);
+            const servicoAleatorio: number = Math.floor(Math.random() * this.servicos.length);
+            const dataAleatoria = getDataAleatoria(new Date(2023, 1, 1), new Date())
 
             const compraServico = new ServicoConsumido(this.servicos[servicoAleatorio], dataAleatoria, listaPets[petAleatorio]);
             const clienteCompra = this.clientes.find(clienteData => clienteData.getPets.includes(listaPets[petAleatorio]));
@@ -157,11 +157,11 @@ export default class EmpresaTeste {
         }
 
         for (let i = 0; i < 50; i++) {
-            let listaPets:Array<Pet> = []
+            let listaPets: Array<Pet> = []
             this.clientes.map(cliente => cliente.getPets.map(pet => listaPets.push(pet)));
-            const petAleatorio:number = Math.floor(Math.random() * listaPets.length);
-            const produtoAleatorio:number = Math.floor(Math.random() * this.produtos.length);
-            const dataAleatoria = getDataAleatoria(new Date(2023,1,1), new Date())
+            const petAleatorio: number = Math.floor(Math.random() * listaPets.length);
+            const produtoAleatorio: number = Math.floor(Math.random() * this.produtos.length);
+            const dataAleatoria = getDataAleatoria(new Date(2023, 1, 1), new Date())
 
             const compraProduto = new ProdutoConsumido(this.produtos[produtoAleatorio], dataAleatoria, listaPets[petAleatorio]);
             const clienteCompra = this.clientes.find(clienteData => clienteData.getPets.includes(listaPets[petAleatorio]));

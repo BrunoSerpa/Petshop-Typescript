@@ -18,117 +18,117 @@ const CadastrarClienteComponent: React.FC<{ clientes: Array<Cliente> }> = ({ cli
   const [listaPets, setListaPets] = useState([new Pet("", "", "", "")]);
   const handleNomeChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setNome(event.target.value);
-};
+  };
 
-const handleNomeSocialChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleNomeSocialChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setNomeSocial(event.target.value);
-};
+  };
 
-const handleToggleNomeSocial = (): void => {
+  const handleToggleNomeSocial = (): void => {
     setHasNomeSocial((prevHasNomeSocial) => !prevHasNomeSocial);
-};
+  };
 
-const formatCPF = (cpf: string): string => {
+  const formatCPF = (cpf: string): string => {
     return cpf
-        .replace(/\D/g, "")
-        .replace(/(\d{3})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d{1,2})/, "$1-$2");
-};
+      .replace(/\D/g, "")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1,2})/, "$1-$2");
+  };
 
-const handlechangeCpf = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handlechangeCpf = (event: ChangeEvent<HTMLInputElement>): void => {
     const inputCPF = event.target.value;
     const formattedCPF = formatCPF(inputCPF);
     setCpf((prevCpf) => new CPF(formattedCPF, prevCpf.getDataEmissao));
-};
+  };
 
-const handleDateChanceCpf = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleDateChanceCpf = (event: ChangeEvent<HTMLInputElement>): void => {
     const inputDate = event.target.value;
     const selectedDate = new Date(inputDate);
     setCpf((prevCpf) => new CPF(prevCpf.getValor, selectedDate));
-};
+  };
 
-const formatRG = (rg: string): string => {
+  const formatRG = (rg: string): string => {
     return rg
-        .replace(/\D/g, "")
-        .replace(/(\d{2})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d{1})/, "$1/$2");
-};
+      .replace(/\D/g, "")
+      .replace(/(\d{2})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1})/, "$1/$2");
+  };
 
-const handlechangeRg = (index: number, event: ChangeEvent<HTMLInputElement>): void => {
+  const handlechangeRg = (index: number, event: ChangeEvent<HTMLInputElement>): void => {
     const inputRG = event.target.value;
     const formattedRG = formatRG(inputRG);
     setListaRgs((prevListaRgs) =>
-        prevListaRgs.map((rg, i) => (i === index ? new RG(formattedRG, rg.getDataEmissao) : rg))
+      prevListaRgs.map((rg, i) => (i === index ? new RG(formattedRG, rg.getDataEmissao) : rg))
     );
-};
+  };
 
-const handleDateChangeRG = (index: number, event: ChangeEvent<HTMLInputElement>): void => {
+  const handleDateChangeRG = (index: number, event: ChangeEvent<HTMLInputElement>): void => {
     const inputDate = event.target.value;
     const selectedDate = new Date(inputDate);
     setListaRgs((prevListaRgs) =>
-        prevListaRgs.map((rg, i) => (i === index ? new RG(rg.getValor, selectedDate) : rg))
+      prevListaRgs.map((rg, i) => (i === index ? new RG(rg.getValor, selectedDate) : rg))
     );
-};
+  };
 
-const adicionandoRg = (): void => {
+  const adicionandoRg = (): void => {
     setListaRgs((prevListaRgs) => [...prevListaRgs, new RG("", new Date())]);
-};
+  };
 
-const removendoRg = (index: number): void => {
+  const removendoRg = (index: number): void => {
     const listaRgsAtualizada = [...listaRgs];
     listaRgsAtualizada.splice(index, 1);
     setListaRgs(listaRgsAtualizada);
-};
+  };
 
-const formatTelefone = (telefone: string): string => {
+  const formatTelefone = (telefone: string): string => {
     return telefone.replace(/\D/g, "").replace(/(\d{2})(\d)/, "($1) $2").replace(/(\d{4,5})(\d{4})/, "$1-$2");
-};
+  };
 
-const handlechangeTelefone = (index: number, event: ChangeEvent<HTMLInputElement>): void => {
+  const handlechangeTelefone = (index: number, event: ChangeEvent<HTMLInputElement>): void => {
     const inputTelefone = event.target.value;
     const formattedTelefone = formatTelefone(inputTelefone);
 
     setListaTelefonica((prevListaTelefonica) => {
-        const listaTelefonicaAtualizada = [...prevListaTelefonica];
-        listaTelefonicaAtualizada[index] = formattedTelefone;
-        return listaTelefonicaAtualizada;
+      const listaTelefonicaAtualizada = [...prevListaTelefonica];
+      listaTelefonicaAtualizada[index] = formattedTelefone;
+      return listaTelefonicaAtualizada;
     });
-};
+  };
 
-const adicionandoTelefone = (): void => {
+  const adicionandoTelefone = (): void => {
     setListaTelefonica((prevListaTelefonica) => [...prevListaTelefonica, ""]);
-};
+  };
 
-const removendoTelefone = (index: number): void => {
+  const removendoTelefone = (index: number): void => {
     const listaTelefonicaAtualizada = [...listaTelefonica];
     listaTelefonicaAtualizada.splice(index, 1);
     setListaTelefonica(listaTelefonicaAtualizada);
-};
+  };
 
-const handleAddPetField = (): void => {
+  const handleAddPetField = (): void => {
     setListaPets((prevListaPets) => [...prevListaPets, new Pet("", "", "", "")]);
-};
+  };
 
-const handleRemovePetField = (index: number): void => {
+  const handleRemovePetField = (index: number): void => {
     const updatedPetList = [...listaPets];
     updatedPetList.splice(index, 1);
     setListaPets(updatedPetList);
-};
+  };
 
-const handlechangePetField = (index: number, field: keyof Pet, event: ChangeEvent<HTMLInputElement>): void => {
-setListaPets((prevListaPets) => {
-    const updatedPetList = prevListaPets.map((pet, i) => {
-    if (i === index) {
-        return { ...pet, [field]: event.target.value } as Pet;
-    }
-    return pet;
+  const handlechangePetField = (index: number, field: keyof Pet, event: ChangeEvent<HTMLInputElement>): void => {
+    setListaPets((prevListaPets) => {
+      const updatedPetList = prevListaPets.map((pet, i) => {
+        if (i === index) {
+          return { ...pet, [field]: event.target.value } as Pet;
+        }
+        return pet;
+      });
+
+      return updatedPetList;
     });
-
-    return updatedPetList;
-});
-};
+  };
   const cadastrandoCliente = new FuncoesCliente(clientes);
   const navigate = useNavigate();
 
@@ -144,7 +144,7 @@ setListaPets((prevListaPets) => {
       const num = String(numeroLimpo).substring(2);
       listaFormatada.push(new Telefone(ddd, num));
     })
-    dadosForm.setTelefones=listaFormatada
+    dadosForm.setTelefones = listaFormatada
     dadosForm.setPets = listaPets;
     clientes = cadastrandoCliente.cadastrarCliente(dadosForm);
     navigate('/clientes');

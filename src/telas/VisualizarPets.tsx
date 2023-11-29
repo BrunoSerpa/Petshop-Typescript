@@ -1,23 +1,24 @@
-import  { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cliente from '../modelo/cliente';
 import FuncoesPet from '../negocio/funcoesPet';
 
-const PetsComponent:  React.FC<{clientes: Array<Cliente>, setClientes: React.Dispatch<React.SetStateAction<Array<Cliente>>>
+const PetsComponent: React.FC<{
+  clientes: Array<Cliente>, setClientes: React.Dispatch<React.SetStateAction<Array<Cliente>>>
 }> = ({ clientes, setClientes }) => {
   const navegate = useNavigate();
-  useEffect(() =>{
+  useEffect(() => {
     setClientes(clientes);
   }, [clientes, setClientes])
-  const handleAlterarPets = (posicaoCliente: number, posicaoPet: number):void =>{
+  const handleAlterarPets = (posicaoCliente: number, posicaoPet: number): void => {
     navegate(`/alterar-pet/${posicaoCliente}-${posicaoPet}`);
   };
 
-  const handleNavegarCadastro = (): void => { 
+  const handleNavegarCadastro = (): void => {
     navegate('/cadastrar-pet');
   };
   const handleDeletarPets = (posicaoCliente: number, posicaoPet: number): void => {
-    const excluindoPet = new FuncoesPet(clientes) 
+    const excluindoPet = new FuncoesPet(clientes)
     const novosClientes = excluindoPet.deletarPet(posicaoCliente, posicaoPet)
     setClientes(novosClientes);
   }
@@ -62,7 +63,7 @@ const PetsComponent:  React.FC<{clientes: Array<Cliente>, setClientes: React.Dis
             </tr>
           )))}
         </tbody>
-        </table>
+      </table>
     </div>
   );
 }
