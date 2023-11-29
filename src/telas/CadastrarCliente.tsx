@@ -212,7 +212,7 @@ const CadastrarClienteComponent: React.FC<{ clientes: Array<Cliente> }> = ({ cli
             aria-label="Cpf"
             aria-describedby="basic-addon1"
             className="form-control"
-            maxLength={12}
+            maxLength={14}
             onChange={(e) => handlechangeCpf(e)}
             value={cpf.getValor}
             placeholder="CPF"
@@ -284,7 +284,7 @@ const CadastrarClienteComponent: React.FC<{ clientes: Array<Cliente> }> = ({ cli
               aria-label={`Telefone ${index + 1}`}
               aria-describedby="basic-addon1"
               className="form-control"
-              maxLength={14}
+              maxLength={15}
               onChange={(e) => handlechangeTelefone(index, e)}
               placeholder={`Telefone ${index + 1}`}
               value={telefone}

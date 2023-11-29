@@ -62,20 +62,31 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
   const handlechangeRg = (index: number, event: ChangeEvent<HTMLInputElement>): void => {
     const inputRG = event.target.value;
     const formattedRG = formatRG(inputRG);
-    handleInputChange('rgs', formData.listaRgs.map((rg, i) => (i === index ? new RG(formattedRG, rg.getDataEmissao) : rg)));
+  
+    setFormData((prevData) => {
+      const updatedRgs = prevData.listaRgs.map((rg, i) =>
+        i === index ? new RG(formattedRG, rg.getDataEmissao) : rg
+      );
+  
+      return { ...prevData, listaRgs: updatedRgs };
+    });
   };
+  
   const handleDateChangeRG = (index: number, event: ChangeEvent<HTMLInputElement>): void => {
     const inputDate = event.target.value;
     const selectedDate = new Date(inputDate);
     handleInputChange('rgs', formData.listaRgs.map((rg, i) => (i === index ? new RG(rg.getValor, selectedDate) : rg)));
   };
   const adicionandoRg = (): void => {
-    handleInputChange('rgs', [...formData.listaRgs, new RG("", new Date())]);
+    setFormData((prevData) => ({
+      ...prevData,
+      listaRgs: [...prevData.listaRgs, new RG("", new Date())],
+    }));
   };
   const removendoRg = (index: number): void => {
     const listaRgsAtualizada = [...formData.listaRgs];
-    listaRgsAtualizada.splice(index, 1);
-    handleInputChange('rgs', listaRgsAtualizada);
+    listaRgsAtualizada.splice(index, 1)
+    handleInputChange('listaRgs', listaRgsAtualizada);
   };
   const handlechangeTelefone = (index: number, event: ChangeEvent<HTMLInputElement>): void => {
     const inputTelefone = event.target.value;
@@ -179,7 +190,7 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
             aria-label="Cpf"
             aria-describedby="basic-addon1"
             className="form-control"
-            maxLength={12}
+            maxLength={14}
             onChange={handlechangeCpf}
             value={formData.cpf.getValor}
             placeholder="CPF"
@@ -196,7 +207,8 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
             onChange={handleDateChanceCpf}
             id="dataEmissaoCPF"
           />
-        </div>{formData.listaRgs.map((rg, index) => (
+        </div>
+        {formData.listaRgs.map((rg, index) => (
           <div key={`rg-${index}`} className="input-group mb-3">
             <label htmlFor="valorCPF" className="input-group-text">
               Número do RG
@@ -251,7 +263,7 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
               aria-label={`Telefone ${index + 1}`}
               aria-describedby="basic-addon1"
               className="form-control"
-              maxLength={14}
+              maxLength={15}
               onChange={(e) => handlechangeTelefone(index, e)}
               placeholder={`Telefone ${index + 1}`}
               value={telefone}
