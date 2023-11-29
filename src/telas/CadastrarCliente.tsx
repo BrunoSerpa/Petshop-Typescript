@@ -1,11 +1,11 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cliente from '../modelo/cliente';
+import Telefone from '../modelo/telefone';
+import FuncoesCliente from '../negocio/funcoesCliente';
 import CPF from '../modelo/cpf';
 import RG from '../modelo/rg';
 import Pet from '../modelo/pet';
-import Cliente from '../modelo/cliente';
-import FuncoesCliente from '../negocio/funcoesCliente';
-import Telefone from '../modelo/telefone';
 
 const CadastrarClienteComponent: React.FC<{ clientes: Array<Cliente> }> = ({ clientes }) => {
   /* Forms */
@@ -137,12 +137,14 @@ setListaPets((prevListaPets) => {
     event.preventDefault();
     const dadosForm = new Cliente(nome, nomeSocial, cpf);
     dadosForm.setRgs = listaRgs;
-    dadosForm.setTelefones = listaTelefonica.map((telefone) => {
-        const novoTelefone = parseFloat(telefone);
-        const ddd = String(novoTelefone).substring(0, 2);
-        const num = String(novoTelefone).substring(2);
-        return new Telefone(ddd, num);
-    });
+    const listaFormatada: Array<Telefone> = []
+    listaTelefonica.forEach((telefone) => {
+      const numeroLimpo = telefone.replace(/\D/g, '');
+      const ddd = String(numeroLimpo).substring(0, 2);
+      const num = String(numeroLimpo).substring(2);
+      listaFormatada.push(new Telefone(ddd, num));
+    })
+    dadosForm.setTelefones=listaFormatada
     dadosForm.setPets = listaPets;
     clientes = cadastrandoCliente.cadastrarCliente(dadosForm);
     navigate('/clientes');

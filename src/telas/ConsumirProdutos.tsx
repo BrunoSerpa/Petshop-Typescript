@@ -1,8 +1,9 @@
-import React, { FormEvent, useState, useEffect } from 'react';
-import Cliente from '../modelo/cliente';
-import Produto from '../modelo/produto';
-import ConsumirProduto from '../negocio/consumirProduto';
+import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cliente from "../modelo/cliente";
+import Produto from "../modelo/produto";
+import ConsumirProduto from '../negocio/consumirProduto';
+
 const ConsumirProdutoComponent: React.FC<{ clientes: Array<Cliente>, produtos: Array<Produto>, setClientes: React.Dispatch<React.SetStateAction<Array<Cliente>>>}> = ({ clientes, produtos, setClientes }) => {
     const navigate = useNavigate();
     const [idCliente, setIdCliente] = useState<number | undefined>(undefined);
@@ -92,7 +93,7 @@ const ConsumirProdutoComponent: React.FC<{ clientes: Array<Cliente>, produtos: A
             style={{display: 'none'}}
           >Escolha um produto</option>
           {produtos.map((produtos, index) => (
-            <option value={index}>{produtos.nome}</option>
+            <option value={index}>{produtos.getNome}</option>
           ))}
         </select>
         <div className="input-group mb-3">
@@ -116,7 +117,7 @@ const ConsumirProdutoComponent: React.FC<{ clientes: Array<Cliente>, produtos: A
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{produto.pet.getNome}</td>
-                <td>{produto.produtoConsumido.nome}</td>
+                <td>{produto.itemConsumido.getNome}</td>
                 <td>{`${produto.dataConsumo.getDate()}/${produto.dataConsumo.getMonth() + 1}/${produto.dataConsumo.getFullYear()}`}</td>
               </tr>
             ))}

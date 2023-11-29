@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import FuncoesPet from '../negocio/funcoesPet';
 import Cliente from '../modelo/cliente';
+import FuncoesPet from '../negocio/funcoesPet';
 
 const PetsComponent:  React.FC<{clientes: Array<Cliente>, setClientes: React.Dispatch<React.SetStateAction<Array<Cliente>>>
 }> = ({ clientes, setClientes }) => {
@@ -41,11 +41,11 @@ const PetsComponent:  React.FC<{clientes: Array<Cliente>, setClientes: React.Dis
           {clientes.map((cliente, numCliente) => cliente.getPets.map((pet, numPet) => (
             <tr key={`${numCliente} ${numPet}`}>
               <th scope="col">{numCliente}{numPet}</th>
-              <td scope="col">{pet.getNome}</td>
-              <td scope="col">{pet.getGenero}</td>
-              <td scope="col">{pet.getRaca}</td>
-              <td scope="col">{pet.getTipo}</td>
-              <td scope="col">
+              <td>{pet.getNome}</td>
+              <td>{pet.getGenero}</td>
+              <td>{pet.getRaca}</td>
+              <td>{pet.getTipo}</td>
+              <td>
                 <button
                   className="btn btn-warning"
                   onClick={() => handleAlterarPets(numCliente, numPet)}

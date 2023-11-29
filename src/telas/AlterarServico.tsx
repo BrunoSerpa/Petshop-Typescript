@@ -1,10 +1,11 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import FuncoesServico from '../negocio/funcoesServicos';
-import Servico from '../modelo/servico';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Servico from '../modelo/servico';
+import FuncoesServico from '../negocio/funcoesServicos';
+
 const AlterarServicosComponent:  React.FC<{ servicos: Array<Servico>, posicaoServico: number } > = ({ servicos , posicaoServico }) => {
-  const [nome, setNome] = useState(servicos[posicaoServico].nome);
-  const [preco, setPreco] = useState(servicos[posicaoServico].preco);
+  const [nome, setNome] = useState(servicos[posicaoServico].getNome);
+  const [preco, setPreco] = useState(servicos[posicaoServico].getPreco);
   const [centavos, setCentavos] = useState(Number());
   const handleNomeChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setNome(event.target.value);

@@ -1,7 +1,8 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import Produto from '../modelo/produto';
-import FuncoesProduto from '../negocio/funcoesProdutos';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Produto from "../modelo/produto";
+import FuncoesProduto from '../negocio/funcoesProdutos';
+
 const CadastrarProdutosComponent: React.FC<{ produtos: Array<Produto> }> = ({ produtos }) => {
   /* Forms */
   const [nome, setNome] = useState("");

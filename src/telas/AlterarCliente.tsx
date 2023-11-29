@@ -1,11 +1,11 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cliente from "../modelo/cliente";
 import CPF from '../modelo/cpf';
 import RG from '../modelo/rg';
-import Cliente from '../modelo/cliente';
-import FuncoesCliente from '../negocio/funcoesCliente';
-import Telefone from '../modelo/telefone';
-import Pet from '../modelo/pet';
+import Pet from "../modelo/pet";
+import FuncoesCliente from "../negocio/funcoesCliente";
+import Telefone from "../modelo/telefone";
 
 const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoCliente: number }> = ({ clientes, posicaoCliente }) => {
   const formatCPF = (cpf: string): string => {

@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
-import Servico from '../modelo/servico';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Servico from '../modelo/servico';
 import FuncoesServico from '../negocio/funcoesServicos';
+
 const ServicosComponent: React.FC<{servicos: Array<Servico>, setServicos: React.Dispatch<React.SetStateAction<Array<Servico>>>
 }> = ({ servicos, setServicos }) => {
   const navigate = useNavigate();
@@ -38,9 +39,9 @@ const ServicosComponent: React.FC<{servicos: Array<Servico>, setServicos: React.
           {servicos.map((servico, numServico) => (
             <tr key={`${numServico} ${numServico}`}>
               <th scope="col">{numServico + 1}</th>
-              <td scope="col">{servico.nome}</td>
-              <td scope="col">{servico.preco}</td>
-              <td scope="col">
+              <td>{servico.getNome}</td>
+              <td>{servico.getPreco}</td>
+              <td>
                 <button
                   className="btn btn-warning"
                   onClick={() => handleAlterarServico(numServico)}

@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Produto from '../modelo/produto';
 import { useNavigate } from 'react-router-dom';
 import FuncoesProduto from '../negocio/funcoesProdutos';
+
 const ProdutosComponent: React.FC<{produtos: Array<Produto>, setProdutos: React.Dispatch<React.SetStateAction<Array<Produto>>>
 }> = ({ produtos, setProdutos }) => {
   const navigate = useNavigate();
@@ -38,9 +39,9 @@ const ProdutosComponent: React.FC<{produtos: Array<Produto>, setProdutos: React.
           {produtos.map((produto, numProduto) => (
             <tr key={`${numProduto} ${numProduto}`}>
               <th scope="col">{numProduto + 1}</th>
-              <td scope="col">{produto.nome}</td>
-              <td scope="col">{produto.preco}</td>
-              <td scope="col">
+              <td>{produto.getNome}</td>
+              <td>{produto.getPreco}</td>
+              <td>
                 <button
                   className="btn btn-warning"
                   onClick={() => handleAlterarProduto(numProduto)}

@@ -1,7 +1,8 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import Servico from '../modelo/servico';
-import FuncoesServico from '../negocio/funcoesServicos';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Servico from "../modelo/servico";
+import FuncoesServico from '../negocio/funcoesServicos';
+
 const CadastrarServicosComponent: React.FC<{ servicos: Array<Servico> }> = ({ servicos }) => {
   /* Forms */
   const [nome, setNome] = useState("");

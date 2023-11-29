@@ -3,33 +3,29 @@ import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min"
 import { BrowserRouter as Router, Routes, Route, useParams, Navigate } from 'react-router-dom';
-
 import Empresa from './modelo/empresa';
-import Cliente from './modelo/cliente';
-import Produto from './modelo/produto';
-import Servico from './modelo/servico';
-
-import Navbar from './telas/Navbar';
-import ClientesComponent from './telas/VisualizarClientes';
-import PetsComponent from './telas/VisualizarPets';
-import ProdutosComponent from './telas/VisualizarProdutos';
-import ServicosComponent from './telas/VisualizarServicos';
-
-import CadastrarClienteComponent from './telas/CadastrarCliente';
-import CadastrarProdutosComponent from './telas/CadastrarProduto';
-import CadastrarPetsComponent from './telas/CadastrarPet';
-import DestacarClientesComponent from './telas/DestaquesClientes';
-import DestacarProdutosComponent from './telas/DestaquesProdutos';
-import DestacarServicosComponent from './telas/DestaquesServicos';
-import AlterarClienteComponent from './telas/AlterarCliente';
-import AlterarProdutosComponent from './telas/AlterarProduto';
-import AlterarServicosComponent from './telas/AlterarServico';
-import AlterarPetsComponent from './telas/AlterarPet';
-
 import EmpresaTeste from './app/empresaTeste';
-import CadastrarServicosComponent from './telas/CadastrarServico';
-import ConsumirServicoComponent from './telas/ConsumirServicos';
-import ConsumirProdutoComponent from './telas/ConsumirProdutos';
+import ClientesComponent from './Telas/VisualizarClientes';
+import CadastrarClienteComponent from './Telas/CadastrarCliente';
+import CadastrarPetsComponent from './Telas/CadastrarPet';
+import ProdutosComponent from './Telas/VisualizarProdutos';
+import CadastrarProdutosComponent from './Telas/CadastrarProduto';
+import ServicosComponent from './Telas/VisualizarServicos';
+import CadastrarServicosComponent from './Telas/CadastrarServico';
+import PetsComponent from './Telas/VisualizarPets';
+import DestacarClientesComponent from './Telas/DestaquesClientes';
+import DestacarProdutosComponent from './Telas/DestaquesProdutos';
+import DestacarServicosComponent from './Telas/DestaquesServicos';
+import ConsumirProdutoComponent from './Telas/ConsumirProdutos';
+import ConsumirServicoComponent from './Telas/ConsumirServicos';
+import Cliente from './modelo/cliente';
+import AlterarClienteComponent from './Telas/AlterarCliente';
+import Produto from './modelo/produto';
+import AlterarProdutosComponent from './Telas/AlterarProduto';
+import Servico from './modelo/servico';
+import AlterarServicosComponent from './Telas/AlterarServico';
+import AlterarPetsComponent from './Telas/AlterarPet';
+import Navbar from './Telas/Navbar';
 
 export let empresa = new Empresa();
 let empresaTeste = new EmpresaTeste();  

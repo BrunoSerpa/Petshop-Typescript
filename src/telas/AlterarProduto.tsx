@@ -1,10 +1,11 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import FuncoesProduto from '../negocio/funcoesProdutos';
-import Produto from '../modelo/produto';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Produto from '../modelo/produto';
+import FuncoesProduto from '../negocio/funcoesProdutos';
+
 const AlterarProdutosComponent:  React.FC<{ produtos: Array<Produto>, posicaoProduto: number } > = ({ produtos , posicaoProduto }) => {
-  const [nome, setNome] = useState(produtos[posicaoProduto].nome);
-  const [preco, setPreco] = useState(produtos[posicaoProduto].preco);
+  const [nome, setNome] = useState(produtos[posicaoProduto].getNome);
+  const [preco, setPreco] = useState(produtos[posicaoProduto].getPreco);
   const [centavos, setCentavos] = useState(Number());
   const handleNomeChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setNome(event.target.value);

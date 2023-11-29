@@ -1,9 +1,9 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Cliente from '../modelo/cliente';
 import Pet from '../modelo/pet';
-import { useNavigate } from 'react-router-dom';
 
-const CadastrarPetsComponent: React.FC<{ clientes: Array<Cliente>}> = ({ clientes }) => {
+const CadastrarPetsComponent: React.FC<{ clientes: Array<Cliente> }> = ({ clientes }) => {
   const [idCliente, setIdCliente] = useState(Number());
   const [formData, setFormData] = useState({
     index: idCliente,
@@ -34,12 +34,12 @@ const CadastrarPetsComponent: React.FC<{ clientes: Array<Cliente>}> = ({ cliente
   const handleTipoChange = (event: ChangeEvent<HTMLInputElement>): void => {
     handleInputChange('tipo', event.target.value);
   };
-  const handleAlterarPets = (event: FormEvent): void =>{
+  const handleAlterarPets = (event: FormEvent): void => {
     event.preventDefault();
-    let clientesAntigos= clientes
+    let clientesAntigos = clientes
     clientes = []
-    clientesAntigos.forEach((cliente, index) =>{ 
-      if (index === idCliente - 1){
+    clientesAntigos.forEach((cliente, index) => {
+      if (index === idCliente - 1) {
         cliente.getPets.push(dadosForm)
       }
       clientes.push(cliente)
@@ -55,12 +55,12 @@ const CadastrarPetsComponent: React.FC<{ clientes: Array<Cliente>}> = ({ cliente
   const handleCancelar = (): void => {
     setIdCliente(Number());
   };
-  
+
 
   return (
     <div className="container-fluid">
       <h1>Alterar Pet</h1>
-      {idCliente?(
+      {idCliente ? (
         <form onSubmit={handleAlterarPets}>
           <div className="input-group mb-3">
             <select
@@ -68,7 +68,7 @@ const CadastrarPetsComponent: React.FC<{ clientes: Array<Cliente>}> = ({ cliente
               aria-label="Default select example"
               disabled
             >
-            <option>{clientes[formData.index].nome}</option>
+              <option>{clientes[formData.index].nome}</option>
             </select>
             <button
               className="btn btn-danger"
@@ -96,7 +96,7 @@ const CadastrarPetsComponent: React.FC<{ clientes: Array<Cliente>}> = ({ cliente
           {/* Seção do Gênero */}
           <div className="input-group mb-3">
             <div className="form-check form-check-inline">
-                <input
+              <input
                 className="form-check-input"
                 name={`inlineRadioOptions`}
                 type="radio"
@@ -159,22 +159,22 @@ const CadastrarPetsComponent: React.FC<{ clientes: Array<Cliente>}> = ({ cliente
             </button>
           </div>
         </form>
-        ):(
-          <select
-            className="form-select"
-            onChange={(e) => handleAcharCliente(Number(e.target.value))}
-            aria-label="Default select example"
-          >
-            <option
-              style={{display: 'none'}}
-            >Escolha o dono</option>
-            {clientes.map((cliente, index) => (
-              <option value={index}>{cliente.nome} ({cliente.getCpf.getValor})</option>
-            ))}
-          </select>
+      ) : (
+        <select
+          className="form-select"
+          onChange={(e) => handleAcharCliente(Number(e.target.value))}
+          aria-label="Default select example"
+        >
+          <option
+            style={{ display: 'none' }}
+          >Escolha o dono</option>
+          {clientes.map((cliente, index) => (
+            <option value={index}>{cliente.nome} ({cliente.getCpf.getValor})</option>
+          ))}
+        </select>
       )
-    }
-  </div>
+      }
+    </div>
   );
 };
 

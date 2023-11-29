@@ -1,8 +1,9 @@
-import React, { FormEvent, useState, useEffect } from 'react';
+import { ChangeEvent, FormEvent, useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import Cliente from '../modelo/cliente';
 import Servico from '../modelo/servico';
 import ConsumirServico from '../negocio/consumirServico';
-import { useNavigate } from 'react-router-dom';
+
 const ConsumirServicoComponent: React.FC<{ clientes: Array<Cliente>, servicos: Array<Servico>, setClientes: React.Dispatch<React.SetStateAction<Array<Cliente>>>}> = ({ clientes, servicos, setClientes }) => {
     const navigate = useNavigate();
     const [idCliente, setIdCliente] = useState<number | undefined>(undefined);
@@ -89,7 +90,7 @@ const ConsumirServicoComponent: React.FC<{ clientes: Array<Cliente>, servicos: A
             style={{display: 'none'}}
           >Escolha um serviço</option>
           {servicos.map((servicos, index) => (
-            <option value={index}>{servicos.nome}</option>
+            <option value={index}>{servicos.getNome}</option>
           ))}
         </select>
         <div className="input-group mb-3">
@@ -113,7 +114,7 @@ const ConsumirServicoComponent: React.FC<{ clientes: Array<Cliente>, servicos: A
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{servico.pet.getNome}</td>
-                <td>{servico.servicoConsumido.nome}</td>
+                <td>{servico.itemConsumido.getNome}</td>
                 <td>{`${servico.dataConsumo.getDate()}/${servico.dataConsumo.getMonth() + 1}/${servico.dataConsumo.getFullYear()}`}</td>
               </tr>
             ))}

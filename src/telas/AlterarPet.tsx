@@ -1,7 +1,7 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import Cliente from '../modelo/cliente';
-import Pet from '../modelo/pet';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cliente from "../modelo/cliente";
+import Pet from "../modelo/pet";
 
 const AlterarPetsComponent: React.FC<{ clientes: Array<Cliente>, posicaoCliente: number, posicaoPet: number }> = ({clientes,  posicaoCliente, posicaoPet}) => {
   const [formData, setFormData] = useState({
