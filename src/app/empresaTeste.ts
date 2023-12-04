@@ -21,7 +21,7 @@ export default class EmpresaTeste {
         cliente1.getPets.push(new Pet('Whiskers', 'Siamês', 'Fêmea', 'Gato'));
         this.clientes.push(cliente1);
 
-        const cliente2 = new Cliente('Maria Pereira', 'Maria', new CPF('98765432109', new Date(2001, 2, 2))); // Corrigi o mês
+        const cliente2 = new Cliente('Maria Pereira', undefined, new CPF('98765432109', new Date(2001, 2, 2))); // Corrigi o mês
         cliente2.getRgs.push(new RG('98765', new Date(2006, 2, 2)));
         cliente2.getTelefones.push(new Telefone('11', '555555555'));
         cliente2.getPets.push(new Pet('Buddy', 'Golden Retriever', 'Macho', 'Cachorro'));
@@ -35,13 +35,13 @@ export default class EmpresaTeste {
         cliente3.getPets.push(new Pet('Milo', 'Siamese', 'Macho', 'Gato'));
         this.clientes.push(cliente3);
 
-        const cliente4 = new Cliente('Pedro Oliveira', 'Pedro', new CPF('22222222222', new Date(1985, 2, 25)));
+        const cliente4 = new Cliente('Pedro Oliveira', undefined, new CPF('22222222222', new Date(1985, 2, 25)));
         cliente4.getRgs.push(new RG('22222', new Date(1990, 3, 5)));
         cliente4.getTelefones.push(new Telefone('31', '555555555'));
         cliente4.getPets.push(new Pet('Rocky', 'Bulldog', 'Macho', 'Cachorro'));
         this.clientes.push(cliente4);
 
-        const cliente5 = new Cliente('Juliana Rodrigues', 'Juliana', new CPF('33333333333', new Date(1980, 8, 12)));
+        const cliente5 = new Cliente('Juliana Rodrigues', undefined, new CPF('33333333333', new Date(1980, 8, 12)));
         cliente5.getRgs.push(new RG('11111', new Date(1985, 9, 7)));
         cliente5.getTelefones.push(new Telefone('41', '777777777'));
         cliente5.getPets.push(new Pet('Bella', 'Labrador', 'Fêmea', 'Cachorro'));
@@ -72,7 +72,7 @@ export default class EmpresaTeste {
         cliente9.getPets.push(new Pet('Misty', 'Siamês', 'Fêmea', 'Gato'));
         this.clientes.push(cliente9);
 
-        const cliente10 = new Cliente('Bruno Pereira', 'Bruno', new CPF('88888888888', new Date(1987, 7, 17)));
+        const cliente10 = new Cliente('Bruno Pereira', undefined, new CPF('88888888888', new Date(1987, 7, 17)));
         cliente10.getRgs.push(new RG('88888', new Date(1992, 8, 12)));
         cliente10.getTelefones.push(new Telefone('41', '888888888'));
         cliente10.getPets.push(new Pet('Lucky', 'Beagle', 'Macho', 'Cachorro'));
