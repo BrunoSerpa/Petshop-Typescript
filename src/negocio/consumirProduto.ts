@@ -1,22 +1,25 @@
-import Cliente from "../modelo/cliente";
-import Produto from "../modelo/produto";
-import ProdutoConsumido from "../modelo/produtoConsumido";
+import { InCliente, InItemConsumo, InItemVenda } from "../modelo/Interfaces";
 
-export default class ConsumirProduto {
-    private clientes: Array<Cliente>;
-    private produtos: Array<Produto>
-    constructor(clientes: Array<Cliente>, produtos: Array<Produto>) {
-        this.clientes = clientes;
-        this.produtos = produtos;
-    }
-    public consumirProduto(posicaoCliente: number, posicaoPet: number, posicaoProduto: number): Array<Cliente> {
-        const clienteConsumidor = this.clientes[posicaoCliente]
-        const petConsumidor = clienteConsumidor.getPets[posicaoPet]
-        const dataConsumo = new Date()
-        const produtoEscolhido = this.produtos[posicaoProduto]
-        if (clienteConsumidor && petConsumidor && produtoEscolhido) {
-            this.clientes[posicaoCliente].getProdutosConsumidos.push(new ProdutoConsumido(produtoEscolhido, dataConsumo, petConsumidor))
-        }
-        return this.clientes
-    }
+function consumirProduto(clientes: InCliente[], produtos: InItemVenda[]) {
+  return {
+    consumirProduto: (posicaoCliente: number, posicaoPet: number, posicaoProduto: number) => {
+      const clienteConsumidor = clientes[posicaoCliente];
+      const petConsumidor = clienteConsumidor.pets[posicaoPet];
+      const dataConsumo = new Date();
+      const produtoEscolhido = produtos[posicaoProduto];
+
+      if (clienteConsumidor && petConsumidor && produtoEscolhido) {
+        const novoItemConsumo: InItemConsumo = {
+          itemConsumido: produtoEscolhido,
+          dataConsumo,
+          petConsumidor,
+        };
+        clienteConsumidor.produtosConsumidos.push(novoItemConsumo);
+      }
+
+      return clientes;
+    },
+  };
 }
+
+export default consumirProduto;

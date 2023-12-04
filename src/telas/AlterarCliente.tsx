@@ -1,13 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Cliente from "../modelo/cliente";
-import CPF from '../modelo/cpf';
-import RG from '../modelo/rg';
-import Pet from "../modelo/pet";
-import FuncoesCliente from "../negocio/funcoesCliente";
-import Telefone from "../modelo/telefone";
+import Cliente from '../modelo/cliente';
+import { InCliente, InDocumento } from '../modelo/Interfaces';
 
-const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoCliente: number }> = ({ clientes, posicaoCliente }) => {
+const AlterarClienteComponent: React.FC<{ clientes: Array<InCliente>, posicaoCliente: number }> = ({ clientes, posicaoCliente }) => {
   const formatCPF = (cpf: string): string => {
     return cpf
       .replace(/\D/g, "")
@@ -29,16 +25,18 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
       .replace(/(\d{4,5})(\d{4})/, "$1-$2");
   };
   const telefonesFormatados: Array<string> = []
-  clientes[posicaoCliente].getTelefones.map(telefone =>
-    telefonesFormatados.push(formatTelefone(`${telefone.getDdd}${telefone.getNumero}`)))
+  clientes[posicaoCliente].telefones.forEach(telefone =>
+    telefonesFormatados.push(formatTelefone(`${telefone.ddd}${telefone.numero}`))
+  );
+
   const [formData, setFormData] = useState({
     nome: clientes[posicaoCliente].nome,
     nomeSocial: clientes[posicaoCliente].nomeSocial,
-    cpf: clientes[posicaoCliente].getCpf,
+    cpf: clientes[posicaoCliente].cpf,
     hasNomeSocial: false,
-    listaRgs: [...clientes[posicaoCliente].getRgs],
-    listaTelefonica: telefonesFormatados,
-    listaPets: [...clientes[posicaoCliente].getPets],
+    rgs: clientes[posicaoCliente].rgs,
+    telefones: clientes[posicaoCliente].telefones,
+    pets: clientes[posicaoCliente].pets,
   });
   const handleInputChange = (field: string, value: any): void => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -52,7 +50,7 @@ const AlterarClienteComponent: React.FC<{ clientes: Array<Cliente>, posicaoClien
   const handlechangeCpf = (event: ChangeEvent<HTMLInputElement>): void => {
     const inputCPF = event.target.value;
     const formattedCPF = formatCPF(inputCPF);
-    handleInputChange('cpf', new CPF(formattedCPF, formData.cpf.getDataEmissao));
+    handleInputChange('cpf', InDocumento(formattedCPF, formData.cpf.dataEmissao));
   };
   const handleDateChanceCpf = (event: ChangeEvent<HTMLInputElement>): void => {
     const inputDate = event.target.value;

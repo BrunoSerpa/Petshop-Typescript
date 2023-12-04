@@ -1,24 +1,23 @@
-export default class ItemVenda {
-    private nome: string;
-    private preco: number;
-
-    constructor(nome: string, preco: number) {
-        this.nome = nome;
-        this.preco = preco;
+import{InItemVenda} from "./Interfaces"
+function ItemVenda(item:InItemVenda) {
+    const getNome = (): string => {
+        return item.nome;
+    };
+    const getPreco = (): number => {
+        return item.valor;
+    };
+    const setNome = (novoNome: string) => {
+        item.nome=novoNome
     }
-
-    get getNome(): string {
-        return this.nome;
+    const setPreco = (novoPreco: number) => {
+        item.valor=novoPreco
     }
-
-    get getPreco(): number {
-        return this.preco;
-    }
-    set setNome(nome: string) {
-        this.nome=nome;
-    }
-
-    set setPreco(preco: number) {
-        this.preco=preco;
-    }
+    return ({
+        getNome,
+        getPreco,
+        setNome,
+        setPreco
+    });
 }
+
+export default ItemVenda;

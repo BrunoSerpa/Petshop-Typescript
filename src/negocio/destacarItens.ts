@@ -1,108 +1,45 @@
-import Cliente from "../modelo/cliente"
-import Destaque from "../modelo/destaque"
+import { InDestaque } from "../modelo/Interfaces";
+import Cliente from "../modelo/cliente";
+import Destaque from "../modelo/destaque";
 
-export default class DestacarItens {
-    private clientes: Array<Cliente>
-    constructor(clientes: Array<Cliente>) {
-        this.clientes = clientes
-    }
-    private somaItensSeparados(listaItensSeparados: Array<Destaque>): Array<Destaque> {
-        const listaProdutosDestaques: Array<Destaque> = []
-        listaItensSeparados.forEach(destaque => {
-            const destaqueExistente = listaProdutosDestaques.find(destaquesExistentes =>
-                destaquesExistentes.getNome === destaque.getNome
-            )
-            if (destaqueExistente) {
-                destaqueExistente.SomaQuantidadeDestacado = 1
-            } else {
-                listaProdutosDestaques.push(destaque)
-            }
-        })
-        return listaProdutosDestaques
-    }
-    public get produtoTipo(): Array<Destaque> {
-        const listaItensSeparados: Array<Destaque> = []
-        this.clientes.forEach(cliente =>
-            cliente.getProdutosConsumidos.forEach(consumo =>
-                consumo.itemConsumido.getNome && consumo.pet.getTipo &&
-                listaItensSeparados.push(new Destaque(
-                    `${consumo.itemConsumido.getNome} (${consumo.pet.getTipo})`,
-                    1
-                ))
-            )
-        )
-        const listaProdutosDestaques = this.somaItensSeparados(listaItensSeparados)
-        const listaOrdenada = this.listaOrdenada(listaProdutosDestaques)
-        return listaOrdenada
-    }
-    public get produtoRaca(): Array<Destaque> {
-        const listaItensSeparados: Array<Destaque> = []
-        this.clientes.forEach(cliente =>
-            cliente.getProdutosConsumidos.forEach(consumo =>
-                consumo.itemConsumido.getNome && consumo.pet.getRaca &&
-                listaItensSeparados.push(new Destaque(
-                    `${consumo.itemConsumido.getNome} (${consumo.pet.getRaca})`,
-                    1
-                ))
-            )
-        )
-        const listaProdutosDestaques = this.somaItensSeparados(listaItensSeparados)
-        const listaOrdenada = this.listaOrdenada(listaProdutosDestaques)
-        return listaOrdenada
-    }
-    public get servicoTipo(): Array<Destaque> {
-        const listaItensSeparados: Array<Destaque> = []
-        this.clientes.forEach(cliente =>
-            cliente.getServicosConsumidos.forEach(consumo =>
-                consumo.itemConsumido.getNome && consumo.pet.getTipo &&
-                listaItensSeparados.push(new Destaque(
-                    `${consumo.itemConsumido.getNome} (${consumo.pet.getTipo})`,
-                    1
-                ))
-            )
-        )
-        const listaServicosDestaques = this.somaItensSeparados(listaItensSeparados)
-        const listaOrdenada = this.listaOrdenada(listaServicosDestaques)
-        return listaOrdenada
-    }
-    public get servicoRaca(): Array<Destaque> {
-        const listaItensSeparados: Array<Destaque> = []
-        this.clientes.forEach(cliente =>
-            cliente.getServicosConsumidos.forEach(consumo =>
-                consumo.itemConsumido.getNome && consumo.pet.getRaca &&
-                listaItensSeparados.push(new Destaque(
-                    `${consumo.itemConsumido.getNome} (${consumo.pet.getRaca})`,
-                    1
-                ))
-            )
-        )
-        const listaServicosDestaques = this.somaItensSeparados(listaItensSeparados)
-        const listaOrdenada = this.listaOrdenada(listaServicosDestaques)
-        return listaOrdenada
-    }
-    public listaOrdenada(listaSelecionada: Array<Destaque>): Array<Destaque> {
-        let lista: Array<Destaque>;
-        lista = listaSelecionada;
-        let listaOrdenada: Array<Destaque> = [];
-        const mapped = lista.map((v, i) => {
-            return { i, value: v.getQuantidade };
-        });
-        mapped.sort((a, b) => {
-            if (a.value < b.value) {
-                return 1;
-            }
-            if (a.value > b.value) {
-                return -1;
-            }
-            return 0;
-        });
-        listaOrdenada = mapped.map((v) => lista[v.i]);
-        listaSelecionada = [];
-        let count: number = 0;
-        listaOrdenada.forEach((cliente) => {
-            listaSelecionada.push(cliente);
-            count++;
-        });
-        return listaSelecionada;
-    }
+function somaItensSeparados(listaItensSeparados: Array<ReturnType<typeof Destaque>>): Array<ReturnType<typeof Destaque>> {
+    const listaProdutosDestaques: Array<ReturnType<typeof Destaque>> = [];
+    listaItensSeparados.forEach(destaque => {
+        const destaqueExistente = listaProdutosDestaques.find(destaquesExistentes =>
+            destaquesExistentes.getNome === destaque.getNome
+        );
+        if (destaqueExistente) {
+            destaqueExistente.somaQuantidadeDestacado(1);
+        } else {
+            listaProdutosDestaques.push(destaque);
+        }
+    });
+    return listaProdutosDestaques;
 }
+
+function criarDestaque(itemConsumido: any, pet: any): ReturnType<typeof Destaque> {
+    const clienteDestacado: InDestaque = {
+        nomeDestacado: `${itemConsumido.getNome()} (${pet.getTipo() || pet.getRaca()})`,
+        quantidadeDestacado: 1
+    };
+    return Destaque(clienteDestacado);
+}
+function destacarItens(clientes: Array<ReturnType<typeof Cliente>>): ReturnType<typeof Destaque>[] {
+    const listaItensSeparados: Array<ReturnType<typeof Destaque>> = [];
+    clientes.forEach(cliente =>
+        cliente.getProdutosConsumidos().forEach(consumo =>
+            consumo.itemConsumido.nome && consumo.petConsumidor.tipo &&
+            listaItensSeparados.push(criarDestaque(consumo.itemConsumido, consumo.petConsumidor))
+        )
+    );
+    const listaProdutosDestaques = somaItensSeparados(listaItensSeparados);
+    const listaOrdenadaDestaques = listaOrdenada(listaProdutosDestaques);
+    return listaOrdenadaDestaques;
+}
+
+function listaOrdenada(listaSelecionada: ReturnType<typeof Destaque>[]): ReturnType<typeof Destaque>[] {
+    return listaSelecionada
+        .sort((a, b) => b.getQuantidade() - a.getQuantidade());
+}
+
+export default destacarItens;

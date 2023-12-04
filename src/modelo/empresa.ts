@@ -1,32 +1,44 @@
-import Cliente from "./cliente"
-import Produto from "./produto"
-import Servico from "./servico"
+import { InCliente, InItemVenda } from "./Interfaces";
+import Cliente from "./cliente";
+import ItemVenda from "./itemVenda";
 
-export default class Empresa{
-    private clientes: Array<Cliente>
-    private produtos: Array<Produto>
-    private servicos: Array<Servico>
-    constructor(){
-        this.clientes = []
-        this.produtos = []
-        this.servicos = []
+function Empresa() {
+    let clientes: ReturnType<typeof Cliente>[] = [];
+    let produtos: ReturnType<typeof ItemVenda>[] = [];
+    let servicos: ReturnType<typeof ItemVenda>[] = [];
+
+    const setClientes = (novosClientes: InCliente[]) => {
+        clientes = novosClientes.map(cliente => Cliente(cliente));
     }
-    public set setClientes(novoClientes:Array<Cliente>) {
-        this.clientes = novoClientes
-    }    
-    public set setProdutos(novoProduto:Array<Produto>){
-        this.produtos = novoProduto
+
+    const setProdutos = (novosProdutos: InItemVenda[]) => {
+        produtos = novosProdutos.map(produto => ItemVenda(produto));
     }
-    public set setServicos(novoServico:Array<Servico>){
-        this.servicos = novoServico
+
+    const setServicos = (novosServicos: InItemVenda[]) => {
+        servicos = novosServicos.map(servico => ItemVenda(servico));
     }
-    public get getClientes(){
-        return this.clientes
+
+    const getClientes = () => {
+        return clientes;
     }
-    public get getProdutos(){
-        return this.produtos
+
+    const getProdutos = () => {
+        return produtos;
     }
-    public get getServicos(){
-        return this.servicos
+
+    const getServicos = () => {
+        return servicos;
     }
+
+    return {
+        setClientes,
+        setProdutos,
+        setServicos,
+        getClientes,
+        getProdutos,
+        getServicos
+    };
 }
+
+export default Empresa;

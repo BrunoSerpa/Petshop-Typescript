@@ -1,30 +1,25 @@
-import Servico from "../modelo/servico";
+import { InItemVenda } from "../modelo/Interfaces";
 
-export default class FuncoesServico {
-    private servicos: Array<Servico>
-    constructor(servicos: Array<Servico>) {
-        this.servicos = servicos
-    }
-    public cadastrarServico(novoServico: Servico): Array<Servico> {
-        const servicoExistente = this.servicos.find(
-            (servico) => servico.getNome === novoServico.getNome && servico.getPreco === novoServico.getPreco
-        );
-        if (!servicoExistente) {
-            this.servicos.push(novoServico);
-        }
-        return this.servicos;
-    }
-    public alterarServico(servicoAlterado: Servico, posicaoProduto: number): Array<Servico> {
-        this.servicos.forEach((servico, index) => {
-            if (index === posicaoProduto) {
-                this.servicos[index] = servicoAlterado
-                return this.servicos
-            }
-        })
-        return this.servicos
-    }
-    public deletarServico(servicoEscolhido: Servico): Array<Servico> {
-        this.servicos = this.servicos.filter((servico) => servico !== servicoEscolhido)
-        return this.servicos
-    }
+function FuncoesServico(servicos: InItemVenda[]) {
+  return {
+    cadastrarServico: (novoServico: InItemVenda) => {
+      const servicoExistente = servicos.find(
+        (servico) => servico.nome === novoServico.nome && servico.valor === novoServico.valor
+      );
+      if (!servicoExistente) {
+        return [...servicos, novoServico];
+      }
+      return servicos;
+    },
+    alterarServico: (servicoAlterado: InItemVenda, posicaoServico: number) => {
+      return servicos.map((servico, index) =>
+        index === posicaoServico ? servicoAlterado : servico
+      );
+    },
+    deletarServico: (servicoEscolhido: InItemVenda) => {
+      return servicos.filter((servico) => servico !== servicoEscolhido);
+    },
+  };
 }
+
+export default FuncoesServico;

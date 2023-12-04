@@ -1,90 +1,63 @@
-import Cliente from "../modelo/cliente"
-import Destaque from "../modelo/destaque"
+import Cliente from "../modelo/cliente";
+import Destaque from "../modelo/destaque";
+import { InDestaque } from "../modelo/Interfaces";
 
-export default class DestacarClientes {
-    private clientes: Array<Cliente>
-    constructor(clientes: Array<Cliente>) {
-        this.clientes = clientes
-    }
-    public get servicosQuantidade(): Array<Destaque> {
-        let listaClientes: Array<Destaque> = []
-        this.clientes.forEach(cliente =>
-            listaClientes.push(new Destaque(
-                cliente.nomeSocial ? `${cliente.nomeSocial} (${cliente.nome})` : `${cliente.nome}`,
-                cliente.getServicosConsumidos.length
-            ))
-        )
-        listaClientes = this.listaOrdenada(listaClientes, 10)
-        return listaClientes
-    }
-    public get servicosPreco(): Array<Destaque> {
-        let listaClientes: Array<Destaque> = []
-        this.clientes.forEach(cliente => {
-            const dadosCliente = new Destaque(
-                cliente.nomeSocial ? `${cliente.nomeSocial} (${cliente.nome})` : `${cliente.nome}`,
-                0
-            )
-            cliente.getServicosConsumidos.forEach(servico =>
-                dadosCliente.SomaQuantidadeDestacado = servico.itemConsumido.getPreco
-            )
-            listaClientes.push(dadosCliente)
-        })
-        listaClientes = this.listaOrdenada(listaClientes, 5)
-        return listaClientes
-    }
-    public get produtosQuantidade(): Array<Destaque> {
-        let listaClientes: Array<Destaque> = []
-        this.clientes.forEach(cliente =>
-            listaClientes.push(new Destaque(
-                cliente.nomeSocial ? `${cliente.nomeSocial} (${cliente.nome})` : `${cliente.nome}`,
-                cliente.getProdutosConsumidos.length
-            ))
-        )
-        listaClientes = this.listaOrdenada(listaClientes, 10)
-        return listaClientes
-    }
-    public get produtosPreco(): Array<Destaque> {
-        let listaClientes: Array<Destaque> = []
-        this.clientes.forEach(cliente => {
-            const dadosCliente = new Destaque(
-                cliente.nomeSocial ? `${cliente.nomeSocial} (${cliente.nome})` : `${cliente.nome}`,
-                0
-            )
-            cliente.getProdutosConsumidos.forEach(servico =>
-                dadosCliente.SomaQuantidadeDestacado = servico.itemConsumido.getPreco
-            )
-            listaClientes.push(dadosCliente)
-        })
-        listaClientes = this.listaOrdenada(listaClientes, 5)
-        return listaClientes
-    }
-    public listaOrdenada(listaSelecionada: Array<Destaque>, quantPodio: number): Array<Destaque> {
-        let lista: Array<Destaque>;
-        lista = listaSelecionada;
-        let listaOrdenada: Array<Destaque> = [];
-        const mapped = lista.map((v, i) => {
-            return { i, value: v.getQuantidade };
-        });
-        mapped.sort((a, b) => {
-            if (a.value < b.value) {
-                return 1;
-            }
-            if (a.value > b.value) {
-                return -1;
-            }
-            return 0;
-        });
-        listaOrdenada = mapped.map((v) => lista[v.i]);
-        listaSelecionada = [];
-        let count: number = 0;
-        listaOrdenada.forEach((cliente) => {
-            if (count >= quantPodio) {
-                return;
-            }
-            listaSelecionada.push(cliente);
-            count++;
-        });
-        return listaSelecionada;
-    }
+function criarDadosCliente(cliente: ReturnType<typeof Cliente>, quantidadeInicial: number): ReturnType<typeof Destaque> {
+    const clienteDestacado: InDestaque = {
+        nomeDestacado: cliente.getNomeSocial ? `${cliente.getNomeSocial()} (${cliente.getNome()})` : cliente.getNome(),
+        quantidadeDestacado: quantidadeInicial,
+    };
 
+    return Destaque(clienteDestacado);
 }
+
+function calcularSomaQuantidade(dadosCliente: ReturnType<typeof Destaque>, itensConsumidos: any[]): void {
+    itensConsumidos.forEach((item) => {
+        // Certifique-se de que o objeto tem um método getPreco()
+        dadosCliente.somaQuantidadeDestacado(item.itemConsumido.getPreco());
+    });
+}
+
+function listaOrdenada(listaSelecionada: ReturnType<typeof Destaque>[], quantPodio: number): ReturnType<typeof Destaque>[] {
+    return listaSelecionada
+        .sort((a, b) => b.getQuantidade() - a.getQuantidade())
+        .slice(0, quantPodio);
+}
+
+function getServicosQuantidade(clientes: ReturnType<typeof Cliente>[]): ReturnType<typeof Destaque>[] {
+    const listaClientes: ReturnType<typeof Destaque>[] = clientes.map((cliente) =>
+        criarDadosCliente(cliente, cliente.getServicosConsumidos().length)
+    );
+
+    return listaOrdenada(listaClientes, 10);
+}
+
+function getServicosPreco(clientes: ReturnType<typeof Cliente>[]): ReturnType<typeof Destaque>[] {
+    const listaClientes: ReturnType<typeof Destaque>[] = clientes.map((cliente) => {
+        const dadosCliente = criarDadosCliente(cliente, 0);
+        calcularSomaQuantidade(dadosCliente, cliente.getServicosConsumidos());
+        return dadosCliente;
+    });
+
+    return listaOrdenada(listaClientes, 5);
+}
+
+function getProdutosQuantidade(clientes: ReturnType<typeof Cliente>[]): ReturnType<typeof Destaque>[] {
+    const listaClientes: ReturnType<typeof Destaque>[] = clientes.map((cliente) =>
+        criarDadosCliente(cliente, cliente.getProdutosConsumidos().length)
+    );
+
+    return listaOrdenada(listaClientes, 10);
+}
+
+function getProdutosPreco(clientes: ReturnType<typeof Cliente>[]): ReturnType<typeof Destaque>[] {
+    const listaClientes: ReturnType<typeof Destaque>[] = clientes.map((cliente) => {
+        const dadosCliente = criarDadosCliente(cliente, 0);
+        calcularSomaQuantidade(dadosCliente, cliente.getProdutosConsumidos());
+        return dadosCliente;
+    });
+
+    return listaOrdenada(listaClientes, 5);
+}
+
+export {getProdutosPreco, getProdutosQuantidade, getServicosPreco, getServicosQuantidade, listaOrdenada}

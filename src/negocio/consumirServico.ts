@@ -1,22 +1,25 @@
-import Cliente from "../modelo/cliente";
-import Servico from "../modelo/servico";
-import ServicoConsumido from "../modelo/servicoConsumido";
+import { InCliente, InItemConsumo, InItemVenda } from "../modelo/Interfaces";
 
-export default class ConsumirServico {
-    private clientes: Array<Cliente>;
-    private produtos: Array<Servico>
-    constructor(clientes: Array<Cliente>, produtos: Array<Servico>) {
-        this.clientes = clientes;
-        this.produtos = produtos;
-    }
-    public consumirServico(posicaoCliente: number, posicaoPet: number, posicaoServico: number): Array<Cliente> {
-        const clienteConsumidor = this.clientes[posicaoCliente]
-        const petConsumidor = clienteConsumidor.getPets[posicaoPet]
-        const dataConsumo = new Date()
-        const servicoEscolhido = this.produtos[posicaoServico]
-        if (clienteConsumidor && petConsumidor && servicoEscolhido) {
-            this.clientes[posicaoCliente].getServicosConsumidos.push(new ServicoConsumido(servicoEscolhido, dataConsumo, petConsumidor))
-        }
-        return this.clientes
-    }
+function consumirServico(clientes: InCliente[], produtos: InItemVenda[]) {
+  return {
+    consumirServico: (posicaoCliente: number, posicaoPet: number, posicaoServico: number) => {
+      const clienteConsumidor = clientes[posicaoCliente];
+      const petConsumidor = clienteConsumidor.pets[posicaoPet]; // Corrigido para acessar 'pets' diretamente
+      const dataConsumo = new Date();
+      const servicoEscolhido = produtos[posicaoServico];
+
+      if (clienteConsumidor && petConsumidor && servicoEscolhido) {
+        const novoItemConsumo: InItemConsumo = {
+          itemConsumido: servicoEscolhido,
+          dataConsumo,
+          petConsumidor,
+        };
+        clienteConsumidor.servicosConsumidos.push(novoItemConsumo); // Corrigido para acessar 'servicosConsumidos' diretamente
+      }
+
+      return clientes;
+    },
+  };
 }
+
+export default consumirServico;

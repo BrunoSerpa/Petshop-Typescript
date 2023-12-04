@@ -1,30 +1,33 @@
-import Cliente from "../modelo/cliente";
+import { InCliente } from "../modelo/Interfaces";
 
-export default class FuncoesCliente {
-    private clientes: Array<Cliente>
-    constructor(clientes: Array<Cliente>) {
-        this.clientes = clientes
-    }
-    public cadastrarCliente(novoCliente: Cliente): Array<Cliente> {
-        const clienteExistente = this.clientes.find(
-            (cliente) => cliente.getCpf.getValor === novoCliente.getCpf.getValor
-        );
-        if (!clienteExistente) {
-            this.clientes.push(novoCliente);
+function FuncoesCliente(clientes: InCliente[]): {
+  cadastrarCliente: (novoCliente: InCliente) => InCliente[];
+  alterarCliente: (clienteAlterado: InCliente, cpfValor: string) => InCliente[];
+  deletarCliente: (cpfCliente: string) => InCliente[];
+} {
+  return {
+    cadastrarCliente: (novoCliente: InCliente) => {
+      const clienteExistente = clientes.find(
+        (cliente) => cliente.cpf.valor === novoCliente.cpf.valor
+      );
+      if (!clienteExistente) {
+        clientes.push(novoCliente);
+      }
+      return clientes;
+    },
+    alterarCliente: (clienteAlterado: InCliente, cpfValor: string) => {
+      clientes.forEach((cliente, index) => {
+        if (cliente.cpf.valor === cpfValor) {
+          clientes[index] = clienteAlterado;
         }
-        return this.clientes;
-    }
-    public alterarCliente(clienteAlterado: Cliente, cpfValor: string): Array<Cliente> {
-        this.clientes.forEach((cliente, index) => {
-            if (cliente.getCpf.getValor === cpfValor) {
-                this.clientes[index] = clienteAlterado;
-                return this.clientes
-            }
-        })
-        return this.clientes
-    }
-    public deletarCliente(cpfCliente: string): Array<Cliente> {
-        this.clientes = this.clientes.filter((cliente) => cliente.getCpf.getValor !== cpfCliente)
-        return this.clientes
-    }
+      });
+      return clientes;
+    },
+    deletarCliente: (cpfCliente: string) => {
+      clientes = clientes.filter((cliente) => cliente.cpf.valor !== cpfCliente);
+      return clientes;
+    },
+  };
 }
+
+export default FuncoesCliente;

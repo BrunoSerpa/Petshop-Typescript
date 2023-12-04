@@ -1,71 +1,103 @@
-import CPF from "./cpf"
-import Pet from "./pet"
-import ProdutoConsumido from "./produtoConsumido"
-import RG from "./rg"
-import ServicoConsumido from "./servicoConsumido"
-import Telefone from "./telefone"
+import { InCliente, InItemConsumo, InDocumento, InTelefone, InPet } from "./Interfaces"
 
-export default class Cliente {
-    public nome: string
-    public nomeSocial: string
-    private cpf: CPF
-    private rgs: Array<RG>
-    private dataCadastro: Date
-    private telefones: Array<Telefone>
-    private produtosConsumidos: Array<ProdutoConsumido>
-    private servicosConsumidos: Array<ServicoConsumido>
-    private pets: Array<Pet>
-    constructor(nome: string, nomeSocial: string, cpf: CPF) {
-        this.nome = nome
-        this.nomeSocial = nomeSocial
-        this.cpf = cpf
-        this.rgs = []
-        this.dataCadastro = new Date()
-        this.telefones = []
-        this.produtosConsumidos = []
-        this.servicosConsumidos = []
-        this.pets = []
+function Cliente(cliente: InCliente) {
+    let dataCadastro = new Date()
+    const consumirProduto = (produtoConsumido: InItemConsumo) => {
+        cliente.produtosConsumidos.push(produtoConsumido)
     }
-    public set setCPF(novoCPF: CPF){
-        this.cpf=novoCPF
+    const consumirServico = (servicoConsumido: InItemConsumo) => {
+        cliente.servicosConsumidos.push(servicoConsumido)
     }
-    public setRg(novoRG: RG, localRg: number){
-        this.rgs[localRg]=novoRG
+    const setNome = (novoNome: string) => {
+        cliente.nome = novoNome
     }
-    public setTelefone(novoTelefone: Telefone, localTelefone: number){
-        this.telefones[localTelefone]=novoTelefone
+    const setNomeSocial = (
+        novoNomeSocial: string
+    ) => {
+        cliente.nomeSocial = novoNomeSocial
     }
-    public setPet(novoPet: Pet, localPet: number){
-        this.pets[localPet]=novoPet
+    const setCPF = (novoCPF: InDocumento) => {
+        cliente.cpf = novoCPF
     }
-    public set setRgs(novoRg: Array<RG>){
-        this.rgs=novoRg
+    const setRg = (
+        novoRG: InDocumento,
+        localRg: number
+    ) => {
+        cliente.rgs[localRg] = novoRG
     }
-    public set setTelefones(novoTelefone: Array<Telefone>){
-        this.telefones=novoTelefone
+    const setTelefone = (
+        novoTelefone: InTelefone,
+        localTelefone: number
+    ) => {
+        cliente.telefones[localTelefone] = novoTelefone
     }
-    public set setPets(novoPet: Array<Pet>){
-        this.pets=novoPet
+    const setPet = (
+        novoPet: InPet,
+        localPet: number
+    ) => {
+        cliente.pets[localPet] = novoPet
     }
-    public get getCpf(): CPF {
-        return this.cpf
+    const setRgs = (novosRgs: Array<InDocumento>) => {
+        cliente.rgs = []
+        novosRgs.forEach((rg) => cliente.rgs.push(rg))
     }
-    public get getRgs(): Array<RG> {
-        return this.rgs
+    const setTelefones = (novosTelefones: Array<InTelefone>) => {
+        cliente.telefones = []
+        novosTelefones.forEach((telefone) => cliente.telefones.push(telefone))
     }
-    public get getDataCadastro(): Date {
-        return this.dataCadastro
+    const setPets = (novosPets: Array<InPet>) => {
+        cliente.pets = []
+        novosPets.forEach((pet) => cliente.pets.push(pet))
     }
-    public get getTelefones(): Array<Telefone> {
-        return this.telefones
+    const getNome = () => {
+        return cliente.nome
     }
-    public get getProdutosConsumidos(): Array<ProdutoConsumido> {
-        return this.produtosConsumidos
+    const getNomeSocial = () => {
+        return cliente.nomeSocial
     }
-    public get getServicosConsumidos(): Array<ServicoConsumido> {
-        return this.servicosConsumidos
+    const getCpf = () => {
+        return cliente.cpf
     }
-    public get getPets(): Array<Pet>{
-        return this.pets
+    const getRgs = () => {
+        return cliente.rgs
     }
+    const getDataCadastro = () => {
+        return dataCadastro
+    }
+    const getTelefones = () => {
+        return cliente.telefones
+    }
+    const getProdutosConsumidos = () => {
+        return cliente.produtosConsumidos
+    }
+    const getServicosConsumidos = () => {
+        return cliente.servicosConsumidos
+    }
+    const getPets = () => {
+        return cliente.pets
+    }
+    return ({
+        getDataCadastro,
+        getNome,
+        getNomeSocial,
+        getCpf,
+        getRgs,
+        getTelefones,
+        getProdutosConsumidos,
+        getServicosConsumidos,
+        getPets,
+        setNome,
+        setNomeSocial,
+        setCPF,
+        setRg,
+        setTelefone,
+        setPet,
+        consumirProduto,
+        consumirServico,
+        setRgs,
+        setTelefones,
+        setPets
+    })
 }
+
+export default Cliente

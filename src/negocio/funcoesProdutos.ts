@@ -1,30 +1,25 @@
-import Produto from "../modelo/produto";
+import { InItemVenda } from "../modelo/Interfaces";
 
-export default class FuncoesProduto {
-    private produtos: Array<Produto>
-    constructor(produtos: Array<Produto>) {
-        this.produtos = produtos
-    }
-    public cadastrarProduto(novoProduto: Produto): Array<Produto> {
-        const produtoExistente = this.produtos.find(
-            (produto) => produto.getNome === novoProduto.getNome && produto.getPreco === novoProduto.getPreco
-        );
-        if (!produtoExistente) {
-            this.produtos.push(novoProduto);
-        }
-        return this.produtos;
-    }
-    public alterarProduto(produtoAlterado: Produto, posicaoProduto: number): Array<Produto> {
-        this.produtos.forEach((produto, index) => {
-            if (index === posicaoProduto) {
-                this.produtos[index] = produtoAlterado
-                return this.produtos
-            }
-        })
-        return this.produtos
-    }
-    public deletarProduto(produtoEscolhido: Produto): Array<Produto> {
-        this.produtos = this.produtos.filter((produto) => produto !== produtoEscolhido)
-        return this.produtos
-    }
+function FuncoesProduto(produtos: InItemVenda[]) {
+  return {
+    cadastrarProduto: (novoProduto: InItemVenda) => {
+      const produtoExistente = produtos.find(
+        (produto) => produto.nome === novoProduto.nome && produto.valor === novoProduto.valor
+      );
+      if (!produtoExistente) {
+        return [...produtos, novoProduto];
+      }
+      return produtos;
+    },
+    alterarProduto: (produtoAlterado: InItemVenda, posicaoProduto: number) => {
+      return produtos.map((produto, index) =>
+        index === posicaoProduto ? produtoAlterado : produto
+      );
+    },
+    deletarProduto: (produtoEscolhido: InItemVenda) => {
+      return produtos.filter((produto) => produto !== produtoEscolhido);
+    },
+  };
 }
+
+export default FuncoesProduto;
