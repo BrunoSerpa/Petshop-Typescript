@@ -1,7 +1,7 @@
 import Entrada from "../io/entrada";
 import Produto from "../modelo/produto";
 
-class ListaProdutos {
+class CadastroProduto {
     private produtos: Array<Produto>;
     private entrada: Entrada;
 
@@ -10,14 +10,37 @@ class ListaProdutos {
         this.entrada = new Entrada();
     }
 
-    public listarProduto(produtoDesejado: Produto): void {
-        console.log("---------------------------------------");
-        console.log(`Dados do Produto:\n`);
-        console.log(`Nome: ${produtoDesejado.getNome}`);
-        console.log(`Preço: R$${produtoDesejado.getPreco}`);
+    public cadastrar(): void {
+        console.log(`#### INICIANDO CADASTRO DO PRODUTO  ####`)
+        console.log("========================================")
+        while (true) {
+            console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+            const nome = this.entrada.receberTexto(`Por favor informe o nome do produto: `)
+            const preco = this.entrada.receberNumero(`Por favor informe o preço do produto: R$`)
+            console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+            this.produtos.push(new Produto(nome, preco))
+            console.log(`\nCadastro concluído :)\n`)
+            let continuar = this.entrada.receberTexto(`Deseja cadastrar mais algum produto? (S/N)`)
+            if (continuar.toUpperCase() === 'S') {
+                continue
+            }
+            break
+        }
+        console.log("========================================")
+        console.log(`#### CADASTRO DO PRODUTO FINALIZADO ####`)
     }
+}
 
+class ListaProdutos {
+    private produtos: Array<Produto>;
+    private entrada: Entrada;
+    constructor(produtos: Array<Produto>) {
+        this.produtos = produtos;
+        this.entrada = new Entrada();
+    }
     public listar(): void {
+        console.log(`#### INICIANDO LISTAGEM DO PRODUTO  ####`)
+        console.log("========================================")
         let produtoEspecifico = this.entrada.receberTexto(`Gostaria de procurar um produto em específico? (S/N): `);
         switch (produtoEspecifico.toUpperCase()) {
             case "S":
@@ -42,7 +65,16 @@ class ListaProdutos {
                 console.log(`Operação não entendida :(`);
                 break;
         }
+        console.log(`#### LISTAGEM DO PRODUTO FINALIZADA ####`)
+        console.log("========================================")
     }
+
+    public listarProduto(produtoDesejado: Produto): void {
+        console.log(`Dados do Produto:`);
+        console.log(`Nome: ${produtoDesejado.getNome}`);
+        console.log(`Preço: R$${produtoDesejado.getPreco}`);
+    }
+
 }
 
 function buscaProduto(produtos: Array<Produto>, entrada: Entrada): Produto | undefined {
@@ -86,32 +118,6 @@ function buscaProduto(produtos: Array<Produto>, entrada: Entrada): Produto | und
     return undefined;
 }
 
-class CadastroProduto {
-    private produtos: Array<Produto>;
-    private produtoEscolhido!: Produto;
-    private entrada: Entrada;
-
-    constructor(produtos: Array<Produto>) {
-        this.produtos = produtos;
-        this.entrada = new Entrada();
-    }
-
-    public cadastrar(): void {
-        while (true){
-            console.log("---------------------------------------")
-            console.log(`\nIníciando o cadastro de produto`);
-            const nome = this.entrada.receberTexto(`Por favor informe o nome do produto: `)
-            const preco = this.entrada.receberNumero(`Por favor informe o preço do produto: R$`)
-            this.produtos.push(new Produto(nome, preco))
-            console.log(`\nCadastro concluído :)\n`)
-            let continuar = this.entrada.receberTexto(`Deseja cadastrar mais algum produto? (S/N)`)
-            if (continuar.toUpperCase() === 'S'){
-                continue
-            }
-            break
-        }
-    }
-}
 
 class AlteracaoProduto {
     private produtos: Array<Produto>;
@@ -124,19 +130,21 @@ class AlteracaoProduto {
         this.entrada = new Entrada();
         this.listarProdutos = new ListaProdutos(this.produtos);
     }
-
-    private continuar!: boolean;
-
     public alterar(): void {
         while (true) {
+            console.log(`#### INICIANDO ALTERAÇÃO DO PRODUTO  ####`)
+            console.log("========================================")
             let produtoEscolhido = buscaProduto(this.produtos, this.entrada);
             if (produtoEscolhido) {
                 this.produtoEscolhido = produtoEscolhido;
             } else {
                 break;
             }
+            console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
             while (true) {
+                console.log("----------------------------------------")
                 this.listarProdutos.listarProduto(this.produtoEscolhido);
+                console.log("----------------------------------------")
                 console.log(`Informe o dado que deseja alterar:`);
                 console.log("1 - Nome");
                 console.log("2 - Preço");
@@ -157,14 +165,18 @@ class AlteracaoProduto {
                 if (resposta.toUpperCase() === 'S') {
                     continue;
                 }
+                console.log("Produto alterado com sucesso :)\n")
                 break;
             }
+            console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
             let resposta = this.entrada.receberTexto(`Deseja alterar mais algum produto? (S/N):`);
             if (resposta.toUpperCase() === 'S') {
                 continue;
             }
             break;
         }
+        console.log("========================================")
+        console.log(`### ALTERAÇÃO DO PRODUTO FINALIZADA  ###`)
     }
 }
 
@@ -181,6 +193,8 @@ class ExclusaoProduto {
     }
 
     public deletar(): Array<Produto> {
+        console.log(`#### INICIANDO EXCLUSÃO DO PRODUTO  ####`)
+        console.log("========================================")
         while (true) {
             let produtoEscolhido = buscaProduto(this.produtos, this.entrada);
             if (produtoEscolhido) {
@@ -200,6 +214,8 @@ class ExclusaoProduto {
             if (continuar.toUpperCase() === 'S') {
                 continue;
             }
+            console.log("========================================")
+            console.log(`#### EXCLUSÃO DO PRODUTO FINALIZADA ####`)
             return this.produtos
         }
     }
