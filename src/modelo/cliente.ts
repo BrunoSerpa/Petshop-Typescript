@@ -7,7 +7,7 @@ import Telefone from "./telefone"
 
 export default class Cliente {
     public nome: string
-    public nomeSocial: string
+    public nomeSocial?: string
     private cpf: CPF
     private rgs: Array<RG>
     private dataCadastro: Date
@@ -15,7 +15,7 @@ export default class Cliente {
     private produtosConsumidos: Array<ProdutoConsumido>
     private servicosConsumidos: Array<ServicoConsumido>
     private pets: Array<Pet>
-    constructor(nome: string, nomeSocial: string, cpf: CPF) {
+    constructor(nome: string, nomeSocial: string | undefined, cpf: CPF) {
         this.nome = nome
         this.nomeSocial = nomeSocial
         this.cpf = cpf
